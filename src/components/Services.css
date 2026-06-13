@@ -1,0 +1,83 @@
+/* 1. الحاوية الكبرى لقسم الخدمات بالكامل */
+.services-section {
+    padding: 80px 8%;       /* مسافة 80 بكسل عمودية لإعطاء مساحة مريحة للمستخدم أثناء التصفح */
+    background-color: #ffffff; /* خلفية بيضاء ناصعة تفصله عن زرقة الهيرو */
+    text-align: center;     /* جعل كل النصوص والعناوين تتمحور في المنتصف تلقائياً */
+}
+
+/* 2. تنسيق رأس القسم (العناوين) */
+.services-header {
+    margin-bottom: 50px;    /* مسافة أسفل العنوان قبل البدء بالبطاقات */
+}
+
+.services-main-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a202c;         /* نفس درجة اللون الداكن المعتمدة بالمنصة */
+    margin-bottom: 12px;
+}
+
+.services-sub-title {
+    font-size: 16px;
+    color: #718096;         /* رمادي ناعم للنص الشارح */
+}
+
+/* 3. حاوية شبكة البطاقات (Grid) */
+.services-grid {
+    display: grid;
+    /* السطر التالي هو سحر الـ CSS: يقوم بتقسيم البطاقات أفقياً بالتساوي 
+        تلقائياً إلى 4 أعمدة، وإذا صغرت الشاشة تترتب تحت بعضها لحالها! */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;              /* مسافة الأمان الفاصلة بين كل بطاقة وأخرى */
+}
+
+/* 4. تنسيق البطاقة البيضاء المفردة */
+.service-card {
+    background-color: #ffffff;
+    border: 1px solid #edf2f7;      /* إطار خفيف جداً يحدد معالم البطاقة */
+    border-radius: 12px;            /* زوايا دائرية ناعمة وعصرية تطابق صورتكِ */
+    padding: 35px 24px;             /* مسافة داخلية مريحة تعطي هدوءاً للعين داخل البطاقة */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02); /* ظل ناعم للغاية */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* حركة انسيابية مجهزة للتفاعل */
+}
+
+/* تفاعل لطيف: عند مرور الفأرة فوق البطاقة، ترتفع للأعلى قليلاً لتشعر المستخدم بالحيوية */
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+/* 5. دوائر الأيقونات الملونة في أعلى كل بطاقة */
+.service-icon-wrapper {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;             /* جعل الحاوية دائرية تماماً */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px auto;       /* توسيط الدائرة داخل البطاقة وترك مسافة أسفلها */
+}
+
+.service-icon-emoji {
+    font-size: 24px;                /* حجم الإيموجي أو الأيقونة داخل الدائرة */
+}
+
+/* تلوين الخلفيات الدائرية بدرجات هادئة (Pastel) وخفيفة لتطابق كل خدمة */
+    .icon-green { background-color: #e6fffa; color: #319795; }  /* حجز المواعيد */
+    .icon-blue { background-color: #ebf8ff; color: #2b6cb0; }   /* ابحث عن طبيب */
+    .icon-purple { background-color: #faf5ff; color: #805ad5; } /* استشارات */
+    .icon-teal { background-color: #f0fff4; color: #38a169; }   /* الملفات */
+
+/* 6. نصوص البطاقة الداخلية */
+.service-card-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 12px;
+}
+
+.service-card-desc {
+    font-size: 14px;
+    color: #718096;
+    line-height: 1.6;
+}

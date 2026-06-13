@@ -1,0 +1,23 @@
+/* 1. جلب خط Cairo من Google Fonts للمظهر العربي */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+
+/* 2. تصفير المسافات العشوائية وضبط الحسابات */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 3. تنسيق جسم الصفحة بالكامل وتحديد اتجاه القراءة العربي */
+body {
+  font-family: 'Cairo', sans-serif;
+  background-color: #ffffff;
+  color: #333333;
+  overflow-x: hidden;
+}
+
+/* 4. إزالة التسطير الافتراضي من الروابط */
+a {
+  text-decoration: none;
+  color: inherit;
+}

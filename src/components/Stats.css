@@ -1,0 +1,65 @@
+/* الحاوية الخارجية لإعطاء مسافة أمان حول الشريط بالكامل */
+.stats-outer-wrapper {
+    padding: 10px 8% 50px 8%; /* ترك مسافة مريحة من الأسفل قبل القسم القادم */
+    background-color: #ffffff;
+}
+
+/* الحاوية الأساسية للشريط الأزرق الفاتح */
+.stats-container {
+    display: flex;
+    justify-content: space-around; /* توزيع العناصر الأربعة بمسافات متساوية بالداخل */
+    align-items: center;
+    background-color: #f0f7ff;    /* الخلفية الزرقاء الفاتحة والناعمة جداً كما في تصميمك */
+    border-radius: 16px;          /* حواف دائرية عريضة وأنيقة للشريط */
+    padding: 30px 20px;           /* مسافة داخلية تمنح الشريط سماكة مريحة */
+}
+
+/* الصندوق الصغير لكل إحصائية مفردة */
+.stat-item-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;       /* ترتيب العناصر عمودياً (الرقم فوق والنص تحت) */
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* --- صناعة الخطوط العمودية الفاصلة بين العناصر --- */
+/* الكود التالي يعني: ضع خطاً فاصلاً بعد كل عنصر، ما عدا العنصر الأخير */
+.stat-item-box:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 0;                     /* وضع الخط في أقصى يسار الصندوق ليفصله عن القادم */
+    top: 15%;
+    width: 1px;                  /* سمك الخط */
+    height: 70%;                 /* طول الخط العمودي */
+    background-color: #d1e2f3;   /* لون أزرق رمادي خفيف جداً لكي لا يكون حاداً */
+}
+
+/* الصف العلوي (الرقم بجانبه الأيقونة) */
+.stat-top-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;                   /* مسافة فاصلة صغيرة بين الرقم والأيقونة */
+    margin-bottom: 6px;          /* مسافة قبل النص السفلي */
+}
+
+/* تنسيق الرقم الكبير العريض */
+.stat-number {
+    font-size: 28px;
+    font-weight: 800;            /* خط عريض جداً ليبرز الإنجاز */
+    color: #1a56b3;              /* أزرق البراند الداكن */
+}
+
+/* تنسيق الأيقونة الطبية المصاحبة */
+.stat-icon {
+    font-size: 20px;
+    color: #2b6cb0;
+}
+
+/* تنسيق النص الشارح بالأسفل */
+.stat-label {
+    font-size: 14px;
+    color: #4a5568;              /* لون رمادي متوسط وواضح */
+    font-weight: 600;
+}
