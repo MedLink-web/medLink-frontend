@@ -2,7 +2,7 @@ import React from 'react';
 import heroImage from '../assets/hero.png'; // تأكدي من وضع صورة الـ Hero كاملة في مجلد assets لاحقاً
 import './Hero.css';
 
-const Hero = () => {
+const Hero = ({ onRegisterClick }) => {
     return (
         <section id="home" className="hero-container">
         
@@ -20,7 +20,7 @@ const Hero = () => {
             
             {/* أزرار التفاعل الثنائية */}
             <div className="hero-buttons">
-            <button  className="btn-hero-solid">
+            <button  className="btn-hero-solid" onClick={onRegisterClick}>
                 <span className="icon">👤</span>
                 إنشاء حساب
             </button>

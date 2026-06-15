@@ -200,3 +200,128 @@
 .modal-footer a:hover {
     text-decoration: underline;
 }
+
+/* ======================================================= */
+/* 🎉 تنسيق بطاقة تم إنشاء الحساب بنجاح الاستعراضية */
+/* ======================================================= */
+
+.success-card {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 440px; /* تصميم كارد أصغر ومحدد في المنتصف تماماً */
+    border-radius: 12px;
+    padding: 40px 30px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08); /* ظل ناعم يعطي عمقاً بصرياً للكارد */
+    text-align: center;
+    border: 1px solid #edf2f7;
+    z-index: 10;
+    box-sizing: border-box;
+    animation: scaleUpModal 0.3s ease-out; /* حركة دخول انسيابية مريحة للعين */
+}
+
+@keyframes scaleUpModal {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* شعار المنصة العلوي المنسق */
+.success-logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+.success-logo-wrapper .logo-icon {
+    font-size: 26px;
+    color: #2b6cb0;
+}
+
+.success-logo-wrapper .logo-text {
+    font-size: 24px;
+    font-weight: 800;
+    color: #1a365d;
+}
+
+/* دائرة علامة الصح الخضراء الأنيقة تماماً كالصورة */
+.success-icon-circle {
+    width: 65px;
+    height: 65px;
+    background-color: #48bb78; /* اللون الأخضر الحيوي الرائع */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 20px auto;
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+}
+
+.success-icon-circle .checkmark {
+    color: #ffffff;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+/* العناوين والنصوص الإرشادية داخل البطاقة */
+.success-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: #2d3748;
+    margin-bottom: 12px;
+}
+
+.success-subtitle {
+    font-size: 14px;
+    color: #718096;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    padding: 0 10px;
+}
+
+.success-subtitle .brand-name {
+    font-weight: 700;
+    color: #2b6cb0;
+}
+
+/* زر "ابدأ الآن" العريض بلون الميديلينك المميز */
+.btn-start-now {
+    width: 100%;
+    padding: 12px;
+    background-color: #2b6cb0;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 4px 12px rgba(43, 108, 176, 0.2);
+}
+
+.btn-start-now:hover {
+    background-color: #1a4975;
+}
+
+.btn-start-now:active {
+    transform: scale(0.98);
+}
+
+/* تذييل رابط تسجيل الدخول المباشر بالأسفل */
+.success-footer {
+    margin-top: 20px;
+}
+
+.back-to-login-link {
+    font-size: 13px;
+    color: #2b6cb0;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s ease;
+}
+
+.back-to-login-link:hover {
+    color: #1a4975;
+    text-decoration: underline;
+}

@@ -1,16 +1,25 @@
-/* الحاوية الأساسية المحسنة للنافبار */
-.navbar {
+
+    .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 6%;
-    /* تقليل الارتفاع قليلاً وزيادة العرض الجانبي ليتطابق مع التصميم الجديد */
+    padding: 10px 8%;
     background-color: #ffffff;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-    /* الـ Drop Shadow الذكي */
-    position: relative;
-    z-index: 100;
+    /* دعم سفاري */
+    position: -webkit-sticky; 
+    /* الخاصية الأساسية */
+    position: sticky;         
+    /* نقطة الالتصاق بالأعلى */
+    top: 0;                   
+    /* البقاء فوق جميع العناصر */
+    z-index: 1000;            
+    
+    /* مثال على تنسيقات أخرى ضرورية لجمالية التصميم */
+    background-color: #ffffff; 
+    width: 100%;
 }
+
 
 /* تنسيق الشعار (النص والصورة بجانب بعضهما) */
 .navbar-logo {
