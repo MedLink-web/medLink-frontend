@@ -1,28 +1,36 @@
-/* 1. تقليل المسافة العلوية بين النافبار والـ Hero */
-.hero-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #ffffff;
-    min-height: 75vh;
-    /* تقليص الارتفاع قليلاً ليتناسب مع تقليل المسافات */
-    gap: 50px;
-}
-
+/* ======================================================= */
+/* ✨ 1. تنسيق الحاوية الرئيسية للهيرو (تم إصلاح الخلل هنا) */
+/* ======================================================= */
 .hero-container {
     background: linear-gradient(180deg, #f0f7ff 0%, #ffffff 100%);
-    padding-top: -80px;
-    /* ◄ يتحكم بالمسافة البيضاء في الأعلى فقط */
+    padding-top: 40px;
+    /* ◄ تم ضبط القيمة لتفادي التداخل وبدء المسافة بشكل طبيعي */
     padding-bottom: 60px;
-    /* ◄ يتحكم بالمسافة البيضاء في الأسفل فقط */
+
+    /* 👈 حشوة أمان صريحة تمنع الالتصاق بالحواف في Vercel تماماً */
     padding-right: 8%;
     padding-left: 8%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    box-sizing: border-box;
+    /* تضمن أن الحشوة لا تزيد من حجم الشاشة الإجمالي */
+    direction: rtl;
+    /* 👈 إجبار حاوية الهيرو على الترتيب العربي الصارم لمنع الانضغاط اليميني */
 }
 
-/* 2. تنسيق الجانب النصي كما هو ليبقى ثابتاً */
+
+/* ======================================================= */
+/* 2. تنسيق الجانب النصي */
+/* ======================================================= */
 .hero-text-side {
     flex: 1;
     max-width: 600px;
+    text-align: right;
+    /* 👈 تأكيد محاذاة النصوص لليمين */
 }
 
 .hero-title {
@@ -112,9 +120,8 @@
 }
 
 /* ======================================================= */
-/* ✨ 3.ا لتنسيق الجانب الصوري والخلفية الزرقاء */
+/* ✨ 3. تنسيق الجانب الصوري والخلفية الزرقاء */
 /* ======================================================= */
-
 .hero-image-side {
     flex: 1;
     display: flex;
@@ -122,14 +129,10 @@
     align-items: center;
     position: relative;
 }
-
-
 /* تنسيق وترتيب صورة الطبيب */
-/* التحكم بحجم ولطافة الصورة التوضيحية الكبيرة */
 .hero-illustration {
     width: 100%;
     max-width: 370px;
-    /* 👈 قمنا بتقليل هذا الرقم لتصغير الصورة وتوازيها مع النص */
     height: auto;
     object-fit: contain;
     position: relative;
@@ -137,17 +140,13 @@
     filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.05));
 }
 
-/* 💡 تعديل إضافي متناسق: تصغير الهالة الزرقاء الخلفية لتناسب الحجم الجديد للصورة */
+/* الهالة الزرقاء الخلفية المتناسقة مع حجم الصورة الجديد */
 .hero-image-side::before {
     content: "";
     position: absolute;
     width: 320px;
-    /*👈صغّرناعرضالدائرةمن380إلى320*/height: 320px;
-    /*👈صغّرناارتفاعالدائرةليناسبالصورةالجديدة*/background: radial-gradient(circle, rgba(43, 129, 221, 0.5) 0%, rgba(43, 108, 176, 0) 70%);
+    height: 320px;
+    background: radial-gradient(circle, rgba(43, 129, 221, 0.5) 0%, rgba(43, 108, 176, 0) 70%);
     border-radius: 20%;
     z-index: 1;
-    -webkit-border-radius: 20%;
-    -moz-border-radius: 20%;
-    -ms-border-radius: 20%;
-    -o-border-radius: 20%;
 }
