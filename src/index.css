@@ -1,6 +1,8 @@
 /* 1. جلب خط Cairo من Google Fonts للمظهر العربي */
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
-
+html {
+  scroll-behavior: smooth;
+}
 /* 2. تصفير المسافات العشوائية وضبط الحسابات */
 * {
   margin: 0;

@@ -4,7 +4,7 @@ import './Hero.css';
 
 const Hero = () => {
     return (
-        <section className="hero-container">
+        <section id="home" className="hero-container">
         
         {/* 1. الجانب الأيمن: المحتوى النصي والأزرار والميزات */}
         <div className="hero-text-side">
@@ -20,11 +20,11 @@ const Hero = () => {
             
             {/* أزرار التفاعل الثنائية */}
             <div className="hero-buttons">
-            <button className="btn-hero-solid">
+            <button  className="btn-hero-solid">
                 <span className="icon">👤</span>
                 إنشاء حساب
             </button>
-            <button className="btn-hero-outline">استكشف الخدمات</button>
+            <a href="#services" className="btn-hero-outline">استكشف الخدمات</a>
             </div>
 
             {/* شريط الميزات السفلي الصغير */}

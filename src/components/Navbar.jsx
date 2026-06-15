@@ -2,7 +2,7 @@ import React from 'react';
 import logo from '../assets/logo.png'; // تأكدي أن الصورة الجديدة موجودة في المجلد
 import './Navbar.css';
 
-const Navbar = () => {
+const Navbar = ({ onRegisterClick }) => {
     return (
         <nav className="navbar">
         
@@ -14,11 +14,11 @@ const Navbar = () => {
         
         {/* 2. روابط التنقل المنتصف */}
         <ul className="navbar-links">
-            <li><a href="#home" className="active">الرئيسية</a></li>
+            <li><a href="#home">الرئيسية</a></li>
             <li><a href="#about">عن المنصة</a></li>
             <li><a href="#services">الخدمات</a></li>
             <li><a href="#support">الدعم الفني</a></li>
-            <li><a href="#login-link">تسجيل الدخول</a></li>
+            
         </ul>
 
         {/* 3. الأزرار المزدوجة على اليسار */}
@@ -30,7 +30,7 @@ const Navbar = () => {
             </button>
             
             {/* الزر الأزرق الكامل */}
-            <button className="btn-solid">
+            <button className="btn-solid" onClick={onRegisterClick}>
             <span className="btn-icon">👤</span>
             إنشاء حساب
             </button>

@@ -35,7 +35,7 @@ function Services() {
     ];
 
     return (
-        <section className="services-section">
+        <section id="services" className="services-section">
 
             {/* رأس القسم: العناوين */}
             <div className="services-header">

@@ -69,7 +69,7 @@ const Footer = () => {
             </div>
 
             {/* العمود الرابع: الدعم الفني */}
-            <div className="footer-links-column">
+            <div id="support" className="footer-links-column">
             <h4 className="column-title">الدعم الفني</h4>
             <ul>
                 <li><a href="#faq">الأسئلة الشائعة</a></li>

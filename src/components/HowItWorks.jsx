@@ -34,7 +34,7 @@ const HowItWorks = () => {
     ];
 
     return (
-        <section className="steps-section">
+        <section id="how-it-works" className="steps-section">
         
         {/* رأس القسم */}
         <div className="steps-header">
