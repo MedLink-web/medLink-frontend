@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import "./PatientRegisterForm.css";
 
-const [isLoading, setIsLoading] = useState(false);
-
 const PatientRegisterForm = ({ onBackToHome }) => {
   // تجميع بيانات الحقول للتحقق منها
   const [formData, setFormData] = useState({
@@ -15,6 +13,7 @@ const PatientRegisterForm = ({ onBackToHome }) => {
 
   const [errorMessage, setErrorMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
