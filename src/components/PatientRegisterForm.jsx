@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import "./PatientRegisterForm.css";
+import logo from "../assets/logo.png";
 
-const PatientRegisterForm = ({ onBackToHome }) => {
-  // تجميع بيانات الحقول للتحقق منها
+const PatientRegisterForm = ({
+  onNavigate,
+  onBackToHome,
+  onRegisterSuccess,
+}) => {
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -15,9 +19,36 @@ const PatientRegisterForm = ({ onBackToHome }) => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  // 1. حالة لتخزين وضع القيود الثلاثة (هل هي صالحة أم لا؟)
+  const [passwordRules, setPasswordRules] = useState({
+    hasMinLength: false,
+    hasUpperLower: false,
+    hasNumber: false,
+  });
+
+  // دالة ذكية لفحص القيود حياً أثناء الكتابة
+  const checkPasswordRules = (password) => {
+    setPasswordRules({
+      // القيد الأول: 8 أحرف على الأقل
+      hasMinLength: password.length >= 8,
+
+      // القيد الثاني: حرف كبير واحد وحرف صغير واحد على الأقل
+      hasUpperLower: /[a-z]/.test(password) && /[A-Z]/.test(password),
+
+      // القيد الثالث: رقم واحد على الأقل
+      hasNumber: /[0-9]/.test(password),
+    });
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+
+    // إذا كان الحقل الحالي هو كلمة المرور، قم بفحص القيود فوراً
+    if (name === "password") {
+      checkPasswordRules(value);
+    }
+
     if (errorMessage) setErrorMessage("");
   };
 
@@ -71,34 +102,38 @@ const PatientRegisterForm = ({ onBackToHome }) => {
     }
   };
 
-  // ◄ أولاً: عرض شاشة النجاح المنفصلة عند اكتمال التسجيل
   if (isSuccess) {
     return (
       <div className="register-page-container" dir="rtl">
         <div className="success-card">
           <div className="success-logo-wrapper">
-            <span className="logo-icon">🩺</span>
-            <span className="logo-text">MedLink</span>
+            <img src={logo} alt="Medlink Logo" className="brand-logo-img" />
+            <span className="logo-text">Medlink</span>
           </div>
-
           <div className="success-icon-circle">
             <span className="checkmark">✓</span>
           </div>
-
           <h1 className="success-title">تم إنشاء الحساب بنجاح</h1>
           <p className="success-subtitle">
             مرحباً بك في <span className="brand-name">MedLink</span>، يمكنك الآن
+            مرحباً بك في <span className="brand-name">Medlink</span>، يمكنك الآن
             حجز المواعيد والبحث عن الأدوية بكل سهولة.
           </p>
-
-          <button className="btn-start-now" onClick={onBackToHome}>
+          <button
+            className="btn-start-now" // 👈 الحفاظ على كلاس التنسيق الأصلي الخاص بكِ ليظهر الزر بشكل صحيح
+            onClick={() => {
+              if (onRegisterSuccess) {
+                onRegisterSuccess(); // 👈 التوجيه البرمجي المباشر للـ Dashboard عند الضغط
+              }
+            }}
+            style={{ cursor: "pointer" }}
+          >
             ابدأ الآن
           </button>
-
           <div className="success-footer">
             <a
               href="#login"
-              onClick={onBackToHome}
+              onClick={onRegisterSuccess}
               className="back-to-login-link"
             >
               العودة لتسجيل الدخول
@@ -109,11 +144,11 @@ const PatientRegisterForm = ({ onBackToHome }) => {
     );
   }
 
-  // ◄ ثانياً: شاشة الفورم الأساسية المنفصلة (التي تظهر أولاً)
   return (
     <div className="register-page-container" dir="rtl">
       <div className="register-card">
         <div className="register-card-logo">
+          <img src={logo} alt="Medlink Logo" className="brand-logo-img" />
           <span
             className="logo-text"
             style={{
@@ -122,7 +157,7 @@ const PatientRegisterForm = ({ onBackToHome }) => {
               fontWeight: "bold",
             }}
           >
-            MedLink
+            MedLink Medlink
           </span>
         </div>
 
@@ -266,7 +301,7 @@ const PatientRegisterForm = ({ onBackToHome }) => {
             />
           </div>
 
-          {/* عرض رسالة الخطأ إن وجدت */}
+          {/* عرض رسالة الأخطاء إن وجدت بالتحققات النهائية */}
           {errorMessage && (
             <div
               style={{
@@ -285,19 +320,47 @@ const PatientRegisterForm = ({ onBackToHome }) => {
             </div>
           )}
 
+          {/* 4. قسم شروط التحقق التفاعلية بالكامل تتبدل ألوانها حياً بناءً على الكتابة */}
           <div
             className="password-validation-rules"
             style={{
               display: "flex",
               gap: "15px",
               justifyContent: "center",
-              marginTop: "10px",
+              marginTop: "15px",
               fontSize: "13px",
+              fontWeight: "600",
             }}
           >
-            <span style={{ color: "#48bb78" }}>✓ 8 أحرف على الأقل</span>
-            <span style={{ color: "#e53e3e" }}>✕ حرف كبير وصغير</span>
-            <span style={{ color: "#e53e3e" }}>✕ رقم واحد على الأقل</span>
+            {/* شرط 8 أحرف */}
+            <span
+              style={{
+                color: passwordRules.hasMinLength ? "#48bb78" : "#e53e3e",
+                transition: "color 0.2s",
+              }}
+            >
+              {passwordRules.hasMinLength ? "✓" : "✕"} 8 أحرف على الأقل
+            </span>
+
+            {/* شرط حرف كبير وصغير */}
+            <span
+              style={{
+                color: passwordRules.hasUpperLower ? "#48bb78" : "#e53e3e",
+                transition: "color 0.2s",
+              }}
+            >
+              {passwordRules.hasUpperLower ? "✓" : "✕"} حرف كبير وصغير
+            </span>
+
+            {/* شرط رقم واحد */}
+            <span
+              style={{
+                color: passwordRules.hasNumber ? "#48bb78" : "#e53e3e",
+                transition: "color 0.2s",
+              }}
+            >
+              {passwordRules.hasNumber ? "✓" : "✕"} رقم واحد على الأقل
+            </span>
           </div>
 
           <button
@@ -339,12 +402,18 @@ const PatientRegisterForm = ({ onBackToHome }) => {
           <p>
             لديك حساب بالفعل؟{" "}
             <a
-              href="#login"
-              onClick={onBackToHome}
+              href="#!"
+              onClick={(e) => {
+                e.preventDefault(); // يمنع إرسال #login للرابط العلوي في المتصفح
+                if (onNavigate) {
+                  onNavigate("login"); // ينقلكِ فوراً لصفحة تسجيل الدخول البيضاء
+                }
+              }}
               style={{
                 color: "#2b6cb0",
                 textDecoration: "none",
                 fontWeight: "bold",
+                cursor: "pointer",
               }}
             >
               تسجيل الدخول
