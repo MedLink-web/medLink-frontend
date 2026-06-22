@@ -14,6 +14,7 @@ const PatientDashboard = ({ onLogout, onNavigate }) => {
     "مركز النور الطبي أطفال",
     "مركز النور الطبي أطفال",
   ];
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
 
   return (
     <div className="dashboard-wrapper" dir="rtl">
@@ -61,7 +62,7 @@ const PatientDashboard = ({ onLogout, onNavigate }) => {
         {/* 2. قسم الترحيب والبيانات السريعة الإحصائية */}
         <header className="dashboard-header">
           <div className="welcome-section">
-            <h1 className="welcome-title">مرحباً ، مستخدم</h1>
+            <h1 className="welcome-title">مرحباً ، {user.name || "مستخدم"}</h1>
             <div className="action-buttons-group">
               <button className="btn-action-blue">البحث عن عيادة</button>
               <button className="btn-action-blue">البحث عن صيدلية</button>
