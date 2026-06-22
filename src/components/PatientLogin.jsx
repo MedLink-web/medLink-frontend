@@ -17,7 +17,6 @@ const PatientLogin = ({ onNavigate, onLoginSuccess }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setErrorMessage("");
     setIsLoading(true);
 
@@ -29,7 +28,7 @@ const PatientLogin = ({ onNavigate, onLoginSuccess }) => {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          email: loginData.emailOrPhone, // مؤقتاً: الباك إند بيتوقع email بس
+          email: loginData.emailOrPhone,
           password: loginData.password,
         }),
       });
@@ -37,7 +36,7 @@ const PatientLogin = ({ onNavigate, onLoginSuccess }) => {
       const data = await response.json();
 
       if (response.ok && data.success) {
-        // نخزن التوكن والمستخدم محلياً عشان نستخدمهم لاحقاً (US-02)
+        // ✅ هاد الأهم - حفظ التوكن والمستخدم
         localStorage.setItem("auth_token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
 
@@ -48,7 +47,7 @@ const PatientLogin = ({ onNavigate, onLoginSuccess }) => {
         setErrorMessage(data.message || "حدث خطأ، حاول مرة أخرى");
       }
     } catch (error) {
-      setErrorMessage("تعذر الاتصال بالسيرفر، تأكد من تشغيله وحاول مجدداً");
+      setErrorMessage("تعذر الاتصال بالسيرفر");
     } finally {
       setIsLoading(false);
     }

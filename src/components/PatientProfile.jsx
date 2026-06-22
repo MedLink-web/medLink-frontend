@@ -45,7 +45,7 @@ const PatientProfile = ({ onNavigate }) => {
         if (response.ok && data.success) {
           const d = data.data;
           // نقسم الاسم الكامل على firstName و lastName
-          const nameParts = (d.name || "").split(" ");
+          const nameParts = (d.full_name || d.name || "").split(" ");
           setProfileData({
             firstName: nameParts[0] || "",
             lastName:  nameParts.slice(1).join(" ") || "",
