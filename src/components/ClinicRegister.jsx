@@ -28,11 +28,7 @@ const ClinicRegister = () => {
         <div className="clinic-reg-left-side">
             <div className="doctor-image-wrapper">
             {/* هنا نقرأ الصورة مباشرة من مجلد public بدون import */}
-            <img 
-                src="/clinic.png"  /* تم استخدام المسار المباشر للصورة من مجلد public */
-                alt="Doctor" 
-                className="doctor-main-img" 
-            />
+            <img src="/clinic.png" alt="Doctor" className="doctor-main-img" />
             <div className="floating-badge-text">
                 <span>آمن، سريع، وسهل</span>
             </div>
