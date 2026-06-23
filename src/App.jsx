@@ -11,6 +11,7 @@ import PatientRegisterForm from "./components/PatientRegisterForm";
 import PatientDashboard from "./components/PatientDashboard";
 import PatientProfile from "./components/PatientProfile";
 import PatientLogin from "./components/PatientLogin";
+import ClinicRegisterForm from "./components/ClinicRegister";
 
 // 👈 استيراد الشاشات الأربعة المنفصلة المحدثة
 import ForgotPassword from "./components/ForgotPassword";
@@ -51,6 +52,10 @@ function App() {
                 closeModal();
                 setCurrentView("register-patient");
               }}
+              onSelectClinic={() => {
+                closeModal();
+                setCurrentView("register-clinic");
+              }}
               onLoginClick={() => {
                 closeModal();
                 setCurrentView("login");
@@ -79,6 +84,12 @@ function App() {
       case "profile":
         return (
           <PatientProfile
+            onNavigate={(targetView) => setCurrentView(targetView)}
+          />
+        );
+      case "register-clinic":
+        return (
+          <ClinicRegisterForm
             onNavigate={(targetView) => setCurrentView(targetView)}
           />
         );
