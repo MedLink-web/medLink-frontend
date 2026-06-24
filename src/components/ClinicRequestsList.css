@@ -1,0 +1,102 @@
+.admin-header-zone {
+    margin-bottom: 24px;
+    text-align: right;
+}
+
+.admin-page-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a202c;
+}
+
+.admin-page-subtitle {
+    font-size: 15px;
+    color: #718096;
+}
+
+.admin-tabs-row {
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+    margin-bottom: 24px;
+}
+
+.admin-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.admin-tab.active {
+    background-color: #fffaf0;
+    border: 1px solid #feebc8;
+    color: #dd6b20;
+}
+
+.admin-tab.total {
+    background-color: #fefcbf;
+    border: 1px solid #faf089;
+    color: #b7791f;
+}
+
+.admin-table-wrapper {
+    background-color: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.admin-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: right;
+}
+
+.admin-data-table th {
+    background-color: #ebf8ff;
+    padding: 16px;
+    font-weight: 700;
+    color: #2b6cb0;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.admin-data-table td {
+    padding: 16px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 15px;
+}
+
+.bold-text {
+    font-weight: 700;
+    color: #1a202c;
+}
+
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status-badge.pending {
+    background-color: #fff5f5;
+    color: #e53e3e;
+}
+
+.status-badge.approved {
+    background-color: #f0fff4;
+    color: #38a169;
+}
+
+.action-link-btn {
+    background: none;
+    border: none;
+    color: #3182ce;
+    font-weight: 600;
+    cursor: pointer;
+}

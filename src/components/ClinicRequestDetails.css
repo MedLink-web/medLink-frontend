@@ -1,0 +1,95 @@
+.breadcrumb-trail {
+    display: flex;
+    gap: 8px;
+    color: #718096;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.breadcrumb-trail .current-node {
+    color: #1a202c;
+}
+
+.success-banner-alert {
+    background-color: #c6f6d5;
+    color: #22543d;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+.details-card-container {
+    background-color: #e6f4f8;
+    border: 1px solid #cbd5e0;
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 30px;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 40px;
+}
+
+.details-row {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 17px;
+    text-align: right;
+}
+
+.field-label {
+    color: #1a202c;
+    font-weight: 700;
+    margin-left: 10px;
+    width: 180px;
+}
+
+.field-value {
+    color: #2d3748;
+    flex: 1;
+}
+
+.ltr-text {
+    direction: ltr;
+    display: inline-block;
+}
+
+.action-buttons-group {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.btn-action-accept {
+    background-color: #00a86b;
+    color: white;
+    padding: 12px 36px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-action-reject {
+    background-color: #e53e3e;
+    color: white;
+    padding: 12px 36px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.back-to-list-btn {
+    background: none;
+    border: none;
+    color: #4a5568;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 15px;
+}
