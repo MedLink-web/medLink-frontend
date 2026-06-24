@@ -1,7 +1,7 @@
 import React from "react";
 import "./RegisterModal.css";
 
-const RegisterModal = ({ isOpen, onClose, onSelectPatient, onLoginClick }) => {
+const RegisterModal = ({ isOpen, onClose, onSelectPatient, onSelectClinic, onLoginClick }) => {
   if (!isOpen) return null;
 
   const accountTypes = [
@@ -53,13 +53,15 @@ const RegisterModal = ({ isOpen, onClose, onSelectPatient, onLoginClick }) => {
                 ))}
               </ul>
 
-              {/* التعديل الذكي هنا: فحص نوع البطاقة عند الضغط */}
               <button
                 className="account-submit-btn"
                 onClick={() => {
                   if (type.id === "patient") {
-                    onClose(); // 1. إغلاق النافذة المنبثقة أولاً
-                    onSelectPatient(); // 2. الانتقال لصفحة المريض المنفصلة
+                    onClose();
+                    onSelectPatient();
+                  } else if (type.id === "clinic") {
+                    onClose();
+                    onSelectClinic && onSelectClinic();
                   } else {
                     alert(`واجهة حساب (${type.title}) قيد التطوير حالياً!`);
                   }
@@ -72,7 +74,6 @@ const RegisterModal = ({ isOpen, onClose, onSelectPatient, onLoginClick }) => {
         </div>
 
         {/* التذييل الخاص بالنافذة */}
-        {/* الجزء السفلي من نافذة اختيار نوع الحساب */}
         <div
           className="modal-footer"
           style={{ textAlign: "center", marginTop: "20px" }}
@@ -84,7 +85,7 @@ const RegisterModal = ({ isOpen, onClose, onSelectPatient, onLoginClick }) => {
               onClick={(e) => {
                 e.preventDefault();
                 if (onLoginClick) {
-                  onLoginClick(); // استدعاء دالة التحويل لصفحة تسجيل الدخول
+                  onLoginClick();
                 }
               }}
               style={{

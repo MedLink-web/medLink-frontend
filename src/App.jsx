@@ -19,9 +19,9 @@ import ResetPassword from './components/ResetPassword';
 import ResetSuccess from './components/ResetSuccess';
 
 // استدعاء شاشة تسجيل العيادة 
-import ClinicRegister from './components/ClinicRegister';
+import ClinicRegisterForm from './components/ClinicRegister';
 
-// 👈 1. استيراد المكون الرئيسي للوحة تحكم المسؤول (Admin Dashboard) للعيادات
+// استيراد المكون الرئيسي للوحة تحكم المسؤول (Admin Dashboard)
 import ClinicAdminDashboard from './components/ClinicAdminDashboard';
 
 import './App.css';
@@ -29,11 +29,11 @@ import './App.css';
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   
-  // 👈 2. يمكنكِ تغيير الحالة الافتراضية إلى 'admin-dashboard' مؤقتاً لمعاينة وفحص لوحة التحكم فوراً!
+  // شاشة المعاينة الافتراضية (يمكنكِ تغييرها إلى 'home' لاحقاً للبدء من الواجهة الرئيسية)
   const [currentView, setCurrentView] = useState('admin-dashboard');
 
   const [forgotEmail, setForgotEmail] = useState('');
-  const [forgotStep, setForgotStep] = useState('forgot');
+  const [forgotStep, setForgotStep] = useState('forgot'); // forgot -> verify -> reset -> success
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -56,7 +56,12 @@ function App() {
               onClose={closeModal} 
               onSelectPatient={() => {
                 closeModal();
-                setCurrentView('register-patient')} }
+                setCurrentView('register-patient');
+              }}
+              onSelectClinic={() => {
+                closeModal();
+                setCurrentView('register-clinic');
+              }}
               onLoginClick={() => {
                 closeModal();          
                 setCurrentView('login'); 
@@ -66,9 +71,12 @@ function App() {
         );
 
       case 'register-clinic':
-        return <ClinicRegister />;
+        return (
+          <ClinicRegisterForm 
+            onNavigate={(targetView) => setCurrentView(targetView)} 
+          />
+        );
 
-      // 👈 3. إضافة الحالة الخاصة بلوحة تحكم المسؤول (الـ Admin) لتشغيل المنظومة المترابطة بالكامل
       case 'admin-dashboard':
         return <ClinicAdminDashboard />;
 
@@ -150,6 +158,7 @@ function App() {
           );
         }
         break;
+
       default:
         return <div style={{ textAlign: 'center', marginTop: '50px' }}>الصفحة غير موجودة</div>;
     }

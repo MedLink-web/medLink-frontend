@@ -17,6 +17,7 @@ const PatientRegisterForm = ({
 
   const [errorMessage, setErrorMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // 1. حالة لتخزين وضع القيود الثلاثة (هل هي صالحة أم لا؟)
   const [passwordRules, setPasswordRules] = useState({
@@ -51,27 +52,54 @@ const PatientRegisterForm = ({
     if (errorMessage) setErrorMessage("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // 2. التحقق النهائي: تأكد أولاً أن جميع شروط كلمة المرور مستوفاة بالكامل
-    if (
-      !passwordRules.hasMinLength ||
-      !passwordRules.hasUpperLower ||
-      !passwordRules.hasNumber
-    ) {
-      setErrorMessage("يرجى استيفاء جميع شروط كلمة المرور أولاً!");
-      return;
-    }
-
-    // 3. التحقق الثاني: تطابق كلمة المرور مع حقل التأكيد
+    // التحقق المحلي من تطابق كلمات المرور (نفس اللي عندك)
     if (formData.password !== formData.confirmPassword) {
       setErrorMessage("عذراً، كلمة المرور وتأكيدها غير متطابقين!");
       return;
     }
 
     setErrorMessage("");
-    setIsSuccess(true);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          fullName: formData.fullName,
+          email: formData.email,
+          phone: formData.phone,
+          password: formData.password,
+          password_confirmation: formData.confirmPassword, // مهم: نفس اسم Laravel بالضبط
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        // نجح التسجيل
+        setIsSuccess(true);
+      } else {
+        // فشل: Laravel رجع errors بشكل { field: [messages] }
+        if (data.errors) {
+          const firstField = Object.keys(data.errors)[0];
+          setErrorMessage(data.errors[firstField][0]);
+        } else {
+          setErrorMessage(data.message || "حدث خطأ، حاول مرة أخرى");
+        }
+      }
+    } catch (error) {
+      // مشكلة بالاتصال (السيرفر مطفي، مشكلة شبكة...)
+      setErrorMessage("تعذر الاتصال بالسيرفر، تأكد من تشغيله وحاول مجدداً");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (isSuccess) {
@@ -87,6 +115,7 @@ const PatientRegisterForm = ({
           </div>
           <h1 className="success-title">تم إنشاء الحساب بنجاح</h1>
           <p className="success-subtitle">
+            مرحباً بك في <span className="brand-name">MedLink</span>، يمكنك الآن
             مرحباً بك في <span className="brand-name">Medlink</span>، يمكنك الآن
             حجز المواعيد والبحث عن الأدوية بكل سهولة.
           </p>
@@ -128,7 +157,7 @@ const PatientRegisterForm = ({
               fontWeight: "bold",
             }}
           >
-            Medlink
+            MedLink Medlink
           </span>
         </div>
 
@@ -337,25 +366,32 @@ const PatientRegisterForm = ({
           <button
             type="submit"
             className="form-submit-btn"
+            disabled={isLoading}
             style={{
               width: "100%",
               padding: "14px",
-              backgroundColor: "#2b6cb0",
+              backgroundColor: isLoading ? "#a0aec0" : "#2b6cb0",
               color: "white",
               border: "none",
               borderRadius: "8px",
               fontSize: "16px",
               fontWeight: "bold",
               marginTop: "20px",
-              cursor: "pointer",
+              cursor: isLoading ? "not-allowed" : "pointer",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
               gap: "10px",
             }}
           >
-            <span>➔</span>
-            إنشاء الحساب
+            {isLoading ? (
+              <span>جاري إنشاء الحساب...</span>
+            ) : (
+              <>
+                <span>➔</span>
+                إنشاء الحساب
+              </>
+            )}
           </button>
         </form>
 
