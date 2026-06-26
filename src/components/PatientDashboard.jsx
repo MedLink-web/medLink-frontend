@@ -1,4 +1,5 @@
 import React from "react";
+import logo from "../assets/logo.png"; 
 import "./PatientDashboard.css";
 
 const PatientDashboard = ({ onLogout, onNavigate }) => {
@@ -21,9 +22,12 @@ const PatientDashboard = ({ onLogout, onNavigate }) => {
     <div className="dashboard-wrapper" dir="rtl">
       {/* 1. الشريط العلوي للوحة التحكم (Dashboard Navbar) */}
       <nav className="dashboard-nav">
-        <div className="nav-right">
-          <span className="nav-logo-text">Medlink</span>
-
+        
+          <div className="brand-identity">
+            <img src={logo} alt="Medlink Logo" className="logo-image" />
+            <span className="nav-logo-text">Medlink</span>
+          </div>
+          
           <div className="nav-links">
             <a href="#home" className="active">
               الرئيسية
@@ -47,7 +51,7 @@ const PatientDashboard = ({ onLogout, onNavigate }) => {
               الملف الشخصي
             </a>
           </div>
-        </div>
+        
 
         {/* زر تسجيل الخروج مربوط بدالة onLogout الممررة من App */}
         <button

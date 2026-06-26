@@ -20,8 +20,15 @@
 
 .nav-right {
     display: flex;
+    align-items: center; /* تصحيح المحاذاة العمودية لتكون في المنتصف */
+    gap: 40px; /* المسافة المتناسقة بين (الهوية كاملة) وبين (مجموعة الروابط) */
+}
+
+/* التنسيق الجديد لربط الشعار بالاسم مباشرة */
+.brand-identity {
+    display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 10px; /* مسافة صغيرة جداً وأنيقة بين صورة الشعار ونص Medlink */
 }
 
 .nav-logo-text {
@@ -31,9 +38,12 @@
     font-style: italic;
 }
 
+
+
 .nav-links {
     display: flex;
     gap: 20px;
+    
 }
 
 .nav-links a {
