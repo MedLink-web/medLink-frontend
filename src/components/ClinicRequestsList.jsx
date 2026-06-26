@@ -1,67 +1,71 @@
-import React from "react";
+import React from 'react';
 import "./ClinicRequestsList.css";
 
-const ClinicRequestsList = ({ requests, onViewDetails }) => {
-    const pendingCount = requests.filter(
-        (r) => r.status === "قيد الانتظار",
-    ).length;
+const ClinicRequestsList = ({ requests, title, subtitle, isPharmacy, onViewDetails }) => {
+    // حساب عدد الطلبات قيد الانتظار
+    const pendingCount = requests.filter(r => r.status === 'قيد الانتظار').length;
 
     return (
-        <div className="admin-view-section">
-        <div className="admin-header-zone">
-            <h1 className="admin-page-title">طلبات العيادات</h1>
-            <p className="admin-page-subtitle">
-            مراجعة وإدارة طلبات تسجيل العيادات
-            </p>
+        <div className="requests-list-wrapper">
+        <div className="list-header">
+            <div className="header-title-zone">
+            <h1>{title}</h1>
+            <p>{subtitle}</p>
+            </div>
+            <div className="header-stats-zone">
+            <div className="stat-badge pending">
+                <span className="stat-count">{pendingCount} قيد المراجعة</span>
+                <span className="stat-icon">🕒</span>
+            </div>
+            <div className="stat-badge total">
+                <span className="stat-count">{requests.length} إجمالي الطلبات</span>
+                <span className="stat-icon">📄</span>
+            </div>
+            </div>
         </div>
 
-        <div className="admin-tabs-row">
-            <div className="admin-tab active">
-            <span>{pendingCount} قيد المراجعة</span> 🕒
-            </div>
-            <div className="admin-tab total">
-            <span>{requests.length} إجمالي الطلبات</span> 📄
-            </div>
-        </div>
-
-        <div className="admin-table-wrapper">
-            <table className="admin-data-table">
+        <div className="table-responsive-container">
+            <table className="custom-admin-table">
             <thead>
                 <tr>
                 <th>رقم الطلب</th>
-                <th>اسم العيادة</th>
+                <th>{isPharmacy ? 'اسم الصيدلية' : 'اسم العيادة'}</th>
                 <th>المالك</th>
-                <th>التخصص</th>
+                {!isPharmacy && <th>التخصص</th>}
+                <th>رقم الترخيص الطبي</th>
                 <th>تاريخ التقديم</th>
                 <th>الحالة</th>
-                <th>العمليات</th>
+                <th>الإجراءات</th>
                 </tr>
             </thead>
             <tbody>
                 {requests.map((req) => (
-                <tr key={req.id}>
+                <tr key={`${req.type}-${req.id}`}>
                     <td>{req.id}</td>
-                    <td className="bold-text">{req.name}</td>
+                    <td className="font-bold">{req.name}</td>
                     <td>{req.owner}</td>
-                    <td>{req.specialty}</td>
+                    {!isPharmacy && <td>{req.specialty}</td>}
+                    <td>{req.license}</td>
                     <td>{req.date}</td>
                     <td>
-                    <span
-                        className={`status-badge ${req.status === "تمت الموافقة" ? "approved" : "pending"}`}
-                    >
+                    <span className={`status-tag ${req.status === 'قيد الانتظار' ? 'waiting' : req.status === 'تمت الموافقة' ? 'approved' : 'rejected'}`}>
                         {req.status}
                     </span>
                     </td>
                     <td>
-                    <button
-                        className="action-link-btn"
-                        onClick={() => onViewDetails(req)}
-                    >
+                    <button className="view-details-action-btn" onClick={() => onViewDetails(req)}>
                         عرض التفاصيل
                     </button>
                     </td>
                 </tr>
                 ))}
+                {requests.length === 0 && (
+                <tr>
+                    <td colSpan={isPharmacy ? 7 : 8} style={{ textAlign: 'center', padding: '30px' }}>
+                    لا توجد طلبات في هذا القسم حالياً
+                    </td>
+                </tr>
+                )}
             </tbody>
             </table>
         </div>
