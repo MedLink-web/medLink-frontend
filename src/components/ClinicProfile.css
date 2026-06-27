@@ -1,0 +1,492 @@
+:root {
+    --primary-blue: #2b6cb0;
+    --bg-sidebar: #e6f4ff;
+    /* لون الخلفية الزرقاء الفاتحة للقائمة حسب التصميم الجديد */
+    --text-dark: #2d3748;
+    --text-muted: #718096;
+    --border-color: #d2e6f7;
+    --success-green: #48bb78;
+}
+
+.clinic-layout-wrapper {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f7fafc;
+}
+
+/* 🏢 تصميم القائمة الجانبية للعيادة image_7f0725.png */
+.clinic-sidebar {
+    width: 280px;
+    background-color: var(--bg-sidebar);
+    border-left: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.sidebar-clinic-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+}
+
+.sidebar-clinic-logo {
+    width: 45px;
+    height: 45px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-clinic-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a365d;
+    margin: 0;
+}
+
+.sidebar-clinic-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin: 2px 0 0 0;
+}
+
+.menu-section-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin: 0 0 15px 0;
+    padding-right: 8px;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex-grow: 1;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #4a5568;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.menu-item:hover {
+    background-color: rgba(43, 108, 176, 0.05);
+    color: var(--primary-blue);
+}
+
+/* العنصر النشط بخلفية بيضاء مبنية على التصميم */
+.menu-item.active {
+    background-color: #ffffff;
+    color: #1a365d;
+    font-weight: 700;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.menu-icon {
+    font-size: 18px;
+}
+
+.sidebar-footer {
+    border-top: 1px solid var(--border-color);
+    padding-top: 14px;
+}
+
+.logout-btn-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #e53e3e;
+    font-weight: 600;
+}
+
+.logout-btn-wrapper:hover {
+    background-color: #fff5f5;
+}
+
+/* 📄 محتوى الصفحة الداخلي */
+.clinic-main-content {
+    flex-grow: 1;
+    padding: 35px 40px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.profile-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.breadcrumb-path {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+.edit-btn {
+    background-color: var(--primary-blue);
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.main-info-card,
+.details-section-box,
+.about-section-box {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 25px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
+}
+
+.right-brand-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.clinic-logo-placeholder {
+    width: 60px;
+    height: 60px;
+    background-color: #e6f4ff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+}
+
+.clinic-main-name {
+    font-size: 22px;
+    margin: 0 0 4px 0;
+}
+
+.clinic-sub-specialty {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.left-status-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.status-badge-active {
+    background-color: #f0fff4;
+    color: var(--success-green);
+    border: 1px solid #c6f6d5;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.section-main-title {
+    font-size: 16px;
+    margin: 0 0 20px 0;
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+.info-grid-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.info-grid-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.item-icon {
+    font-size: 18px;
+    background-color: #f7fafc;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-text-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-label {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.item-value {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.about-paragraph-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #4a5568;
+}
+
+@media (max-width: 768px) {
+    .clinic-layout-wrapper {
+        flex-direction: column;
+    }
+
+    .clinic-sidebar {
+        width: 100%;
+        border-left: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .clinic-main-content {
+        padding: 20px;
+    }
+}
+
+/* الأزرار العلوية لوضع التعديل */
+.action-buttons-group {
+    display: flex;
+    gap: 12px;
+}
+
+.save-changes-btn {
+    background-color: #2b6cb0;
+    /* اللون الأزرق الأساسي لحفظ التغييرات */
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.save-changes-btn:hover {
+    background-color: #1a5696;
+}
+
+.cancel-edit-btn {
+    background-color: #ffffff;
+    color: #4a5568;
+    border: 1px solid #cbd5e0;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.cancel-edit-btn:hover {
+    background-color: #f7fafc;
+}
+
+.breadcrumb-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.current-view-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a365d;
+    margin: 0;
+}
+
+/* كروت نماذج الإدخال */
+.form-section-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 20px;
+}
+
+.image-edit-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.clinic-avatar-large {
+    width: 70px;
+    height: 70px;
+    background-color: #e6f4ff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.change-photo-btn {
+    background-color: #edf2f7;
+    color: #4a5568;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.section-form-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #2d3748;
+    margin: 0 0 20px 0;
+    border-right: 3px solid #2b6cb0;
+    padding-right: 8px;
+}
+
+/* تصميم الحقول المدخلة متطابقة مع Figma */
+.input-field-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+    max-width: 500px;
+    /* لتبدو الحقول منظمة ومرتبة على اليسار */
+}
+
+.field-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-with-icon input {
+    width: 100%;
+    padding: 12px 14px 12px 40px;
+    /* مساحة للأيقونة على اليسار */
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #2d3748;
+    background-color: #f8fafc;
+    outline: none;
+    transition: all 0.2s;
+    text-align: right;
+}
+
+.input-with-icon input:focus {
+    border-color: #2b6cb0;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
+}
+
+.input-icon-slot {
+    position: absolute;
+    left: 14px;
+    /* تثبيت الأيقونة يسار الحقل كالتصميم */
+    font-size: 16px;
+    color: #a0aec0;
+}
+
+/* النبذة الشخصية تيكست إريا */
+.form-textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #f8fafc;
+    resize: vertical;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.form-textarea:focus {
+    border-color: #2b6cb0;
+    background-color: #ffffff;
+}
+
+/* 🌟 تصميم شريط نجاح التغييرات الأخضر */
+.success-toast-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #c6f6d5;
+    /* خلفية خضراء فاتحة ناعمة */
+    border: 1px solid #a3e635;
+    padding: 14px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    animation: slideDownIn 0.3s ease-out forwards;
+}
+
+.toast-check-icon {
+    width: 24px;
+    height: 24px;
+    background-color: #ffffff;
+    color: #38a169;
+    /* لون علامة الصح الأخضر الغامق */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.toast-text-message {
+    font-size: 15px;
+    font-weight: 700;
+    color: #22543d;
+    /* لون النص الأخضر الداكن */
+}
+
+/* تأثير ظهور انسيابي من الأعلى لأسفل */
+@keyframes slideDownIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

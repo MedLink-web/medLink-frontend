@@ -27,6 +27,10 @@ import ClinicRegisterForm from "./components/ClinicRegister";
 // استيراد لوحة تحكم المسؤول
 import ClinicAdminDashboard from "./components/ClinicAdminDashboard";
 
+
+// 🌟 استيراد شاشة ملف العيادة الجديدة هنا
+import ClinicProfile from "./components/ClinicProfile";
+
 import "./App.css";
 
 function App() {
@@ -121,6 +125,13 @@ function App() {
           return (
             <ClinicAdminDashboard
               onNavigate={(targetView) => setCurrentView(targetView)}
+            />
+          );
+        
+        case "clinic-profile":
+          return (
+            <ClinicProfile 
+              onNavigate={(targetView) => setCurrentView(targetView)} 
             />
           );
 
