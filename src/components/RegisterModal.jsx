@@ -1,7 +1,7 @@
 import React from "react";
 import "./RegisterModal.css";
 
-const RegisterModal = ({ isOpen, onClose, onSelectPatient, onSelectClinic, onLoginClick }) => {
+const RegisterModal = ({ isOpen, onClose, onSelectPatient, onNavigate, onSelectClinic, onLoginClick }) => {
   if (!isOpen) return null;
 
   const accountTypes = [
@@ -62,6 +62,10 @@ const RegisterModal = ({ isOpen, onClose, onSelectPatient, onSelectClinic, onLog
                   } else if (type.id === "clinic") {
                     onClose();
                     onSelectClinic && onSelectClinic();
+                  } else if (type.id === "pharmacy") {
+                    // 🌟 الربط الجديد هنا: إغلاق المودال والانتقال لشاشة الصيدلية
+                    onClose();
+                    onNavigate && onNavigate('pharmacy-register');
                   } else {
                     alert(`واجهة حساب (${type.title}) قيد التطوير حالياً!`);
                   }
