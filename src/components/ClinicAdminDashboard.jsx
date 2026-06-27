@@ -15,12 +15,14 @@ const ClinicAdminDashboard = ({ onNavigate }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
+  
+  const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
   const [adminData] = useState({
-    name: "روان  قاعود",
-    email: "rawanqaoud4@gmail.com",
+    name: storedUser.full_name || "Admin",
+    email: storedUser.email || "",
     role: "مدير النظام العام (Super Admin)",
-    phone: "059326598",
-    joinedDate: "1/2/2026",
+    phone: storedUser.phone || "",
+    joinedDate: "20/6/2026",
   });
 
   const getToken = () => localStorage.getItem("auth_token");
