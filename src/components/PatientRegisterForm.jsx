@@ -157,7 +157,7 @@ const PatientRegisterForm = ({
               fontWeight: "bold",
             }}
           >
-            MedLink Medlink
+            MedLink 
           </span>
         </div>
 

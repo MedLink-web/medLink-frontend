@@ -1,102 +1,155 @@
-.admin-header-zone {
-    margin-bottom: 24px;
-    text-align: right;
+.requests-list-wrapper {
+    animation: fadeIn 0.3s ease-out;
 }
 
-.admin-page-title {
-    font-size: 28px;
+/* الهيدر وقسم الإحصائيات العلوي */
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.header-title-zone h1 {
+    font-size: 26px;
+    color: #0f172a;
+    margin: 0 0 6px 0;
     font-weight: 700;
-    color: #1a202c;
 }
 
-.admin-page-subtitle {
+.header-title-zone p {
+    color: #64748b;
     font-size: 15px;
-    color: #718096;
+    margin: 0;
 }
 
-.admin-tabs-row {
+.header-stats-zone {
     display: flex;
     gap: 16px;
-    justify-content: flex-end;
-    margin-bottom: 24px;
+    
 }
 
-.admin-tab {
+.stat-badge {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 20px;
-    border-radius: 8px;
+    gap: 12px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.stat-badge.pending {
+    background-color: #fffbeb;
+    border-color: #fde68a;
+    color: #b45309;
+}
+
+.stat-badge.total {
+    background-color: #f0fdf4;
+    border-color: #bbf7d0;
+    color: #15803d;
+}
+
+.stat-count {
     font-weight: 600;
     font-size: 15px;
 }
 
-.admin-tab.active {
-    background-color: #fffaf0;
-    border: 1px solid #feebc8;
-    color: #dd6b20;
+.stat-icon {
+    font-size: 18px;
 }
 
-.admin-tab.total {
-    background-color: #fefcbf;
-    border: 1px solid #faf089;
-    color: #b7791f;
-}
-
-.admin-table-wrapper {
+/* حاوية الجدول والجدول نفسه */
+.table-responsive-container {
     background-color: #ffffff;
-    border-radius: 16px;
     border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
 }
 
-.admin-data-table {
+.custom-admin-table {
     width: 100%;
     border-collapse: collapse;
     text-align: right;
-}
-
-.admin-data-table th {
-    background-color: #ebf8ff;
-    padding: 16px;
-    font-weight: 700;
-    color: #2b6cb0;
-    border-bottom: 2px solid #e2e8f0;
-}
-
-.admin-data-table td {
-    padding: 16px;
-    border-bottom: 1px solid #e2e8f0;
     font-size: 15px;
 }
 
-.bold-text {
-    font-weight: 700;
-    color: #1a202c;
+.custom-admin-table th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-weight: 600;
+    padding: 16px;
+    border-bottom: 2px solid #e2e8f0;
 }
 
-.status-badge {
-    padding: 4px 12px;
-    border-radius: 6px;
+.custom-admin-table td {
+    padding: 16px;
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+}
+
+.custom-admin-table tr:hover td {
+    background-color: #f8fafc;
+}
+
+.font-bold {
+    font-weight: 700;
+    color: #0f172a;
+}
+
+/* شارات حالة الطلب الملونة داخل الجدول */
+.status-tag {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
     font-size: 13px;
     font-weight: 600;
 }
 
-.status-badge.pending {
-    background-color: #fff5f5;
-    color: #e53e3e;
+.status-tag.waiting {
+    background-color: #fef3c7;
+    color: #d97706;
 }
 
-.status-badge.approved {
-    background-color: #f0fff4;
-    color: #38a169;
+.status-tag.approved {
+    background-color: #dcfce7;
+    color: #15803d;
 }
 
-.action-link-btn {
-    background: none;
+.status-tag.rejected {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+/* زر عرض التفاصيل */
+.view-details-action-btn {
+    background-color: #0066cc;
+    color: white;
     border: none;
-    color: #3182ce;
-    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.view-details-action-btn:hover {
+    background-color: #0052a3;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

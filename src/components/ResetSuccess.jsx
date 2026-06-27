@@ -9,9 +9,9 @@ const ResetSuccess = ({ onNavigate }) => {
         <div className="Medlink-top-logo">
             <div className="logo-flex-container">
             <span className="Medlink-text-blue">Medlink</span>
-            <div className="logo-circle-icon">
-                <img src={logo} alt="Medlink Logo" className="logo-image" />
-            </div>
+
+            <img src={logo} alt="Medlink Logo" className="logo-image" />
+            
             </div>
         </div>
 

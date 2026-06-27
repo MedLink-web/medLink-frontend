@@ -1,33 +1,88 @@
-.breadcrumb-trail {
+/* ======================================================== */
+/* تنسيقات صفحة عرض تفاصيل الطلب والمودالات التفاعلية       */
+/* ======================================================== */
+
+.request-details-wrapper {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* شريط التنقل العلوي (Breadcrumb) */
+.details-navigation-header {
     display: flex;
-    gap: 8px;
-    color: #718096;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+    font-size: 16px;
     font-weight: 600;
-    margin-bottom: 30px;
 }
 
-.breadcrumb-trail .current-node {
-    color: #1a202c;
+.back-to-list-btn {
+    background: none;
+    border: none;
+    color: #0066cc;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0;
+    font-family: inherit;
+    font-size: 16px;
+    transition: color 0.2s;
 }
 
+.back-to-list-btn:hover {
+    text-decoration: underline;
+    color: #0052a3;
+}
+
+.navigation-separator {
+    color: #94a3b8;
+}
+
+.current-sub-view {
+    color: #64748b;
+}
+
+/* لافتة النجاح العلوية عند قبول الحساب */
 .success-banner-alert {
-    background-color: #c6f6d5;
-    color: #22543d;
-    padding: 14px;
-    border-radius: 8px;
+    background-color: #dcfce7;
+    color: #15803d;
+    padding: 16px;
+    border-radius: 12px;
     font-weight: 600;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    border: 1px solid #bbf7d0;
     text-align: right;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
+/* بطاقة عرض البيانات التفصيلية اللبنية الهادئة */
 .details-card-container {
-    background-color: #e6f4f8;
-    border: 1px solid #cbd5e0;
+    background-color: #e2f0f9; /* الخلفية اللبنية المعتمدة في التطبيق */
+    border: 1px solid #cbd5e1;
     border-radius: 20px;
     padding: 40px;
+    position: relative;
     margin-bottom: 30px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
 }
 
+/* شارات الحالة الخاصة بالزاوية العلوية للبطاقة التفصيلية */
+.top-corner-status {
+    position: absolute;
+    top: 25px;
+    left: 25px;
+}
+
+.status-badge-waiting-time {
+    background-color: #fff9db;
+    color: #f08c00;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid #ffe066;
+}
+
+/* شبكة محاذاة حقول التفاصيل */
 .details-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -36,60 +91,272 @@
 
 .details-row {
     display: flex;
-    justify-content: flex-end;
-    font-size: 17px;
-    text-align: right;
+    align-items: center;
+    font-size: 16px;
+}
+
+.details-row.full-width-row {
+    grid-column: span 2;
 }
 
 .field-label {
-    color: #1a202c;
+    color: #475569;
     font-weight: 700;
-    margin-left: 10px;
-    width: 180px;
+    width: 160px;
+    text-align: right;
 }
 
 .field-value {
-    color: #2d3748;
+    color: #0f172a;
     flex: 1;
+    text-align: right;
+}
+
+.field-value.font-bold {
+    font-weight: 700;
+    font-size: 18px;
 }
 
 .ltr-text {
     direction: ltr;
-    display: inline-block;
+    unicode-bidi: embed;
+    text-align: right;
 }
 
-.action-buttons-group {
+/* شارات الحالة البديلة داخل البطاقة */
+.status-tag {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status-tag.approved {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.status-tag.rejected {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+/* ======================================================== */
+/* أزرار اتخاذ القرار السفليّة (قبول / رفض الطلب)            */
+/* ======================================================== */
+
+.details-action-buttons-footer {
     display: flex;
     gap: 20px;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-top: 35px;
 }
 
-.btn-action-accept {
-    background-color: #00a86b;
+.btn-decision-accept {
+    background-color: #008f68; /* الأخضر المعتمد للموافقات */
     color: white;
-    padding: 12px 36px;
+    padding: 12px 35px;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-weight: 700;
+    font-size: 16px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s;
 }
 
-.btn-action-reject {
+.btn-decision-accept:hover {
+    background-color: #007353;
+}
+
+.btn-decision-reject {
+    background-color: #e53e3e; /* اللون الأحمر للرفض */
+    color: white;
+    padding: 12px 35px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+}
+
+.btn-decision-reject:hover {
+    background-color: #c53030;
+}
+
+.icon-check, .icon-cross {
+    font-weight: bold;
+}
+
+/* ======================================================== */
+/* تنسيقات النوافذ المنبثقة التفاعلية (Modals)              */
+/* ======================================================== */
+
+/* الطبقة الخلفية المعتمة والشفافة مع تأثير ضبابي */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(15, 23, 42, 0.4); /* تعتيم ناعم مريح للعين */
+    backdrop-filter: blur(4px); /* التأثير الضبابي */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeInBg 0.2s ease-out;
+}
+
+/* الصندوق الأبيض الداخلي للمودال */
+.modal-box-card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    width: 480px;
+    max-width: 90%;
+    padding: 35px;
+    text-align: center;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    animation: scaleUpModal 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-sizing: border-box;
+}
+
+.modal-box-card h2 {
+    font-size: 24px;
+    color: #0f172a;
+    margin: 0 0 12px 0;
+    font-weight: 700;
+}
+
+.modal-description-text {
+    color: #475569;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+/* دوائر الأيقونات العلوية الكبيرة (✓ و ✕) */
+.modal-icon-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px auto;
+}
+
+.accept-circle {
+    background-color: #008f68;
+    color: white;
+}
+
+.reject-circle {
     background-color: #e53e3e;
     color: white;
-    padding: 12px 36px;
-    border: none;
-    border-radius: 6px;
-    font-weight: 700;
-    cursor: pointer;
 }
 
-.back-to-list-btn {
-    background: none;
-    border: none;
-    color: #4a5568;
-    font-weight: 600;
-    cursor: pointer;
+.modal-icon-v {
+    font-size: 38px;
+    font-weight: bold;
+}
+
+.modal-icon-x {
+    font-size: 34px;
+    font-weight: bold;
+}
+
+/* منطقة صندوق النص الخاص بـ سبب الرفض الإجباري */
+.modal-reason-textarea {
+    width: 100%;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 12px;
+    font-family: inherit;
     font-size: 15px;
+    text-align: right;
+    resize: none;
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.modal-reason-textarea:focus {
+    border-color: #e53e3e;
+    box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+}
+
+/* توزيع أزرار الأكشن التفاعلية للمودال */
+.modal-action-actions {
+    display: flex;
+    gap: 14px;
+    flex-direction: row-reverse; /* لترتيب الأزرار لتناسب المحاذاة العربية الطبيعية */
+}
+
+.modal-btn-confirm {
+    flex: 2;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.accept-bg {
+    background-color: #008f68;
+}
+
+.reject-bg {
+    background-color: #e53e3e;
+}
+
+.modal-btn-confirm:hover {
+    opacity: 0.9;
+}
+
+.modal-btn-cancel {
+    flex: 1;
+    background-color: #cbd5e1;
+    color: #334155;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.modal-btn-cancel:hover {
+    background-color: #94a3b8;
+}
+
+/* ======================================================== */
+/* حركات الأنيميشن (Animations)                             */
+/* ======================================================== */
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInBg {
+    from { background-color: rgba(15, 23, 42, 0); }
+    to { background-color: rgba(15, 23, 42, 0.4); }
+}
+
+@keyframes scaleUpModal {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
 }

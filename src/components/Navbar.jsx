@@ -7,8 +7,9 @@ const Navbar = ({ onRegisterClick }) => {
     <nav className="navbar">
       {/* 1. قسم الشعار الجديد على اليمين */}
       <div className="navbar-logo">
-        <span className="logo-text">Medlink</span>
         <img src={logo} alt="Medlink Logo" className="logo-image" />
+        <span className="logo-text">Medlink</span>
+        
       </div>
 
       {/* 2. روابط التنقل المنتصف */}

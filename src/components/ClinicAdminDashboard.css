@@ -1,76 +1,115 @@
-/* ClinicAdminDashboard.css */
-.admin-dashboard-layout {
+.admin-dashboard-container {
     display: flex;
-    min-height: 100vh;
-    background-color: #f4f7fa;
+    width: 100vw;
+    height: 100vh;
+    background-color: #f8fafc;
+    font-family: system-ui, -apple-system, sans-serif;
+    overflow: hidden;
 }
 
+/* القائمة الجانبية - Sidebar */
 .admin-sidebar {
-    width: 260px;
-    background-color: #e2f0fd;
+    width: 280px;
+    background-color: #e2f0f9;
+    /* الخلفية اللبنية الهادئة المتوافقة مع التطبيق */
+    border-left: 1px solid #cbd5e1;
     display: flex;
     flex-direction: column;
-    padding: 30px 20px;
-    border-left: 1px solid #cbd5e0;
+    padding: 24px;
+    box-sizing: border-box;
 }
 
-.admin-brand {
+/* الحاوية الرئيسية التي تجمع اللوغو والاسم معاً */
+.brand-logo {
+    display: flex;
+    align-items: center;      /* لجعلهما على نفس المحاذاة الأفقية تماماً من المنتصف */
+    justify-content: center;   /* ليتوسط السايدبار بشكل متناسق */
+    gap: 12px;                /* مسافة أفقية مريحة بين اللوغو والاسم */
+    margin-bottom: 35px;      /* الحفاظ على المسافة السفلية عن باقي القائمة */
+    width: 100%;
+}
+
+/* تنسيق اسم المنصة */
+.brand-logo h2 {
+    color: #0066cc;
+    font-size: 24px;          /* تم تصغيره قليلاً (من 26px) ليتناسب بشكل مثالي في سطر واحد بجانب الصورة */
+    font-weight: 800;
+    margin: 0;                /* صفرنا المارجن الداخلي هنا حتى لا يربك أبعاد الـ Flexbox */
+}
+
+/* تنسيق صورة اللوغو */
+.brand-logo .logo-image {
+    width: 80px;              /* حجم 50px يكون متناسقاً جداً أفقياً داخل القائمة الجانبية */
+    height: auto;
+    object-fit: contain;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.menu-item {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-bottom: 50px;
-}
-
-.admin-logo-text {
-    font-size: 24px;
-    font-weight: 700;
-    color: #2b6cb0;
-}
-.logo-image {
-    width: 70px;
-    height: auto;
-}
-
-.admin-nav-menu {
-    display: flex;
-    flex-direction: column;
     gap: 12px;
-    flex: 1;
-}
-
-.admin-nav-item {
-    text-align: right;
-    padding: 14px 16px;
     background: none;
     border: none;
+    padding: 14px 18px;
     border-radius: 12px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #4a5568;
     cursor: pointer;
+    font-size: 16px;
+    color: #475569;
+    text-align: right;
+    width: 100%;
+    transition: all 0.2s ease-in-out;
 }
 
-.admin-nav-item.active,
-.admin-nav-item:hover {
-    background-color: #cbd5e0;
-    color: #1a202c;
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    color: #0066cc;
 }
 
-.admin-logout-btn {
+.menu-item.active {
+    background-color: #ffffff;
+    color: #0066cc;
+    font-weight: bold;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    border-top: 1px solid #cbd5e1;
+    padding-top: 15px;
+}
+
+.logout-btn {
     display: flex;
-    justify-content: space-between;
-    padding: 14px 16px;
+    align-items: center;
+    gap: 12px;
     background: none;
     border: none;
-    font-size: 16px;
-    font-weight: 600;
+    color: #64748b;
+    padding: 14px 18px;
     cursor: pointer;
-    color: #4a5568;
+    font-size: 16px;
+    width: 100%;
+    text-align: right;
+    transition: color 0.2s;
 }
 
+.logout-btn:hover {
+    color: #ef4444;
+}
+
+/* منطقة العرض الرئيسية بجانب السايد بار */
 .admin-main-content {
-    flex: 1;
-    padding: 40px;
+    flex-grow: 1;
+    height: 100vh;
     overflow-y: auto;
+    padding: 40px;
+    box-sizing: border-box;
+    background-color: #f8fafc;
 }

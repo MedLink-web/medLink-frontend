@@ -21,19 +21,16 @@ import ResetSuccess from "./components/ResetSuccess";
 // استدعاء شاشة تسجيل العيادة
 import ClinicRegisterForm from "./components/ClinicRegister";
 
-// استيراد المكون الرئيسي للوحة تحكم المسؤول (Admin Dashboard)
+// استيراد لوحة تحكم المسؤول
 import ClinicAdminDashboard from "./components/ClinicAdminDashboard";
 
 import "./App.css";
 
 function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // شاشة المعاينة الافتراضية (يمكنكِ تغييرها إلى 'home' لاحقاً للبدء من الواجهة الرئيسية)
   const [currentView, setCurrentView] = useState("home");
-
   const [forgotEmail, setForgotEmail] = useState("");
-  const [forgotStep, setForgotStep] = useState("forgot"); // forgot -> verify -> reset -> success
+  const [forgotStep, setForgotStep] = useState("forgot");
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -49,7 +46,7 @@ function App() {
             <Stats />
             <About />
             <HowItWorks />
-            <Footer />
+            <Footer onNavigate={(targetView) => setCurrentView(targetView)} />
 
             <RegisterModal
               isOpen={isModalOpen}
@@ -77,9 +74,6 @@ function App() {
           />
         );
 
-      // case "admin-dashboard":
-      //   return <ClinicAdminDashboard />;
-
       case "register-patient":
         return (
           <PatientRegisterForm
@@ -103,6 +97,7 @@ function App() {
             onNavigate={(targetView) => setCurrentView(targetView)}
           />
         );
+
       case "admin-clinic-requests":
         return (
           <ClinicAdminDashboard
@@ -160,9 +155,7 @@ function App() {
             <ResetSuccess
               onNavigate={(view) => {
                 setForgotStep("forgot");
-                setTimeout(() => {
-                  setCurrentView(view);
-                }, 0);
+                setTimeout(() => setCurrentView(view), 0);
               }}
             />
           );

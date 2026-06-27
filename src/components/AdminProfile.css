@@ -1,0 +1,110 @@
+.admin-profile-wrapper {
+    padding: 10px 0;
+}
+
+.profile-header-zone h1 {
+    font-size: 26px;
+    color: #0f172a;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+
+.profile-header-zone p {
+    color: #64748b;
+    font-size: 15px;
+    margin-bottom: 30px;
+}
+
+.profile-card-container {
+    background-color: #e2f0f9;
+    /* متناسق مع البطاقات الأخرى */
+    border: 1px solid #cbd5e1;
+    border-radius: 20px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 700px;
+    margin: 0 auto;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+}
+
+.profile-avatar-section {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.avatar-circle {
+    width: 90px;
+    height: 90px;
+    background-color: #008f68;
+    /* أخضر الموافقة */
+    color: white;
+    font-size: 34px;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px auto;
+    box-shadow: 0 4px 10px rgba(0, 143, 104, 0.15);
+}
+
+.profile-avatar-section h2 {
+    font-size: 22px;
+    color: #0f172a;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.admin-role-tag {
+    background-color: #cbd5e1;
+    color: #334155;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.profile-info-grid {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background: white;
+    padding: 25px;
+    border-radius: 16px;
+    border: 1px solid #cbd5e1;
+    box-sizing: border-box;
+}
+
+.profile-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px dashed #e2e8f0;
+    font-size: 15px;
+}
+
+.profile-info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    color: #475569;
+    font-weight: 600;
+}
+
+.info-value {
+    color: #0f172a;
+}
+
+.info-value.font-bold {
+    font-weight: 700;
+}
+
+.text-success {
+    color: #008f68;
+    font-weight: 700;
+}

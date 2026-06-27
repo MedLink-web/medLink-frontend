@@ -1,63 +1,104 @@
 import React, { useState, useEffect } from "react";
 import ClinicRequestsList from "./ClinicRequestsList";
 import ClinicRequestDetails from "./ClinicRequestDetails";
+import AdminProfile from "./AdminProfile";
 import "./ClinicAdminDashboard.css";
 import logo from "../assets/logo.png";
 
 const ClinicAdminDashboard = ({ onNavigate }) => {
-  const [view, setView] = useState("list");
+  const [activeTab, setActiveTab] = useState("clinics");
+  const [activeView, setActiveView] = useState("list");
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [successStatus, setSuccessStatus] = useState(false);
-  const [requests, setRequests] = useState([]);
+  const [clinicRequests, setClinicRequests] = useState([]);
+  const [pharmacyRequests, setPharmacyRequests] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const [adminData] = useState({
+    name: "روان  قاعود",
+    email: "rawanqaoud4@gmail.com",
+    role: "مدير النظام العام (Super Admin)",
+    phone: "059326598",
+    joinedDate: "1/2/2026",
+  });
+
   const getToken = () => localStorage.getItem("auth_token");
 
-  // ─── جلب الطلبات من API ───────────────────────
+  // ─── جلب كل الطلبات ───────────────────────────
   useEffect(() => {
-    fetchRequests();
+    fetchAllRequests();
   }, []);
 
-  const fetchRequests = async () => {
+  const fetchAllRequests = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/api/admin/clinic-requests/all",
-        {
+      const [clinicRes, pharmacyRes] = await Promise.all([
+        fetch("http://127.0.0.1:8000/api/admin/clinic-requests/all", {
           headers: {
             Authorization: `Bearer ${getToken()}`,
             Accept: "application/json",
           },
-        },
-      );
+        }),
+        fetch("http://127.0.0.1:8000/api/admin/pharmacy-requests", {
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+            Accept: "application/json",
+          },
+        }),
+      ]);
 
-      const data = await response.json();
+      const clinicData = await clinicRes.json();
+      const pharmacyData = await pharmacyRes.json();
 
-      if (response.ok && data.success) {
-        // نحول البيانات لنفس شكل الـ static data القديم
-        const formatted = data.data.map((req) => ({
-          id: req.id,
-          name: req.clinic_name,
-          owner: "—",
-          specialty: req.specialty,
-          license: req.license_number,
-          date: new Date(req.created_at).toLocaleDateString("ar-EG"),
-          phone: req.clinic_phone,
-          email: req.clinic_email,
-          address: req.clinic_address,
-          status:
-            req.status === "pending"
-              ? "قيد الانتظار"
-              : req.status === "approved"
-                ? "تمت الموافقة"
-                : "مرفوض",
-        }));
-        setRequests(formatted);
-      } else if (response.status === 401) {
+      if (clinicRes.status === 401) {
         onNavigate && onNavigate("login");
-      } else {
-        setError("فشل تحميل الطلبات");
+        return;
+      }
+
+      if (clinicRes.ok && clinicData.success) {
+        setClinicRequests(
+          clinicData.data.map((req) => ({
+            id: req.id,
+            type: "clinic",
+            name: req.clinic_name,
+            owner: "—",
+            specialty: req.specialty,
+            license: req.license_number,
+            date: new Date(req.created_at).toLocaleDateString("ar-EG"),
+            phone: req.clinic_phone,
+            email: req.clinic_email,
+            address: req.clinic_address,
+            status:
+              req.status === "pending"
+                ? "قيد الانتظار"
+                : req.status === "approved"
+                  ? "تمت الموافقة"
+                  : "مرفوض",
+          })),
+        );
+      }
+
+      if (pharmacyRes.ok && pharmacyData.success) {
+        setPharmacyRequests(
+          pharmacyData.data.map((req) => ({
+            id: req.id,
+            type: "pharmacy",
+            name: req.pharmacy_name,
+            owner: "—",
+            license: req.license_number,
+            date: new Date(req.created_at).toLocaleDateString("ar-EG"),
+            phone: req.pharmacy_phone,
+            email: req.pharmacy_email,
+            address: req.pharmacy_address,
+            status:
+              req.status === "pending"
+                ? "قيد الانتظار"
+                : req.status === "approved"
+                  ? "تمت الموافقة"
+                  : "مرفوض",
+          })),
+        );
       }
     } catch {
       setError("تعذر الاتصال بالسيرفر");
@@ -68,14 +109,18 @@ const ClinicAdminDashboard = ({ onNavigate }) => {
 
   const handleViewDetails = (req) => {
     setSelectedRequest(req);
-    setView("details");
+    setActiveView("details");
     setSuccessStatus(false);
   };
+
+  // الطلبات الحالية حسب التبويب
+  const currentRequests =
+    activeTab === "clinics" ? clinicRequests : pharmacyRequests;
 
   if (isLoading) {
     return (
       <div
-        className="admin-dashboard-layout"
+        className="admin-dashboard-container"
         dir="rtl"
         style={{
           display: "flex",
@@ -83,38 +128,61 @@ const ClinicAdminDashboard = ({ onNavigate }) => {
           justifyContent: "center",
         }}
       >
-        <p style={{ fontSize: "18px" }}>جاري تحميل الطلبات...</p>
+        <p style={{ fontSize: "18px" }}>جاري تحميل البيانات...</p>
       </div>
     );
   }
 
   return (
-    <div className="admin-dashboard-layout" dir="rtl">
-      {/* القائمة الجانبية */}
-      <aside className="admin-sidebar">
-        <div className="admin-brand">
-          <span className="admin-logo-text">MedLink</span>
+    <div className="admin-dashboard-container" dir="rtl">
+      {/* ── Sidebar ──────────────────────────────── */}
+      <div className="admin-sidebar">
+        <div className="brand-logo">
           <img src={logo} alt="Medlink Logo" className="logo-image" />
+          <h2>Medlink</h2>
         </div>
-        <nav className="admin-nav-menu">
-          <button className="admin-nav-item active">🏢 قسم العيادات</button>
-          <button className="admin-nav-item">💊 قسم الصيدليات</button>
-          <button className="admin-nav-item">👤 الملف الشخصي</button>
+        <nav className="sidebar-menu">
+          <button
+            className={`menu-item ${activeTab === "clinics" ? "active" : ""}`}
+            onClick={() => {
+              setActiveTab("clinics");
+              setActiveView("list");
+            }}
+          >
+            <span className="icon">🏥</span> قسم العيادات
+          </button>
+          <button
+            className={`menu-item ${activeTab === "pharmacies" ? "active" : ""}`}
+            onClick={() => {
+              setActiveTab("pharmacies");
+              setActiveView("list");
+            }}
+          >
+            <span className="icon">💊</span> قسم الصيدليات
+          </button>
+          <button
+            className={`menu-item ${activeTab === "profile" ? "active" : ""}`}
+            onClick={() => setActiveTab("profile")}
+          >
+            <span className="icon">👤</span> الملف الشخصي
+          </button>
         </nav>
-        <button
-          className="admin-logout-btn"
-          onClick={() => {
-            localStorage.removeItem("auth_token");
-            localStorage.removeItem("user");
-            onNavigate && onNavigate("home");
-          }}
-        >
-          <span>تسجيل الخروج</span> ↪️
-        </button>
-      </aside>
+        <div className="sidebar-footer">
+          <button
+            className="logout-btn"
+            onClick={() => {
+              localStorage.removeItem("auth_token");
+              localStorage.removeItem("user");
+              onNavigate && onNavigate("home");
+            }}
+          >
+            <span className="icon">🚪</span> تسجيل الخروج
+          </button>
+        </div>
+      </div>
 
-      {/* منطقة المحتوى */}
-      <main className="admin-main-content">
+      {/* ── Main Content ─────────────────────────── */}
+      <div className="admin-main-content">
         {error && (
           <div
             style={{
@@ -130,25 +198,39 @@ const ClinicAdminDashboard = ({ onNavigate }) => {
           </div>
         )}
 
-        {view === "list" ? (
+        {activeTab === "profile" ? (
+          <AdminProfile admin={adminData} />
+        ) : activeView === "list" ? (
           <ClinicRequestsList
-            requests={requests}
+            requests={currentRequests}
+            title={
+              activeTab === "clinics" ? "طلبات العيادات" : "طلبات الصيدلية"
+            }
+            subtitle={
+              activeTab === "clinics"
+                ? "مراجعة وإدارة طلبات تسجيل العيادات"
+                : "مراجعة وإدارة طلبات تسجيل الصيدلية"
+            }
+            isPharmacy={activeTab === "pharmacies"}
             onViewDetails={handleViewDetails}
           />
         ) : (
           <ClinicRequestDetails
             selectedRequest={selectedRequest}
-            requests={requests}
-            setRequests={setRequests}
+            requests={currentRequests}
+            setRequests={
+              activeTab === "clinics" ? setClinicRequests : setPharmacyRequests
+            }
             successStatus={successStatus}
             setSuccessStatus={setSuccessStatus}
+            activeTab={activeTab}
             onBack={() => {
-              setView("list");
-              fetchRequests(); // نحدث القائمة بعد الرجوع
+              setActiveView("list");
+              fetchAllRequests();
             }}
           />
         )}
-      </main>
+      </div>
     </div>
   );
 };
