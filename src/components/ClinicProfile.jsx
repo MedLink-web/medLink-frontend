@@ -2,235 +2,223 @@ import React, { useState } from "react";
 import "./ClinicProfile.css";
 
 const ClinicProfile = ({ onNavigate }) => {
-    const [isEditing, setIsEditing] = useState(false);
-    // 🌟 حالة جديدة للتحكم في ظهور إشعار نجاح الحفظ الأخضر
-    const [showNotification, setShowNotification] = useState(false);
+    // تتبع وضع الشاشة: "view" للعرض أو "edit" للتعديل
+        const [mode, setMode] = useState("view");
+        const [showSuccess, setShowSuccess] = useState(false);
 
-    const [clinicData, setClinicData] = useState({
-        id: "SA-2024-MED-00471",
-        name: "عيادة النور الطبية",
-        specialty: "طب الأسنان والتجميل",
-        license: "SA-2024-MED-00471",
-        status: "معتمدة",
-        phone: "+966 11 234 5678",
-        email: "info@alnour-clinic.com",
-        website: "info@alnour-clinic.com",
-        days: "الأحد - الخميس",
-        hours: "09:00 ص - 09:00 م",
-        about: "عيادة متخصصة في طب الأسنان وتجميلها، نقدم أحدث التقنيات والخدمات في بيئة طبية معتمدة، بكادر طبي متخصص وذو خبرة تفوق 15 عاماً."
-    });
+        // بيانات العيادة الافتراضية
+        const [clinicData, setClinicData] = useState({
+            name: "عيادة النور الطبية",
+            specialty: "طب الأسنان والتجميل",
+            license: "SA-2024-MED-00471",
+            phone: "+966 11 234 5678",
+            email: "info@alnour-clinic.com",
+            website: "infogalnour-clinic.com",
+            days: "الأحد - الخميس",
+            hours: "09:00 ص - 09:00 م",
+            about: "عيادة متخصصة في طب الأسنان وتجميلها، نقدم أحدث التقنيات والخدمات في بيئة طبية معتمدة، بكادر طبي متخصص وذو خبرة تفوق 15 عاماً."
+        });
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setClinicData((prev) => ({ ...prev, [name]: value }));
-    };
+        const [tempData, setTempData] = useState({ ...clinicData });
 
-    // 🚀 دالة الحفظ المحدثة لإظهار الشريط الأخضر كما في التصميم
-    const handleSave = () => {
-        setIsEditing(false); // العودة لوضع العرض
-        setShowNotification(true); // إظهار الإشعار الأخضر
+        const handleInputChange = (e) => {
+            const { name, value } = e.target;
+            setTempData(prev => ({ ...prev, [name]: value }));
+        };
 
-        // إخفاء الإشعار تلقائياً بعد 4 ثوانٍ لإعطاء تجربة مستخدم ذكية
-        setTimeout(() => {
-        setShowNotification(false);
-        }, 4000);
-    };
-
-    return (
-        <div className="clinic-layout-wrapper" dir="rtl">
-        
-        {/* 🏢 القائمة الجانبية */}
-        <div className="clinic-sidebar">
-            <div className="sidebar-clinic-header">
-            <div className="sidebar-clinic-logo">🏥</div>
-            <div className="sidebar-clinic-titles">
-                <h2 className="sidebar-clinic-name">{clinicData.name}</h2>
-                <p className="sidebar-clinic-sub">لوحة التحكم</p>
-            </div>
-            </div>
-
-            <p className="menu-section-title">القائمة الرئيسية</p>
-            <div className="sidebar-menu">
-            <div className="menu-item" onClick={() => onNavigate && onNavigate("clinic-dashboard")}>
-                <span className="menu-icon">🎛️</span>
-                <span className="menu-text">لوحة التحكم</span>
-            </div>
-            <div className="menu-item" onClick={() => alert("إدارة المرضى قيد التطوير")}>
-                <span className="menu-icon">👥</span>
-                <span className="menu-text">إدارة المرضى</span>
-            </div>
-            <div className="menu-item" onClick={() => alert("المواعيد قيد التطوير")}>
-                <span className="menu-icon">📅</span>
-                <span className="menu-text">المواعيد</span>
-            </div>
-            <div className="menu-item" onClick={() => alert("السجلات الطبية قيد التطوير")}>
-                <span className="menu-icon">📝</span>
-                <span className="menu-text">السجلات الطبية</span>
-            </div>
-            <div className="menu-item active">
-                <span className="menu-icon">🏢</span>
-                <span className="menu-text">ملف العيادة</span>
-            </div>
-            </div>
-
-            <div className="sidebar-footer">
-            <div className="logout-btn-wrapper" onClick={() => onNavigate && onNavigate("home")}>
-                <span className="logout-icon">🚪</span>
-                <span className="logout-text">تسجيل الخروج</span>
-            </div>
-            </div>
-        </div>
-
-        {/* 📄 منطقة المحتوى الرئيسي */}
-        <div className="clinic-main-content">
+        const handleSave = (e) => {
+            e.preventDefault();
+            setClinicData({ ...tempData });
+            setMode("view");
             
-            {/* 🌟 شريط نجاح التعديل الأخضر يظهر هنا بناءً على image_7f16c0.png */}
-            {showNotification && (
-            <div className="success-toast-banner">
-                <span className="toast-check-icon">✓</span>
-                <span className="toast-text-message">تم حفظ التغييرات بنجاح</span>
-            </div>
-            )}
+            // إظهار بانر "تم حفظ التغييرات بنجاح"
+            setShowSuccess(true);
+            setTimeout(() => setShowSuccess(false), 4000);
+        };
 
-            {/* هيدر الصفحة */}
-            <div className="profile-header-row">
-            <div className="breadcrumb-block">
-                <span className="breadcrumb-path">لوحة التحكم &gt; ملف العيادة</span>
-                <h1 className="current-view-title">
-                {isEditing ? "تعديل بيانات العيادة" : "ملف العيادة"}
-                </h1>
-            </div>
+        return (
+            <div className="clinic-dashboard-layout" dir="rtl">
             
-            {isEditing ? (
-                <div className="action-buttons-group">
-                <button className="save-changes-btn" onClick={handleSave}>حفظ التغييرات</button>
-                <button className="cancel-edit-btn" onClick={() => setIsEditing(false)}>إلغاء</button>
+            {/* القائمة الجانبية الموحدة (Sidebar) */}
+            <aside className="clinic-sidebar">
+                <div className="sidebar-brand">
+                    <div className="brand-logo-icon">🩺</div>
+                    <div className="brand-text-wrapper">
+                        <h3>{clinicData.name}</h3>
+                        <p>لوحة التحكم</p>
+                    </div>
                 </div>
-            ) : (
-                <button className="edit-btn" onClick={() => setIsEditing(true)}>
-                <span>تعديل البيانات</span>
-                <i className="edit-icon">✏️</i>
+                
+                <nav className="sidebar-menu-items">
+                    <p className="menu-section-title">القائمة الرئيسية</p>
+                    <button className="menu-item-btn" onClick={() => onNavigate("admin-dashboard")}>
+                        <span className="menu-icon">📊</span> لوحة التحكم
+                    </button>
+                    
+                    {/* زر إدارة الأطباء الموجه إلى الشاشة المحددة في App.jsx */}
+                    <button className="menu-item-btn" onClick={() => onNavigate("doctors-management")}>
+                        <span className="menu-icon">👩‍⚕️</span> إدارة الأطباء
+                    </button>
+                    
+                    <button className="menu-item-btn" onClick={() => alert("المواعيد")}>
+                        <span className="menu-icon">📅</span> المواعيد
+                    </button>
+                    <button className="menu-item-btn" onClick={() => alert("السجلات الطبية")}>
+                        <span className="menu-icon">📁</span> السجلات الطبية
+                    </button>
+                    <button className="menu-item-btn active-tab-item">
+                        <span className="menu-icon">🏢</span> ملف العيادة
+                    </button>
+                </nav>
+
+                <button className="sidebar-logout-btn" onClick={() => onNavigate("home")}>
+                    <span className="logout-icon">🚪</span> تسجيل الخروج
                 </button>
-            )}
+            </aside>
+
+            {/* المحتوى المتغير للعيادة */}
+            <main className="clinic-main-content">
+                
+                {/* بانر النجاح الأخضر عند الحفظ */}
+                {showSuccess && (
+                    <div className="success-toast-banner-top">
+                        <span className="toast-text-message">تم حفظ التغييرات بنجاح</span>
+                        <div className="toast-check-circle">✓</div>
+                    </div>
+                )}
+
+                {/* شريط المسار العلوي */}
+                <div className="content-top-navigation-bar">
+                    <div className="breadcrumb-links">
+                        <span>لوحة التحكم</span> &gt; <span>ملف العيادة</span>
+                        {mode === "edit" && <span className="active-path"> &gt; تعديل بيانات العيادة</span>}
+                    </div>
+                    
+                    {mode === "view" ? (
+                        <button className="edit-profile-action-btn" onClick={() => { setTempData({...clinicData}); setMode("edit"); }}>
+                            📝 تعديل البيانات
+                        </button>
+                    ) : (
+                        <div className="form-edit-actions">
+                            <button className="save-changes-blue-btn" onClick={handleSave}>حفظ التغييرات</button>
+                            <button className="cancel-edit-gray-btn" onClick={() => setMode("view")}>إلغاء</button>
+                        </div>
+                    )}
+                </div>
+
+                {/* عرض البيانات (Mode: View) */}
+                {mode === "view" ? (
+                    <div className="profile-details-view-card">
+                        
+                        <div className="clinic-main-intro-row">
+                            <div className="clinic-avatar-placeholder">🏥</div>
+                            <div className="clinic-intro-meta">
+                                <h2>{clinicData.name}</h2>
+                                <p className="specialty-badge-text">{clinicData.specialty}</p>
+                                <span className="license-number-tag">{clinicData.license} <span className="verified-status-badge">✓ معتمدة</span></span>
+                            </div>
+                        </div>
+
+                        <div className="info-sections-grid-wrapper">
+                            <h3 className="section-grid-title">معلومات التواصل والعنوان</h3>
+                            <div className="info-detail-row">
+                                <span className="info-row-label">📞 رقم الهاتف:</span>
+                                <span className="info-row-value">{clinicData.phone}</span>
+                            </div>
+                            <div className="info-detail-row">
+                                <span className="info-row-label">✉️ البريد الإلكتروني:</span>
+                                <span className="info-row-value">{clinicData.email}</span>
+                            </div>
+                            <div className="info-detail-row">
+                                <span className="info-row-label">📍 عنوان العيادة:</span>
+                                <span className="info-row-value">{clinicData.website}</span>
+                            </div>
+                            <div className="info-detail-row">
+                                <span className="info-row-label">📅 أيام الدوام:</span>
+                                <span className="info-row-value">{clinicData.days}</span>
+                            </div>
+                            <div className="info-detail-row">
+                                <span className="info-row-label">🕒 ساعات العمل:</span>
+                                <span className="info-row-value">{clinicData.hours}</span>
+                            </div>
+                        </div>
+
+                        <div className="about-section-block-box">
+                            <h3>📝 نبذة عن العيادة</h3>
+                            <p>{clinicData.about}</p>
+                        </div>
+
+                    </div>
+                ) : (
+                    /* نموذج التعديل (Mode: Edit) */
+                    <form className="profile-edit-form-container" onSubmit={handleSave}>
+                        
+                        <div className="edit-image-upload-section">
+                            <div className="current-logo-preview">🏥</div>
+                            <button type="button" className="change-photo-trigger-btn">تعديل الصورة</button>
+                        </div>
+
+                        <fieldset className="form-fields-group-wrapper">
+                            <legend>المعلومات الأساسية</legend>
+                            
+                            <div className="input-field-block">
+                                <label>اسم العيادة</label>
+                                <input type="text" name="name" value={tempData.name} onChange={handleInputChange} />
+                            </div>
+
+                            <div className="input-field-block">
+                                <label>التخصص</label>
+                                <input type="text" name="specialty" value={tempData.specialty} onChange={handleInputChange} />
+                            </div>
+
+                            <div className="input-field-block">
+                                <label>رقم الترخيص الطبي</label>
+                                <input type="text" name="license" value={tempData.license} onChange={handleInputChange} />
+                            </div>
+                        </fieldset>
+
+                        <fieldset className="form-fields-group-wrapper">
+                            <legend>معلومات التواصل والعنوان</legend>
+
+                            <div className="input-field-block">
+                                <label>رقم الهاتف</label>
+                                <input type="text" name="phone" value={tempData.phone} onChange={handleInputChange} />
+                            </div>
+
+                            <div className="input-field-block">
+                                <label>البريد الإلكتروني</label>
+                                <input type="email" name="email" value={tempData.email} onChange={handleInputChange} />
+                            </div>
+
+                            <div className="input-field-block">
+                                <label>عنوان العيادة</label>
+                                <input type="text" name="website" value={tempData.website} onChange={handleInputChange} />
+                            </div>
+
+                            <div className="input-field-block">
+                                <label>أيام الدوام</label>
+                                <input type="text" name="days" value={tempData.days} onChange={handleInputChange} />
+                            </div>
+
+                            <div className="input-field-block">
+                                <label>ساعات العمل</label>
+                                <input type="text" name="hours" value={tempData.hours} onChange={handleInputChange} />
+                            </div>
+                        </fieldset>
+
+                        <fieldset className="form-fields-group-wrapper">
+                            <legend>نبذة عن العيادة</legend>
+                            <div className="input-field-block">
+                                <textarea name="about" rows="4" value={tempData.about} onChange={handleInputChange}></textarea>
+                            </div>
+                        </fieldset>
+
+                    </form>
+                )}
+
+            </main>
             </div>
-
-            {/* ------------------ وضع التعديل ------------------ */}
-            {isEditing ? (
-            <div className="edit-profile-form">
-                <div className="form-section-card image-edit-card">
-                <div className="clinic-avatar-large">🏥</div>
-                <button className="change-photo-btn" onClick={() => alert("رفع صورة جديدة قيد التطوير")}>
-                    تعديل ع الصورة
-                </button>
-                </div>
-
-                <div className="form-section-card">
-                <h2 className="section-form-title">المعلومات الأساسية</h2>
-                <div className="input-field-wrapper">
-                    <label className="field-label">اسم العيادة:</label>
-                    <div className="input-with-icon">
-                    <input type="text" name="name" value={clinicData.name} onChange={handleChange} />
-                    <span className="input-icon-slot">🏢</span>
-                    </div>
-                </div>
-                <div className="input-field-wrapper">
-                    <label className="field-label">التخصص:</label>
-                    <div className="input-with-icon">
-                    <input type="text" name="specialty" value={clinicData.specialty} onChange={handleChange} />
-                    <span className="input-icon-slot">🩺</span>
-                    </div>
-                </div>
-                <div className="input-field-wrapper">
-                    <label className="field-label">رقم الترخيص الطبي:</label>
-                    <div className="input-with-icon">
-                    <input type="text" name="license" value={clinicData.license} onChange={handleChange} />
-                    <span className="input-icon-slot">📋</span>
-                    </div>
-                </div>
-                </div>
-
-                <div className="form-section-card">
-                <h2 className="section-form-title">معلومات التواصل والعنوان</h2>
-                <div className="input-field-wrapper">
-                    <label className="field-label">رقم الهاتف</label>
-                    <div className="input-with-icon">
-                    <input type="text" name="phone" value={clinicData.phone} onChange={handleChange} />
-                    <span className="input-icon-slot">📱</span>
-                    </div>
-                </div>
-                <div className="input-field-wrapper">
-                    <label className="field-label">البريد الإلكتروني</label>
-                    <div className="input-with-icon">
-                    <input type="email" name="email" value={clinicData.email} onChange={handleChange} />
-                    <span className="input-icon-slot">✉️</span>
-                    </div>
-                </div>
-                <div className="input-field-wrapper">
-                    <label className="field-label">عنوان العيادة</label>
-                    <div className="input-with-icon">
-                    <input type="text" name="website" value={clinicData.website} onChange={handleChange} />
-                    <span className="input-icon-slot">📍</span>
-                    </div>
-                </div>
-                <div className="input-field-wrapper">
-                    <label className="field-label">أيام الدوام</label>
-                    <div className="input-with-icon">
-                    <input type="text" name="days" value={clinicData.days} onChange={handleChange} />
-                    <span className="input-icon-slot">📅</span>
-                    </div>
-                </div>
-                <div className="input-field-wrapper">
-                    <label className="field-label">ساعات العمل</label>
-                    <div className="input-with-icon">
-                    <input type="text" name="hours" value={clinicData.hours} onChange={handleChange} />
-                    <span className="input-icon-slot">🕒</span>
-                    </div>
-                </div>
-                </div>
-
-                <div className="form-section-card">
-                <h2 className="section-form-title">نبذة عن العيادة</h2>
-                <textarea name="about" value={clinicData.about} onChange={handleChange} rows="4" className="form-textarea"></textarea>
-                </div>
-            </div>
-            ) : (
-            // ------------------ وضع العرض الافتراضي ------------------
-            <div className="view-profile-details">
-                <div className="main-info-card">
-                <div className="right-brand-section">
-                    <div className="clinic-logo-placeholder">🏥</div>
-                    <div className="clinic-title-block">
-                    <h2 className="clinic-main-name">{clinicData.name}</h2>
-                    <p className="clinic-sub-specialty">{clinicData.specialty}</p>
-                    </div>
-                </div>
-                <div className="left-status-section">
-                    <span className="clinic-id-badge">{clinicData.id}</span>
-                    <span className="status-badge-active">✓ {clinicData.status}</span>
-                </div>
-                </div>
-
-                <div className="details-section-box">
-                <h2 className="section-main-title">معلومات التواصل والعنوان</h2>
-                <div className="info-grid-list">
-                    <div className="info-grid-item"><div className="item-icon">📱</div><div className="item-text-group"><span className="item-label">رقم الهاتف</span><span className="item-value">{clinicData.phone}</span></div></div>
-                    <div className="info-grid-item"><div className="item-icon">✉️</div><div className="item-text-group"><span className="item-label">البريد الإلكتروني</span><span className="item-value">{clinicData.email}</span></div></div>
-                    <div className="info-grid-item"><div className="item-icon">📍</div><div className="item-text-group"><span className="item-label">عنوان العيادة</span><span className="item-value">{clinicData.website}</span></div></div>
-                    <div className="info-grid-item"><div className="item-icon">📅</div><div className="item-text-group"><span className="item-label">أيام الدوام</span><span className="item-value">{clinicData.days}</span></div></div>
-                    <div className="info-grid-item"><div className="item-icon">🕒</div><div className="item-text-group"><span className="item-label">ساعات العمل</span><span className="item-value">{clinicData.hours}</span></div></div>
-                </div>
-                </div>
-
-                <div className="about-section-box">
-                <h2 className="section-main-title">نبذة عن العيادة</h2>
-                <p className="about-paragraph-text">{clinicData.about}</p>
-                </div>
-            </div>
-            )}
-
-        </div>
-        </div>
-    );
+        );
 };
 
 export default ClinicProfile;
