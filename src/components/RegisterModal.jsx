@@ -1,14 +1,7 @@
 import React from "react";
 import "./RegisterModal.css";
 
-const RegisterModal = ({
-  isOpen,
-  onClose,
-  onSelectPatient,
-  onSelectClinic,
-  onSelectPharmacy,
-  onLoginClick,
-}) => {
+const RegisterModal = ({ isOpen, onClose, onSelectPatient, onSelectPharmacy, onNavigate, onSelectClinic, onLoginClick }) => {
   if (!isOpen) return null;
 
   const accountTypes = [
@@ -65,13 +58,18 @@ const RegisterModal = ({
                 onClick={() => {
                   if (type.id === "patient") {
                     onClose();
-                    onSelectPatient();
+                    if (onSelectPatient) onSelectPatient();
+                    else if (onNavigate) onNavigate("register-patient");
                   } else if (type.id === "clinic") {
+                    // 🌟 إصلاح انتقال العيادة: إغلاق وتوجيه آمن ومباشر لمنع التعطل
                     onClose();
-                    onSelectClinic && onSelectClinic();
+                    if (onSelectClinic) onSelectClinic();
+                    else if (onNavigate) onNavigate("register-clinic");
                   } else if (type.id === "pharmacy") {
+                    // 🌟 ربط الصيدلية بشكل سليم ومطابق للـ App.jsx المحدث
                     onClose();
-                    onSelectPharmacy && onSelectPharmacy();
+                    if (onSelectPharmacy) onSelectPharmacy();
+                    else if (onNavigate) onNavigate("pharmacy-register");
                   } else {
                     alert(`واجهة حساب (${type.title}) قيد التطوير حالياً!`);
                   }

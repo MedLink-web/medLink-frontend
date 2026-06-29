@@ -11,6 +11,13 @@ import PatientRegisterForm from "./components/PatientRegisterForm";
 import PatientDashboard from "./components/PatientDashboard";
 import PatientProfile from "./components/PatientProfile";
 import PatientLogin from "./components/PatientLogin";
+import ClinicProfile from "./components/ClinicProfile";
+import PharmacyRegisterForm from "./components/PharmacyRegisterForm";
+import ClinicRegisterForm from "./components/ClinicRegister";
+import ClinicAdminDashboard from "./components/ClinicAdminDashboard";
+import DoctorsManagement from "./components/DoctorsManagement";
+import AddDoctorForm from "./components/AddDoctorForm";
+import PatientClinicsView from "./components/PatientClinicsView";
 
 // استيراد شاشات استعادة كلمة المرور
 import ForgotPassword from "./components/ForgotPassword";
@@ -18,179 +25,246 @@ import VerifyCode from "./components/VerifyCode";
 import ResetPassword from "./components/ResetPassword";
 import ResetSuccess from "./components/ResetSuccess";
 
-// استدعاء شاشة تسجيل العيادة
-import ClinicRegisterForm from "./components/ClinicRegister";
-
-// استدعاء شاشة تسجيل الصيدلية
-import PharmacyRegisterForm from "./components/PharmacyRegisterForm";
-
-// استيراد لوحة تحكم المسؤول
-import ClinicAdminDashboard from "./components/ClinicAdminDashboard";
-
 import "./App.css";
 
 function App() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [currentView, setCurrentView] = useState("home");
-    const [forgotEmail, setForgotEmail] = useState("");
-    const [forgotStep,  setForgotStep]  = useState("forgot");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentView, setCurrentView] = useState("home");
+  const [forgotEmail, setForgotEmail] = useState("");
+  const [forgotStep, setForgotStep] = useState("forgot");
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
 
-    const openModal  = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
+  // قائمة الأطباء
+  const [doctorsList, setDoctorsList] = useState([
+    {
+      id: 1,
+      name: "د. خالد العمري",
+      specialty: "طب أسنان",
+      email: "khaled.omari@alnour.com",
+      phone: "+966 50 111 2233",
+      patients: 148,
+      rating: 4.9,
+      status: "نشط",
+    },
+    {
+      id: 2,
+      name: "د. سارة الأحمد",
+      specialty: "تقويم الأسنان",
+      email: "sara.ahmed@alnour.com",
+      phone: "+966 50 222 3344",
+      patients: 95,
+      rating: 4.8,
+      status: "نشط",
+    },
+    {
+      id: 3,
+      name: "د. محمد القحطاني",
+      specialty: "جراحة الفم والوجه",
+      email: "m.qahtani@alnour.com",
+      phone: "+966 50 333 4455",
+      patients: 210,
+      rating: 5.0,
+      status: "نشط",
+    },
+    {
+      id: 4,
+      name: "د. ريم الدوسري",
+      specialty: "طب أسنان الأطفال",
+      email: "reem.d@alnour.com",
+      phone: "+966 50 444 5566",
+      patients: 64,
+      rating: 4.7,
+      status: "غير نشط",
+    },
+    {
+      id: 5,
+      name: "د. فيصل السديري",
+      specialty: "تركيبات وتجميل الأسنان",
+      email: "faisal.s@alnour.com",
+      phone: "+966 50 555 6677",
+      patients: 117,
+      rating: 4.9,
+      status: "نشط",
+    },
+  ]);
 
-    const renderView = () => {
-        switch (currentView) {
+  const handleAddNewDoctor = (newDoctor) => {
+    // نضيف الطبيب الجديد للقائمة مباشرة
+    setDoctorsList((prev) => [newDoctor, ...prev]);
+    setCurrentView("doctors-management");
+    setShowSuccessToast(true);
+    setTimeout(() => setShowSuccessToast(false), 4000);
+  };
 
-            case "home":
-                return (
-                    <>
-                        <Navbar onRegisterClick={openModal} />
-                        <Hero onRegisterClick={openModal} />
-                        <Services />
-                        <Stats />
-                        <About />
-                        <HowItWorks />
-                        <Footer onNavigate={(targetView) => setCurrentView(targetView)} />
+  const handleDeleteDoctor = (id) => {
+    setDoctorsList(doctorsList.filter((doc) => doc.id !== id));
+  };
 
-                        <RegisterModal
-                            isOpen={isModalOpen}
-                            onClose={closeModal}
-                            onSelectPatient={() => {
-                                closeModal();
-                                setCurrentView("register-patient");
-                            }}
-                            onSelectClinic={() => {
-                                closeModal();
-                                setCurrentView("register-clinic");
-                            }}
-                            onSelectPharmacy={() => {
-                                closeModal();
-                                setCurrentView("register-pharmacy");
-                            }}
-                            onLoginClick={() => {
-                                closeModal();
-                                setCurrentView("login");
-                            }}
-                        />
-                    </>
-                );
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
-            case "register-clinic":
-                return (
-                    <ClinicRegisterForm
-                        onNavigate={(targetView) => setCurrentView(targetView)}
-                    />
-                );
+  const renderView = () => {
+    switch (currentView) {
+      case "home":
+        return (
+          <>
+            <Navbar onRegisterClick={openModal} />
+            <Hero onRegisterClick={openModal} />
+            <Services />
+            <Stats />
+            <About />
+            <HowItWorks />
+            <Footer onNavigate={(targetView) => setCurrentView(targetView)} />
+            <RegisterModal
+              isOpen={isModalOpen}
+              onClose={closeModal}
+              onSelectPatient={() => {
+                closeModal();
+                setCurrentView("register-patient");
+              }}
+              onSelectClinic={() => {
+                closeModal();
+                setCurrentView("register-clinic");
+              }}
+              onSelectPharmacy={() => {
+                closeModal();
+                setCurrentView("register-pharmacy");
+              }}
+              onLoginClick={() => {
+                closeModal();
+                setCurrentView("login");
+              }}
+            />
+          </>
+        );
 
-            case "register-pharmacy":
-                return (
-                    <PharmacyRegisterForm
-                        onNavigate={(targetView) => setCurrentView(targetView)}
-                    />
-                );
+      case "register-clinic":
+        return <ClinicRegisterForm onNavigate={(v) => setCurrentView(v)} />;
 
-            case "register-patient":
-                return (
-                    <PatientRegisterForm
-                        onNavigate={(targetView) => setCurrentView(targetView)}
-                        onBackToHome={() => setCurrentView("home")}
-                        onRegisterSuccess={() => setCurrentView("dashboard")}
-                    />
-                );
+      case "register-pharmacy":
+        return <PharmacyRegisterForm onNavigate={(v) => setCurrentView(v)} />;
 
-            case "dashboard":
-                return (
-                    <PatientDashboard
-                        onLogout={() => setCurrentView("home")}
-                        onNavigate={(targetView) => setCurrentView(targetView)}
-                    />
-                );
+      case "register-patient":
+        return (
+          <PatientRegisterForm
+            onNavigate={(v) => setCurrentView(v)}
+            onBackToHome={() => setCurrentView("home")}
+            onRegisterSuccess={() => setCurrentView("dashboard")}
+          />
+        );
 
-            case "profile":
-                return (
-                    <PatientProfile
-                        onNavigate={(targetView) => setCurrentView(targetView)}
-                    />
-                );
+      case "dashboard":
+        return (
+          <PatientDashboard
+            onLogout={() => setCurrentView("home")}
+            onNavigate={(v) => setCurrentView(v)}
+          />
+        );
 
-            case "admin-clinic-requests":
-                return (
-                    <ClinicAdminDashboard
-                        onNavigate={(targetView) => setCurrentView(targetView)}
-                    />
-                );
+      case "profile":
+      case "patient-profile":
+        return <PatientProfile onNavigate={(v) => setCurrentView(v)} />;
 
-            case "login":
-                return (
-                    <PatientLogin
-                        onNavigate={(targetView) => {
-                            if (targetView === "forgot-password") {
-                                setForgotStep("forgot");
-                            }
-                            setCurrentView(targetView);
-                        }}
-                        onLoginSuccess={(user) => {
-                            if (user.role === "admin") {
-                                setCurrentView("admin-clinic-requests");
-                            } else {
-                                setCurrentView("dashboard");
-                            }
-                        }}
-                    />
-                );
+      case "patient-clinics":
+        return <PatientClinicsView onNavigate={(v) => setCurrentView(v)} />;
 
-            case "forgot-password":
-                if (forgotStep === "forgot") {
-                    return (
-                        <ForgotPassword
-                            onNavigate={(target) => {
-                                setForgotStep("forgot");
-                                setCurrentView(target);
-                            }}
-                            onNextStep={(next, email) => {
-                                setForgotEmail(email);
-                                setForgotStep(next);
-                            }}
-                        />
-                    );
-                }
-                if (forgotStep === "verify") {
-                    return (
-                        <VerifyCode
-                            email={forgotEmail}
-                            onNextStep={(next) => setForgotStep(next)}
-                        />
-                    );
-                }
-                if (forgotStep === "reset") {
-                    return <ResetPassword onNextStep={(next) => setForgotStep(next)} />;
-                }
-                if (forgotStep === "success") {
-                    return (
-                        <ResetSuccess
-                            onNavigate={(view) => {
-                                setForgotStep("forgot");
-                                setTimeout(() => setCurrentView(view), 0);
-                            }}
-                        />
-                    );
-                }
-                break;
+      case "admin-dashboard":
+      case "admin-clinic-requests":
+        return <ClinicAdminDashboard onNavigate={(v) => setCurrentView(v)} />;
 
-            default:
-                return (
-                    <div style={{ textAlign: "center", marginTop: "50px" }}>
-                        الصفحة غير موجودة
-                    </div>
-                );
+      case "clinic-profile":
+        return <ClinicProfile onNavigate={(v) => setCurrentView(v)} />;
+
+      case "doctors-management":
+        return (
+          <DoctorsManagement
+            onNavigate={(v) => setCurrentView(v)}
+            onDelete={(id) =>
+              setDoctorsList((prev) => prev.filter((d) => d.id !== id))
+            }
+            showToast={showSuccessToast}
+          />
+        );
+
+      case "add-doctor":
+        return (
+          <AddDoctorForm
+            onNavigate={(v) => setCurrentView(v)}
+            onSave={handleAddNewDoctor}
+          />
+        );
+
+      case "login":
+        return (
+          <PatientLogin
+            onNavigate={(targetView) => {
+              if (targetView === "forgot-password") setForgotStep("forgot");
+              setCurrentView(targetView);
+            }}
+            onLoginSuccess={(user) => {
+              if (user.role === "admin") {
+                setCurrentView("admin-clinic-requests");
+              } else if (user.role === "clinic") {
+                setCurrentView("clinic-profile");
+              } else {
+                setCurrentView("dashboard");
+              }
+            }}
+          />
+        );
+
+      case "forgot-password":
+        if (forgotStep === "forgot") {
+          return (
+            <ForgotPassword
+              onNavigate={(target) => {
+                setForgotStep("forgot");
+                setCurrentView(target);
+              }}
+              onNextStep={(next, email) => {
+                setForgotEmail(email);
+                setForgotStep(next);
+              }}
+            />
+          );
         }
-    };
+        if (forgotStep === "verify") {
+          return (
+            <VerifyCode
+              email={forgotEmail}
+              onNextStep={(next) => setForgotStep(next)}
+            />
+          );
+        }
+        if (forgotStep === "reset") {
+          return <ResetPassword onNextStep={(next) => setForgotStep(next)} />;
+        }
+        if (forgotStep === "success") {
+          return (
+            <ResetSuccess
+              onNavigate={(view) => {
+                setForgotStep("forgot");
+                setTimeout(() => setCurrentView(view), 0);
+              }}
+            />
+          );
+        }
+        break;
 
-    return (
-        <div className="app-container" dir="rtl">
-            {renderView()}
-        </div>
-    );
+      default:
+        return (
+          <div style={{ textAlign: "center", marginTop: "50px" }}>
+            الصفحة غير موجودة
+          </div>
+        );
+    }
+  };
+
+  return (
+    <div className="app-container" dir="rtl">
+      {renderView()}
+    </div>
+  );
 }
 
 export default App;

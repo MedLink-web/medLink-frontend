@@ -1,0 +1,111 @@
+/* ربط تنسيق الحاوية الرئيسية والسايد بار لضمان الثبات */
+.dashboard-layout-root {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f8fafc;
+    width: 100%;
+}
+
+/* تصميم كرت النموذج الداخلي */
+.form-card-container {
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 35px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.01);
+}
+
+.form-instruction-banner {
+    font-size: 15px;
+    color: #4a5568;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.doctor-creation-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 600px;
+}
+
+.form-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-input-group label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a365d;
+}
+
+.required-star {
+    color: #e53e3e;
+    margin-right: 4px;
+}
+
+.form-input-group input,
+.styled-form-select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cbd5e0;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.form-input-group input:focus,
+.styled-form-select:focus {
+    border-color: #2b6cb0;
+    background-color: white;
+}
+
+/* زر اختيار التخصص القابل للفتح المخصص */
+.styled-form-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 12px center;
+    background-size: 16px;
+    padding-left: 35px;
+}
+
+/* صف أزرار الإجراءات السفلي */
+.form-action-buttons-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.form-submit-blue-btn {
+    background-color: #2b6cb0;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.form-cancel-gray-btn {
+    background-color: #e2e8f0;
+    color: #4a5568;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.form-cancel-gray-btn:hover {
+    background-color: #cbd5e0;
+}

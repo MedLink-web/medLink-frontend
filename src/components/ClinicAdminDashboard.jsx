@@ -19,9 +19,9 @@ const ClinicAdminDashboard = ({ onNavigate }) => {
   const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
   const [adminData] = useState({
     name: storedUser.full_name || "Admin",
-    email: storedUser.email || "",
+    email: storedUser.email || "raninAdmin@gmailcom",
     role: "مدير النظام العام (Super Admin)",
-    phone: storedUser.phone || "",
+    phone: storedUser.phone || "0593458957",
     joinedDate: "20/6/2026",
   });
 
