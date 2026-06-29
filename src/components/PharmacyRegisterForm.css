@@ -1,0 +1,179 @@
+.pharmacy-reg-container {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    font-family: 'Cairo', sans-serif;
+    background-color: #ffffff;
+}
+
+.pharmacy-reg-image-side {
+    flex: 1;
+    position: relative;
+    display: block;
+}
+
+.side-bg-img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    display: block;
+}
+
+/* الشق الأيمن */
+.pharmacy-reg-form-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 40px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    background-color: #ffffff;
+    justify-content: flex-start;
+}
+
+/* 🌟 تعديل هيدر الشعار ليقفز بدقة إلى أعلى يمين الشاشة بحرية كاملة */
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-text {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1a56b3;
+    /* اللون الأزرق الأساسي للبراند */
+    font-family: sans-serif;
+    /* لجعل الحروف الإنجليزية تظهر انسيابية */
+    letter-spacing: -0.5px;
+}
+
+.logo-image {
+    width: 70px;
+    height: auto;
+}
+
+/* الحاوية المركزية للفورم */
+.form-wrapper {
+    width: 100%;
+    max-width: 480px;
+    margin: auto auto; /* توسيط عمودي وأفقي مثالي للفورم داخل الشاشة */
+    display: flex;
+    flex-direction: column;
+}
+
+.form-main-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1a202c;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.actual-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.reg-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.reg-field-label {
+    font-size: 15px;
+    font-weight: 700;
+    color: #2d3748;
+}
+
+.input-with-icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.reg-custom-input {
+    width: 100%;
+    background-color: #ededed;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 15px 12px 45px;
+    font-size: 14px;
+    color: #2d3748;
+    box-sizing: border-box;
+    font-family: inherit;
+    text-align: right;
+    transition: all 0.2s ease-in-out;
+}
+
+.reg-custom-input:focus {
+    outline: none;
+    background-color: #f7fafc;
+    box-shadow: 0 0 0 2px rgba(43, 108, 176, 0.2);
+}
+
+.input-internal-icon {
+    position: absolute;
+    left: 15px;
+    font-size: 18px;
+    color: #718096;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+}
+
+.reg-custom-textarea {
+    width: 100%;
+    background-color: #ededed;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 15px;
+    font-size: 14px;
+    color: #2d3748;
+    box-sizing: border-box;
+    font-family: inherit;
+    text-align: right;
+    resize: vertical;
+}
+
+.reg-custom-textarea:focus {
+    outline: none;
+    background-color: #f7fafc;
+    box-shadow: 0 0 0 2px rgba(43, 108, 176, 0.2);
+}
+
+.btn-submit-pharmacy-request {
+    background-color: #2d62b3;
+    color: #ffffff;
+    border: none;
+    padding: 14px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 0 4px 10px rgba(45, 98, 179, 0.2);
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-submit-pharmacy-request:hover {
+    background-color: #224c8c;
+}
+
+.btn-submit-pharmacy-request:active {
+    transform: scale(0.99);
+}
+
+@media (max-width: 900px) {
+    .pharmacy-reg-container {
+        flex-direction: column;
+    }
+    .pharmacy-reg-image-side {
+        display: none;
+    }
+    .pharmacy-reg-form-side {
+        padding: 30px 20px;
+    }
+}

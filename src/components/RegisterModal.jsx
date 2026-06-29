@@ -1,7 +1,14 @@
 import React from "react";
 import "./RegisterModal.css";
 
-const RegisterModal = ({ isOpen, onClose, onSelectPatient, onSelectClinic, onLoginClick }) => {
+const RegisterModal = ({
+  isOpen,
+  onClose,
+  onSelectPatient,
+  onSelectClinic,
+  onSelectPharmacy,
+  onLoginClick,
+}) => {
   if (!isOpen) return null;
 
   const accountTypes = [
@@ -62,6 +69,9 @@ const RegisterModal = ({ isOpen, onClose, onSelectPatient, onSelectClinic, onLog
                   } else if (type.id === "clinic") {
                     onClose();
                     onSelectClinic && onSelectClinic();
+                  } else if (type.id === "pharmacy") {
+                    onClose();
+                    onSelectPharmacy && onSelectPharmacy();
                   } else {
                     alert(`واجهة حساب (${type.title}) قيد التطوير حالياً!`);
                   }
