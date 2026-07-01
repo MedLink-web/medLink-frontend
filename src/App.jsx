@@ -25,14 +25,18 @@ import VerifyCode from "./components/VerifyCode";
 import ResetPassword from "./components/ResetPassword";
 import ResetSuccess from "./components/ResetSuccess";
 
+import ClinicDetailsView from "./components/ClinicDetailsView";
+import ClinicAppointmentsView from "./components/ClinicAppointmentsView";
 import "./App.css";
 
 function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentView, setCurrentView] = useState("home");
-  const [forgotEmail, setForgotEmail] = useState("");
-  const [forgotStep, setForgotStep] = useState("forgot");
-  const [showSuccessToast, setShowSuccessToast] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [currentView, setCurrentView] = useState("patient-profile"); // الشاشة الافتراضية عند التشغيل
+    const [forgotEmail, setForgotEmail] = useState("");
+    const [forgotStep, setForgotStep] = useState("forgot");
+
+    // حالة (State) مشتركة لإدارة بانر النجاح الأخضر
+    const [showSuccessToast, setShowSuccessToast] = useState(false);
 
   // قائمة الأطباء
   const [doctorsList, setDoctorsList] = useState([
@@ -161,19 +165,30 @@ function App() {
           />
         );
 
-      case "profile":
-      case "patient-profile":
-        return <PatientProfile onNavigate={(v) => setCurrentView(v)} />;
-
-      case "patient-clinics":
-        return <PatientClinicsView onNavigate={(v) => setCurrentView(v)} />;
-
-      case "admin-dashboard":
-      case "admin-clinic-requests":
-        return <ClinicAdminDashboard onNavigate={(v) => setCurrentView(v)} />;
-
-      case "clinic-profile":
-        return <ClinicProfile onNavigate={(v) => setCurrentView(v)} />;
+          case "patient-profile":
+            return (
+              <PatientProfile
+                onNavigate={(targetView) => setCurrentView(targetView)}
+              />
+            );
+          case "patient-clinics":
+            return (
+                <PatientClinicsView onNavigate={(targetView) => setCurrentView(targetView)} />
+            );
+          case "admin-dashboard":
+          case "admin-clinic-requests":
+            return (
+              <ClinicAdminDashboard
+                onNavigate={(targetView) => setCurrentView(targetView)}
+              />
+            );
+          
+          case "clinic-profile":
+            return (
+              <ClinicProfile 
+                onNavigate={(targetView) => setCurrentView(targetView)} 
+              />
+            );
 
       case "doctors-management":
         return (

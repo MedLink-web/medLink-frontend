@@ -244,12 +244,28 @@ const PatientClinicsView = ({ onNavigate, activeView, onLogout }) => {
                     </div>
 
                     <div className="clinic-card-actions-footer-row">
-                    <button
-                        className="btn-patient-book-now-action"
-                        onClick={() => alert(`توجيه لحجز موعد في: ${clinic.name}`)}
-                    >
-                        احجز موعد الآن
-                    </button>
+                        {/* زر عرض التفاصيل الجديد */}
+                        <button 
+                            className="btn-patient-view-details"
+                            onClick={() => {
+                                if (clinic.id === 1) {
+                                    // إذا كانت عيادة النور التخصصية، ينقلنا لشاشة تفاصيل العيادة
+                                    if (onNavigate) onNavigate('clinic-details');
+                                } else {
+                                    alert(`تفاصيل ${clinic.name} ستتوفر قريباً!`);
+                                }
+                            }}
+                        >
+                            عرض التفاصيل
+                        </button>
+
+                        {/* زر احجز موعد الآن الحالي */}
+                        <button 
+                            className="btn-patient-book-now-action"
+                            onClick={() => alert(`توجيه لحجز موعد سريع في: ${clinic.name}`)}
+                        >
+                            احجز الآن 📅
+                        </button>
                     </div>
                 </div>
                 ))}
