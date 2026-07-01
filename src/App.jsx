@@ -228,6 +228,19 @@ function App() {
           />
         );
 
+      case "clinic-appointments":
+        return (
+          <ClinicAppointmentsView 
+            onBack={() => setCurrentView("clinic-details")} // للعودة عند الضغط على زر الرجوع
+          />
+        );
+      case "clinic-details": // 💡 تأكدي أن هذا الاسم مطابق تماماً لما يرسله زر "عرض التفاصيل"
+        return (
+          <ClinicDetailsView 
+            onBack={() => setCurrentView("patient-clinics")}
+            onNavigate={(targetView) => setCurrentView(targetView)} // هذا السطر يسمح بالانتقال لإدارة المواعيد لاحقاً
+          />
+        );
       case "forgot-password":
         if (forgotStep === "forgot") {
           return (
