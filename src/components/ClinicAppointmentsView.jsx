@@ -1,173 +1,81 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ClinicAppointmentsView.css";
 
 const ClinicAppointmentsView = ({ onBack }) => {
     const days = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
-    
-    const [selectedDay, setSelectedDay] = useState("الأحد");
-    const [isModalOpen, setIsModalOpen] = useState(false); 
-    const [modalMode, setModalMode] = useState("add"); // "add" أو "edit"
-    const [alertConfig, setAlertConfig] = useState({ show: false, type: "", message: "" }); 
 
-    // 1. تحويل المواعيد إلى State موزع على كل أيام الأسبوع كبيانات أولية (مبنية على الـ Figma)
-    const [appointmentsData, setAppointmentsData] = useState({
-        "الأحد": [
-            { id: 1, startTime: "08:00", endTime: "10:00", duration: "30 دقيقة", booked: "3 / 4 محجوز", percentage: 75, status: "نشط" },
-            { id: 2, startTime: "10:00", endTime: "12:00", duration: "30 دقيقة", booked: "4 / 4 محجوز", percentage: 100, status: "نشط" },
-            { id: 3, startTime: "14:00", endTime: "17:00", duration: "30 دقيقة", booked: "2 / 4 محجوز", percentage: 50, status: "نشط" }
-        ],
-        "الإثنين": [
-            { id: 4, startTime: "09:00", endTime: "11:00", duration: "20 دقيقة", booked: "0 / 5 محجوز", percentage: 0, status: "نشط" }
-        ],
-        "الثلاثاء": [],
-        "الأربعاء": [],
-        "الخميس": [],
-        "الجمعة": [],
-        "السبت": []
-    });
+    const [selectedDay,    setSelectedDay]    = useState("الأحد");
+    const [isModalOpen,    setIsModalOpen]    = useState(false);
+    const [modalMode,      setModalMode]      = useState("add");
+    const [alertConfig,    setAlertConfig]    = useState({ show: false, type: "", message: "" });
+    const [isLoading,      setIsLoading]      = useState(true);
+    const [isSaving,       setIsSaving]       = useState(false);
+    const [allSlots,       setAllSlots]       = useState([]);
 
-    // حالات التحكم بنماذج المدخلات داخل المودال
-    const [targetDay, setTargetDay] = useState("");
-    const [startTime, setStartTime] = useState("09:00");
-    const [endTime, setEndTime] = useState("10:00");
-    const [duration, setDuration] = useState("30 دقيقة");
-    const [maxPatients, setMaxPatients] = useState(4);
+    // حالات المودال
+    const [targetDay,      setTargetDay]      = useState("");
+    const [startTime,      setStartTime]      = useState("09:00");
+    const [endTime,        setEndTime]        = useState("10:00");
+    const [duration,       setDuration]       = useState("30 دقيقة");
+    const [maxPatients,    setMaxPatients]    = useState(4);
     const [selectedSlotId, setSelectedSlotId] = useState(null);
+    const [selectedDate,   setSelectedDate]   = useState("");
 
+    const getToken = () => localStorage.getItem("auth_token");
+
+    // ─── تحويل اسم اليوم إلى أقرب تاريخ ────────────
+    const getNextDateForDay = (dayName) => {
+        const dayMap = { "الأحد":0, "الإثنين":1, "الثلاثاء":2, "الأربعاء":3, "الخميس":4, "الجمعة":5, "السبت":6 };
+        const today = new Date();
+        const targetDay = dayMap[dayName];
+        const diff = (targetDay - today.getDay() + 7) % 7 || 7;
+        const date = new Date(today);
+        date.setDate(today.getDate() + diff);
+        return date.toISOString().split('T')[0];
+    };
+
+    // ─── جلب الـ slots من API ─────────────────────
+    useEffect(() => {
+        fetchSlots();
+    }, []);
+
+    const fetchSlots = async () => {
+        setIsLoading(true);
+        try {
+            const response = await fetch("http://127.0.0.1:8000/api/clinic/slots", {
+                headers: {
+                    Authorization: `Bearer ${getToken()}`,
+                    Accept: "application/json",
+                },
+            });
+            const data = await response.json();
+            if (response.ok && data.success) {
+                setAllSlots(data.data);
+            }
+        } catch {
+            console.error("فشل تحميل المواعيد");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    // ─── تصفية الـ slots حسب اليوم المختار ─────────
+    const getDayName = (dateStr) => {
+        const dayNames = ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
+        return dayNames[new Date(dateStr).getDay()];
+    };
+
+    const currentDaySlots = allSlots.filter(s => getDayName(s.date) === selectedDay);
+
+    // ─── إحصائيات ────────────────────────────────
     const stats = [
-        { label: "إجمالي الفترات", value: Object.values(appointmentsData).flat().length.toString(), sub: "عبر جميع الأيام" },
-        { label: "الفترات النشطة", value: Object.values(appointmentsData).flat().filter(s => s.status === "نشط").length.toString(), sub: "نشطة حالياً" },
-        { label: "الحجوزات", value: "35", sub: "هذا الأسبوع" },
-        { label: "معدل الإشغال", value: "59%", sub: "مبني على الحجوزات" }
+        { label: "إجمالي الفترات",  value: allSlots.length.toString(),                                          sub: "عبر جميع الأيام" },
+        { label: "الفترات النشطة",  value: allSlots.filter(s => !s.is_fully_booked).length.toString(),         sub: "نشطة حالياً" },
+        { label: "الحجوزات",        value: allSlots.reduce((sum, s) => sum + s.booked_count, 0).toString(),    sub: "إجمالي الحجوزات" },
+        { label: "الأماكن المتبقية", value: allSlots.reduce((sum, s) => sum + s.remaining_capacity, 0).toString(), sub: "مكان متاح" },
     ];
 
-    // دالة تحويل الوقت النصي (HH:MM) إلى دقائق لتسهيل مقارنة التداخل والتقاطع
-    const timeToMinutes = (timeStr) => {
-        const [hours, minutes] = timeStr.split(":").map(Number);
-        return hours * 60 + minutes;
-    };
-
-    // فتح مودال إضافة فترة جديدة
-    const openAddModal = () => {
-        setModalMode("add");
-        setTargetDay(selectedDay); // تحديد اليوم الحالي تلقائياً للتسهيل
-        setStartTime("09:00");
-        setEndTime("10:00");
-        setDuration("30 دقيقة");
-        setMaxPatients(4);
-        setAlertConfig({ show: false, type: "", message: "" });
-        setIsModalOpen(true);
-    };
-
-    // فتح مودال التعديل والحذف وتعبئة البيانات الحالية للفترة
-    const openEditModal = (slot) => {
-        setModalMode("edit");
-        setSelectedSlotId(slot.id);
-        setTargetDay(selectedDay);
-        setStartTime(slot.startTime);
-        setEndTime(slot.endTime);
-        setDuration(slot.duration);
-        setMaxPatients(parseInt(slot.booked.split("/")[1]) || 4);
-        setAlertConfig({ show: false, type: "", message: "" });
-        setIsModalOpen(true);
-    };
-
-    // دالة الحفظ (إضافة أو تعديل) مع فحص التداخل الفعلي
-    const handleSavePeriod = (e) => {
-        e.preventDefault();
-
-        if (!targetDay) {
-            setAlertConfig({ show: true, type: "error", message: "يرجى اختيار يوم الأسبوع أولاً" });
-            return;
-        }
-
-        const newStart = timeToMinutes(startTime);
-        const newEnd = timeToMinutes(endTime);
-
-        if (newStart >= newEnd) {
-            setAlertConfig({ show: true, type: "error", message: "وقت البدء يجب أن يكون قبل وقت الانتهاء" });
-            return;
-        }
-
-        // جلب الفترات الموجودة في اليوم المحدد للفحص (مع استثناء الفترة الحالية إن كنا في وضع التعديل)
-        const existingSlots = appointmentsData[targetDay] || [];
-        const hasConflict = existingSlots.some(slot => {
-            if (modalMode === "edit" && slot.id === selectedSlotId) return false;
-            
-            const slotStart = timeToMinutes(slot.startTime);
-            const slotEnd = timeToMinutes(slot.endTime);
-            // شرط التداخل الرياضي: (وقت البدء الجديد < وقت نهاية القديم) و (وقت الانتهاء الجديد > وقت بدء القديم)
-            return newStart < slotEnd && newEnd > slotStart;
-        });
-
-        // إذا وُجد تداخل، يظهر شريط الخطأ الأحمر مباشرة ولا يتم الحفظ
-        if (hasConflict) {
-            setAlertConfig({
-                show: true,
-                type: "error",
-                message: `هناك تداخل مع فترة محددة مسبقاً في يوم ${targetDay}`
-            });
-            return;
-        }
-
-        // تحضير كائن الفترة
-        const periodPayload = {
-            id: modalMode === "add" ? Date.now() : selectedSlotId,
-            startTime,
-            endTime,
-            duration,
-            booked: `0 / ${maxPatients} محجوز`,
-            percentage: 0,
-            status: "نشط"
-        };
-
-        if (modalMode === "add") {
-            // إضافة الفترة الجديدة لليوم المحدد فعلياً
-            setAppointmentsData(prev => ({
-                ...prev,
-                [targetDay]: [...prev[targetDay], periodPayload]
-            }));
-            setAlertConfig({ show: true, type: "success", message: "تم اضافة فترة الموعد بنجاح" });
-        } else {
-            // تعديل الفترة الحالية في اليوم المحدد فعلياً
-            setAppointmentsData(prev => {
-                // إذا قام المستخدم بتغيير اليوم، نحذفها من اليوم القديم وننقلها للجديد
-                const updatedData = { ...prev };
-                if (targetDay !== selectedDay) {
-                    updatedData[selectedDay] = updatedData[selectedDay].filter(s => s.id !== selectedSlotId);
-                    updatedData[targetDay] = [...(updatedData[targetDay] || []), periodPayload];
-                } else {
-                    updatedData[selectedDay] = updatedData[selectedDay].map(s => s.id === selectedSlotId ? periodPayload : s);
-                }
-                return updatedData;
-            });
-            setAlertConfig({ show: true, type: "success", message: "تم تعديل فترة الموعد بنجاح" });
-        }
-
-        // إغلاق المودال بعد ثانية ونصف لرؤية شريط النجاح الأخضر
-        setTimeout(() => {
-            setIsModalOpen(false);
-            setAlertConfig({ show: false, type: "", message: "" });
-            setSelectedDay(targetDay); // الانتقال التلقائي لليوم الذي تمت الإضافة فيه
-        }, 1200);
-    };
-
-    // دالة الحذف الفعلي للفترة نهائياً
-    const handleDeletePeriod = () => {
-        setAppointmentsData(prev => ({
-            ...prev,
-            [selectedDay]: prev[selectedDay].filter(slot => slot.id !== selectedSlotId)
-        }));
-
-        setAlertConfig({ show: true, type: "success", message: "تم حذف فترة الموعد بنجاح" });
-
-        setTimeout(() => {
-            setIsModalOpen(false);
-            setAlertConfig({ show: false, type: "", message: "" });
-        }, 1000);
-    };
-
-    // تنسيق عرض الوقت النصي لعرضه في الجدول بشكل احترافي أمثلة: (08:00 صباحاً)
+    // ─── تنسيق الوقت ─────────────────────────────
     const formatTimeDisplay = (timeStr) => {
         if (!timeStr) return "";
         const [h, m] = timeStr.split(":").map(Number);
@@ -177,28 +85,178 @@ const ClinicAppointmentsView = ({ onBack }) => {
         return `${displayHour}:${displayMinute} ${ampm}`;
     };
 
+    const timeToMinutes = (timeStr) => {
+        const [hours, minutes] = timeStr.split(":").map(Number);
+        return hours * 60 + minutes;
+    };
+
+    // ─── فتح مودال الإضافة ───────────────────────
+    const openAddModal = () => {
+        setModalMode("add");
+        setTargetDay(selectedDay);
+        setSelectedDate(getNextDateForDay(selectedDay));
+        setStartTime("09:00");
+        setEndTime("10:00");
+        setDuration("30 دقيقة");
+        setMaxPatients(4);
+        setAlertConfig({ show: false, type: "", message: "" });
+        setIsModalOpen(true);
+    };
+
+    // ─── فتح مودال التعديل ───────────────────────
+    const openEditModal = (slot) => {
+        setModalMode("edit");
+        setSelectedSlotId(slot.id);
+        setTargetDay(getDayName(slot.date));
+        setSelectedDate(slot.date);
+        setStartTime(slot.start_time.substring(0, 5));
+        setEndTime(slot.end_time.substring(0, 5));
+        setMaxPatients(slot.max_capacity);
+        setAlertConfig({ show: false, type: "", message: "" });
+        setIsModalOpen(true);
+    };
+
+    // ─── حفظ (إضافة أو تعديل) ────────────────────
+    const handleSavePeriod = async (e) => {
+        e.preventDefault();
+
+        const newStart = timeToMinutes(startTime);
+        const newEnd   = timeToMinutes(endTime);
+
+        if (newStart >= newEnd) {
+            setAlertConfig({ show: true, type: "error", message: "وقت البدء يجب أن يكون قبل وقت الانتهاء" });
+            return;
+        }
+
+        setIsSaving(true);
+
+        try {
+            if (modalMode === "add") {
+                // POST إضافة slot جديد
+                const response = await fetch("http://127.0.0.1:8000/api/clinic/slots", {
+                    method: "POST",
+                    headers: {
+                        Authorization:  `Bearer ${getToken()}`,
+                        "Content-Type": "application/json",
+                        Accept:         "application/json",
+                    },
+                    body: JSON.stringify({
+                        date:         selectedDate,
+                        start_time:   startTime,
+                        end_time:     endTime,
+                        max_capacity: maxPatients,
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    setAllSlots(prev => [...prev, data.data]);
+                    setAlertConfig({ show: true, type: "success", message: "تم إضافة فترة الموعد بنجاح ✅" });
+                } else if (response.status === 422) {
+                    const firstError = Object.values(data.errors)[0][0];
+                    setAlertConfig({ show: true, type: "error", message: firstError });
+                    return;
+                }
+
+            } else {
+                // PUT تعديل slot
+                const response = await fetch(`http://127.0.0.1:8000/api/clinic/slots/${selectedSlotId}`, {
+                    method: "PUT",
+                    headers: {
+                        Authorization:  `Bearer ${getToken()}`,
+                        "Content-Type": "application/json",
+                        Accept:         "application/json",
+                    },
+                    body: JSON.stringify({
+                        date:         selectedDate,
+                        start_time:   startTime,
+                        end_time:     endTime,
+                        max_capacity: maxPatients,
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    setAllSlots(prev => prev.map(s => s.id === selectedSlotId ? data.data : s));
+                    setAlertConfig({ show: true, type: "success", message: "تم تعديل فترة الموعد بنجاح ✅" });
+                } else if (response.status === 422) {
+                    const firstError = Object.values(data.errors)[0][0];
+                    setAlertConfig({ show: true, type: "error", message: firstError });
+                    return;
+                }
+            }
+
+            setTimeout(() => {
+                setIsModalOpen(false);
+                setAlertConfig({ show: false, type: "", message: "" });
+                setSelectedDay(targetDay);
+            }, 1200);
+
+        } catch {
+            setAlertConfig({ show: true, type: "error", message: "تعذر الاتصال بالسيرفر" });
+        } finally {
+            setIsSaving(false);
+        }
+    };
+
+    // ─── حذف slot ────────────────────────────────
+    const handleDeletePeriod = async () => {
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/api/clinic/slots/${selectedSlotId}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${getToken()}`,
+                    Accept: "application/json",
+                },
+            });
+
+            if (response.ok) {
+                setAllSlots(prev => prev.filter(s => s.id !== selectedSlotId));
+                setAlertConfig({ show: true, type: "success", message: "تم حذف فترة الموعد بنجاح ✅" });
+                setTimeout(() => {
+                    setIsModalOpen(false);
+                    setAlertConfig({ show: false, type: "", message: "" });
+                }, 1000);
+            }
+        } catch {
+            setAlertConfig({ show: true, type: "error", message: "فشل حذف الموعد" });
+        }
+    };
+
+    if (isLoading) {
+        return (
+            <div className="appointments-management-page" dir="rtl"
+                 style={{ display:"flex", alignItems:"center", justifyContent:"center" }}>
+                <p style={{ fontSize:"18px" }}>جاري تحميل المواعيد...</p>
+            </div>
+        );
+    }
+
     return (
         <div className="appointments-management-page" dir="rtl">
             <header className="appointments-header-bar">
                 <div className="header-right-side">
                     <button className="btn-select-clinic-dropdown">
-                        إدارة : عيادة النور طب اسنان <span>▼</span>
+                        إدارة المواعيد <span>▼</span>
                     </button>
                 </div>
-                <h2>ادارة المواعيد</h2>
+                <h2>إدارة المواعيد</h2>
             </header>
 
             <div className="appointments-body-container">
                 <div className="clinic-meta-appointment-row">
                     <div className="clinic-title-info">
-                        <h3>عيادة النور طب اسنان</h3>
-                        <p>طب عام خبرة منذ 21 سنة</p>
+                        <h3>إدارة فترات المواعيد</h3>
+                        <p>أضف وعدّل فترات استقبال المرضى</p>
                     </div>
                     <button className="btn-add-time-slot" onClick={openAddModal}>
-                        + اضافة فترة موعد
+                        + إضافة فترة موعد
                     </button>
                 </div>
 
+                {/* إحصائيات */}
                 <div className="appointment-stats-grid-row">
                     {stats.map((stat, idx) => (
                         <div key={idx} className="appointment-stat-mini-card">
@@ -209,7 +267,7 @@ const ClinicAppointmentsView = ({ onBack }) => {
                     ))}
                 </div>
 
-                {/* شريط اختيار الأيام السبعة بالكامل */}
+                {/* تبويبات الأيام */}
                 <div className="days-navigation-tab-bar">
                     {days.map((day) => (
                         <button
@@ -218,55 +276,69 @@ const ClinicAppointmentsView = ({ onBack }) => {
                             onClick={() => setSelectedDay(day)}
                         >
                             {day}
+                            {allSlots.filter(s => getDayName(s.date) === day).length > 0 && (
+                                <span style={{
+                                    marginRight:"4px", background:"#3182ce",
+                                    color:"#fff", borderRadius:"10px",
+                                    padding:"1px 6px", fontSize:"11px"
+                                }}>
+                                    {allSlots.filter(s => getDayName(s.date) === day).length}
+                                </span>
+                            )}
                         </button>
                     ))}
                 </div>
 
+                {/* جدول الـ slots */}
                 <div className="appointments-slots-table-wrapper">
                     <div className="table-header-titles-row">
-                        <div className="col-cell text-right">الوقت</div>
+                        <div className="col-cell text-right">التاريخ والوقت</div>
                         <div className="col-cell text-center">الحجز</div>
                         <div className="col-cell text-center">الحالة</div>
                         <div className="col-cell text-center">إجراءات</div>
                     </div>
 
                     <div className="table-body-rows-list">
-                        {(appointmentsData[selectedDay] || []).length === 0 ? (
+                        {currentDaySlots.length === 0 ? (
                             <div className="no-appointments-placeholder">
-                                لا يوجد فترات مواعيد مضافة ليوم {selectedDay} حتي الآن.
+                                لا يوجد فترات مواعيد مضافة ليوم {selectedDay} حتى الآن.
                             </div>
-                        ) : (
-                            appointmentsData[selectedDay].map((slot) => (
-                                <div key={slot.id} className="table-data-item-row">
-                                    <div className="col-cell text-right slot-time-cell">
-                                        <span className="main-time-range">
-                                            {formatTimeDisplay(slot.startTime)} - {formatTimeDisplay(slot.endTime)}
-                                        </span>
-                                        <span className="sub-duration-txt">({slot.duration} للموعد)</span>
-                                    </div>
-                                    <div className="col-cell text-center slot-booking-progress-cell">
-                                        <span className="booked-count-txt">{slot.booked}</span>
-                                        <div className="progress-bar-track">
-                                            <div 
-                                                className="progress-bar-fill" 
-                                                style={{ 
-                                                    width: `${slot.percentage}%`, 
-                                                    backgroundColor: slot.percentage === 100 ? "#e53e3e" : slot.percentage === 0 ? "#cbd5e0" : "#dd6b20" 
-                                                }}
-                                            ></div>
-                                        </div>
-                                    </div>
-                                    <div className="col-cell text-center">
-                                        <span className="status-badge-active">{slot.status}</span>
-                                    </div>
-                                    <div className="col-cell text-center">
-                                        <button className="btn-table-action-edit" onClick={() => openEditModal(slot)}>
-                                            📝 تعديل
-                                        </button>
+                        ) : currentDaySlots.map((slot) => (
+                            <div key={slot.id} className="table-data-item-row">
+                                <div className="col-cell text-right slot-time-cell">
+                                    <span style={{ fontSize:"12px", color:"#718096" }}>{slot.date}</span>
+                                    <br/>
+                                    <span className="main-time-range">
+                                        {formatTimeDisplay(slot.start_time)} - {formatTimeDisplay(slot.end_time)}
+                                    </span>
+                                </div>
+                                <div className="col-cell text-center slot-booking-progress-cell">
+                                    <span className="booked-count-txt">
+                                        {slot.booked_count} / {slot.max_capacity} محجوز
+                                    </span>
+                                    <div className="progress-bar-track">
+                                        <div
+                                            className="progress-bar-fill"
+                                            style={{
+                                                width: `${(slot.booked_count / slot.max_capacity) * 100}%`,
+                                                backgroundColor: slot.is_fully_booked ? "#e53e3e" :
+                                                    slot.booked_count === 0 ? "#cbd5e0" : "#dd6b20"
+                                            }}
+                                        ></div>
                                     </div>
                                 </div>
-                            ))
-                        )}
+                                <div className="col-cell text-center">
+                                    <span className={slot.is_fully_booked ? "status-badge-full" : "status-badge-active"}>
+                                        {slot.is_fully_booked ? "ممتلئ" : "نشط"}
+                                    </span>
+                                </div>
+                                <div className="col-cell text-center">
+                                    <button className="btn-table-action-edit" onClick={() => openEditModal(slot)}>
+                                        📝 تعديل
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
 
@@ -275,113 +347,109 @@ const ClinicAppointmentsView = ({ onBack }) => {
                 </button>
             </div>
 
-            {/* المودال المنبثق التفاعلي */}
+            {/* ── المودال ──────────────────────────── */}
             {isModalOpen && (
                 <div className="modal-overlay-backdrop">
                     <div className="add-slot-modal-card">
-                        
-                        {/* شريط التنبيه العلوي الديناميكي بالألوان الصحيحة */}
+
                         {alertConfig.show && (
                             <div className={`modal-alert-banner banner-${alertConfig.type}`}>
                                 <span>{alertConfig.message}</span>
-                                <span className="close-alert-btn" onClick={() => setAlertConfig({ ...alertConfig, show: false })}>✕</span>
+                                <span className="close-alert-btn"
+                                    onClick={() => setAlertConfig({ ...alertConfig, show: false })}>✕</span>
                             </div>
                         )}
 
                         <header className="modal-custom-header">
                             <span className="modal-close-icon" onClick={() => setIsModalOpen(false)}>✕</span>
-                            <h3>{modalMode === "add" ? "إضافة فترة موعد" : "تعديل او حذف البيانات"}</h3>
+                            <h3>{modalMode === "add" ? "إضافة فترة موعد" : "تعديل أو حذف الفترة"}</h3>
                         </header>
 
                         <form className="modal-form-content" onSubmit={handleSavePeriod}>
+
+                            {/* اليوم */}
                             <div className="form-input-group">
-                                <label>اليوم والوقت:</label>
-                                <select 
+                                <label>اليوم:</label>
+                                <select
                                     className="modal-select-field"
                                     value={targetDay}
-                                    onChange={(e) => setTargetDay(e.target.value)}
+                                    onChange={(e) => {
+                                        setTargetDay(e.target.value);
+                                        setSelectedDate(getNextDateForDay(e.target.value));
+                                    }}
                                 >
                                     <option value="">اختار يوم الأسبوع</option>
                                     {days.map(d => <option key={d} value={d}>{d}</option>)}
                                 </select>
                             </div>
 
+                            {/* التاريخ */}
+                            <div className="form-input-group">
+                                <label>التاريخ:</label>
+                                <input
+                                    type="date"
+                                    className="modal-input-field"
+                                    value={selectedDate}
+                                    onChange={(e) => setSelectedDate(e.target.value)}
+                                    min={new Date().toISOString().split('T')[0]}
+                                />
+                            </div>
+
+                            {/* الوقت */}
                             <div className="form-row-two-col">
                                 <div className="form-input-group">
                                     <label>وقت البدء:</label>
-                                    <input 
-                                        type="time" 
-                                        className="modal-input-field" 
-                                        value={startTime}
-                                        onChange={(e) => setStartTime(e.target.value)}
-                                    />
+                                    <input type="time" className="modal-input-field"
+                                        value={startTime} onChange={(e) => setStartTime(e.target.value)} />
                                 </div>
                                 <div className="form-input-group">
                                     <label>وقت الانتهاء:</label>
-                                    <input 
-                                        type="time" 
-                                        className="modal-input-field" 
-                                        value={endTime}
-                                        onChange={(e) => setEndTime(e.target.value)}
-                                    />
+                                    <input type="time" className="modal-input-field"
+                                        value={endTime} onChange={(e) => setEndTime(e.target.value)} />
                                 </div>
                             </div>
 
+                            {/* مدة الموعد */}
                             <div className="form-input-group">
                                 <label>مدة الموعد:</label>
                                 <div className="duration-options-row">
                                     {["15 دقيقة", "20 دقيقة", "25 دقيقة", "30 دقيقة", "40 دقيقة"].map((dur, i) => (
-                                        <button 
-                                            key={i} 
-                                            type="button" 
+                                        <button key={i} type="button"
                                             className={`btn-duration-option ${duration === dur ? "selected-dur" : ""}`}
-                                            onClick={() => setDuration(dur)}
-                                        >
+                                            onClick={() => setDuration(dur)}>
                                             {dur}
                                         </button>
                                     ))}
                                 </div>
                             </div>
 
+                            {/* عدد المرضى */}
                             <div className="form-input-group">
                                 <label>عدد المرضى المسموح به:</label>
-                                <input 
-                                    type="number" 
-                                    className="modal-input-field input-small-width" 
-                                    value={maxPatients}
-                                    onChange={(e) => setMaxPatients(e.target.value)}
-                                />
+                                <input type="number" className="modal-input-field input-small-width"
+                                    value={maxPatients} min="1" max="100"
+                                    onChange={(e) => setMaxPatients(parseInt(e.target.value))} />
                             </div>
 
-                            <div className="form-toggle-switch-row">
-                                <label className="switch-container">
-                                    <input type="checkbox" defaultChecked />
-                                    <span className="switch-slider"></span>
-                                </label>
-                                <span className="toggle-label-text">الفترة مفتوحة لاستقبال حجوزات جديدة.</span>
-                            </div>
-
+                            {/* أزرار */}
                             <div className="modal-action-footer-buttons">
                                 {modalMode === "add" ? (
                                     <>
-                                        <button type="submit" className="btn-modal-submit-action">
-                                            + إضافة فترة
+                                        <button type="submit" className="btn-modal-submit-action" disabled={isSaving}>
+                                            {isSaving ? "جاري الإضافة..." : "+ إضافة فترة"}
                                         </button>
-                                        <button type="button" className="btn-modal-cancel-action" onClick={() => setIsModalOpen(false)}>
-                                            إلغاء
-                                        </button>
+                                        <button type="button" className="btn-modal-cancel-action"
+                                            onClick={() => setIsModalOpen(false)}>إلغاء</button>
                                     </>
                                 ) : (
                                     <>
-                                        <button type="submit" className="btn-modal-submit-action save-edit-btn">
-                                            ✓ حفظ التعديلات
+                                        <button type="submit" className="btn-modal-submit-action save-edit-btn" disabled={isSaving}>
+                                            {isSaving ? "جاري الحفظ..." : "✓ حفظ التعديلات"}
                                         </button>
-                                        <button type="button" className="btn-modal-delete-action" onClick={handleDeletePeriod}>
-                                            🗑️ حذف الفترة نهائياً
-                                        </button>
-                                        <button type="button" className="btn-modal-cancel-action" onClick={() => setIsModalOpen(false)}>
-                                            إلغاء
-                                        </button>
+                                        <button type="button" className="btn-modal-delete-action"
+                                            onClick={handleDeletePeriod}>🗑️ حذف الفترة</button>
+                                        <button type="button" className="btn-modal-cancel-action"
+                                            onClick={() => setIsModalOpen(false)}>إلغاء</button>
                                     </>
                                 )}
                             </div>

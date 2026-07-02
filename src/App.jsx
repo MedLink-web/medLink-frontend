@@ -18,6 +18,7 @@ import ClinicAdminDashboard from "./components/ClinicAdminDashboard";
 import DoctorsManagement from "./components/DoctorsManagement";
 import AddDoctorForm from "./components/AddDoctorForm";
 import PatientClinicsView from "./components/PatientClinicsView";
+import ClinicAppointmentsView from "./components/ClinicAppointmentsView";
 
 // استيراد شاشات استعادة كلمة المرور
 import ForgotPassword from "./components/ForgotPassword";
@@ -30,13 +31,14 @@ import ClinicAppointmentsView from "./components/ClinicAppointmentsView";
 import "./App.css";
 
 function App() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [currentView, setCurrentView] = useState("patient-profile"); // الشاشة الافتراضية عند التشغيل
-    const [forgotEmail, setForgotEmail] = useState("");
-    const [forgotStep, setForgotStep] = useState("forgot");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentView, setCurrentView] = useState("patient-profile"); // الشاشة الافتراضية عند التشغيل
+  const [forgotEmail, setForgotEmail] = useState("");
+  const [forgotStep, setForgotStep] = useState("forgot");
 
-    // حالة (State) مشتركة لإدارة بانر النجاح الأخضر
-    const [showSuccessToast, setShowSuccessToast] = useState(false);
+  // حالة (State) مشتركة لإدارة بانر النجاح الأخضر
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
+  const [selectedClinicId, setSelectedClinicId] = useState(null);
 
   // قائمة الأطباء
   const [doctorsList, setDoctorsList] = useState([
@@ -165,30 +167,39 @@ function App() {
           />
         );
 
-          case "patient-profile":
-            return (
-              <PatientProfile
-                onNavigate={(targetView) => setCurrentView(targetView)}
-              />
-            );
-          case "patient-clinics":
-            return (
-                <PatientClinicsView onNavigate={(targetView) => setCurrentView(targetView)} />
-            );
-          case "admin-dashboard":
-          case "admin-clinic-requests":
-            return (
-              <ClinicAdminDashboard
-                onNavigate={(targetView) => setCurrentView(targetView)}
-              />
-            );
-          
-          case "clinic-profile":
-            return (
-              <ClinicProfile 
-                onNavigate={(targetView) => setCurrentView(targetView)} 
-              />
-            );
+      case "patient-profile":
+        return (
+          <PatientProfile
+            onNavigate={(targetView) => setCurrentView(targetView)}
+          />
+        );
+      case "patient-clinics":
+        return (
+          <PatientClinicsView
+            onNavigate={(v) => setCurrentView(v)}
+            onSelectClinic={(id) => setSelectedClinicId(id)}
+          />
+        );
+      case "admin-dashboard":
+      case "admin-clinic-requests":
+        return (
+          <ClinicAdminDashboard
+            onNavigate={(targetView) => setCurrentView(targetView)}
+          />
+        );
+
+      case "clinic-profile":
+        return (
+          <ClinicProfile
+            onNavigate={(targetView) => setCurrentView(targetView)}
+          />
+        );
+      case "clinic-appointments":
+        return (
+          <ClinicAppointmentsView
+            onBack={() => setCurrentView("clinic-profile")}
+          />
+        );
 
       case "doctors-management":
         return (
@@ -230,15 +241,16 @@ function App() {
 
       case "clinic-appointments":
         return (
-          <ClinicAppointmentsView 
+          <ClinicAppointmentsView
             onBack={() => setCurrentView("clinic-details")} // للعودة عند الضغط على زر الرجوع
           />
         );
-      case "clinic-details": // 💡 تأكدي أن هذا الاسم مطابق تماماً لما يرسله زر "عرض التفاصيل"
+      case "clinic-details":
         return (
-          <ClinicDetailsView 
+          <ClinicDetailsView
+            clinicId={selectedClinicId}
             onBack={() => setCurrentView("patient-clinics")}
-            onNavigate={(targetView) => setCurrentView(targetView)} // هذا السطر يسمح بالانتقال لإدارة المواعيد لاحقاً
+            onNavigate={(v) => setCurrentView(v)}
           />
         );
       case "forgot-password":
