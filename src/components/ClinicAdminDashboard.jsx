@@ -15,7 +15,6 @@ const ClinicAdminDashboard = ({ onNavigate }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
-  
   const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
   const [adminData] = useState({
     name: storedUser.full_name || "Admin",
@@ -36,18 +35,24 @@ const ClinicAdminDashboard = ({ onNavigate }) => {
     setIsLoading(true);
     try {
       const [clinicRes, pharmacyRes] = await Promise.all([
-        fetch("http://127.0.0.1:8000/api/admin/clinic-requests/all", {
-          headers: {
-            Authorization: `Bearer ${getToken()}`,
-            Accept: "application/json",
+        fetch(
+          "https://medlink-backend-production-e2f2.up.railway.app/api/admin/clinic-requests/all",
+          {
+            headers: {
+              Authorization: `Bearer ${getToken()}`,
+              Accept: "application/json",
+            },
           },
-        }),
-        fetch("http://127.0.0.1:8000/api/admin/pharmacy-requests", {
-          headers: {
-            Authorization: `Bearer ${getToken()}`,
-            Accept: "application/json",
+        ),
+        fetch(
+          "https://medlink-backend-production-e2f2.up.railway.app/api/admin/pharmacy-requests",
+          {
+            headers: {
+              Authorization: `Bearer ${getToken()}`,
+              Accept: "application/json",
+            },
           },
-        }),
+        ),
       ]);
 
       const clinicData = await clinicRes.json();

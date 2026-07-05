@@ -65,20 +65,23 @@ const PatientRegisterForm = ({
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+      const response = await fetch(
+        "https://medlink-backend-production-e2f2.up.railway.app/api/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            fullName: formData.fullName,
+            email: formData.email,
+            phone: formData.phone,
+            password: formData.password,
+            password_confirmation: formData.confirmPassword, // مهم: نفس اسم Laravel بالضبط
+          }),
         },
-        body: JSON.stringify({
-          fullName: formData.fullName,
-          email: formData.email,
-          phone: formData.phone,
-          password: formData.password,
-          password_confirmation: formData.confirmPassword, // مهم: نفس اسم Laravel بالضبط
-        }),
-      });
+      );
 
       const data = await response.json();
 
@@ -157,7 +160,7 @@ const PatientRegisterForm = ({
               fontWeight: "bold",
             }}
           >
-            MedLink 
+            MedLink
           </span>
         </div>
 
