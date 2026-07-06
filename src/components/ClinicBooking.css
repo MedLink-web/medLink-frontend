@@ -1,0 +1,673 @@
+/* ==========================================================================
+   🌐 تنسيق نافبار المريض الثابت والأصلي من Figma (image_4b6a9d.png)
+   ========================================================================== */
+.Medlink-custom-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #cbe2f7;
+    /* درجة اللون السماوي الفاتح اللطيفة من التصميم */
+    padding: 12px 3%;
+    border-bottom: 1px solid #b4d3f2;
+    margin-bottom: 24px;
+}
+
+.nav-right-side {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+/* لوجو النبض الدائري المتواجد بأقصى اليمين */
+.Medlink-nav-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-pulse-circle {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.Medlink-nav-links {
+    display: flex;
+    gap: 24px;
+}
+
+.Medlink-nav-item {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e293b;
+    /* تباين نصوص غامق وواضح */
+    cursor: pointer;
+    padding: 4px 2px;
+    transition: color 0.2s ease;
+}
+
+.Medlink-nav-item:hover {
+    color: #2563eb;
+}
+
+/* 🔵 تلوين العنصر النشط (العيادات حالياً) لتمييز الصفحة الحالية */
+.active-nav-tab {
+    color: #2563eb !important;
+    border-bottom: 2px solid #2563eb;
+    /* خط سفلي ناعم للتأكيد البصري */
+}
+
+.logo-image {
+    width: 70px;
+    height: auto;
+}
+
+/* زر تسجيل الخروج المستطيل المتواجد على اليسار */
+.btn-Medlink-logout {
+    background-color: #2563eb;
+    /* مستطيل أزرق صريح متطابق مع الواجهة */
+    color: #ffffff;
+    border: none;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-Medlink-logout:hover {
+    background-color: #1d4ed8;
+}
+
+/* ==========================================================================
+   باقي التنسيقات العامة والخطوات لصفحة العيادات وكروت Figma كما هي بالملف السابق
+   ========================================================================== */
+.clinic-booking-page {
+    background-color: #f8fafc;
+    min-height: 100vh;
+    padding-bottom: 40px;
+    font-family: sans-serif;
+}
+
+.booking-top-bar {
+    max-width: 800px;
+    margin: 0 auto 20px auto;
+}
+
+.btn-back-link {
+    background: none;
+    border: none;
+    color: #2563eb;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.clinic-main-header-card {
+    max-width: 800px;
+    margin: 0 auto 24px auto;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.clinic-header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.clinic-avatar-placeholder {
+    font-size: 28px;
+    background: #f1f5f9;
+    padding: 12px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clinic-title-details h2 {
+    margin: 0 0 6px 0;
+    font-size: 18px;
+    color: #1e293b;
+    font-weight: 800;
+}
+
+.clinic-spec-tag {
+    margin: 0 0 4px 0;
+    font-size: 13px;
+    color: #0284c7;
+    font-weight: 600;
+}
+
+.clinic-loc-text {
+    margin: 0;
+    font-size: 13px;
+    color: #64748b;
+}
+
+.clinic-badge-rating {
+    background: #fffbeb;
+    color: #d97706;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.booking-section-wrapper {
+    max-width: 800px;
+    margin: 0 auto 24px auto;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.section-step-title {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 16px;
+    color: #1e3a8a;
+    font-weight: 700;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 10px;
+}
+
+.doctors-selection-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.doctor-selection-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.active-doctor-row {
+    background: #eff6ff !important;
+    border-color: #3b82f6 !important;
+}
+
+.doc-avatar-circle {
+    width: 42px;
+    height: 42px;
+    background: #e0f2fe;
+    color: #0369a1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.doc-row-info {
+    flex-grow: 1;
+    margin-right: 14px;
+}
+
+.doc-row-info h4 {
+    margin: 0 0 4px 0;
+    font-size: 14.5px;
+    color: #1e293b;
+    font-weight: 700;
+}
+
+.doc-row-info p {
+    margin: 0;
+    font-size: 12px;
+    color: #64748b;
+}
+
+.custom-radio-indicator {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #cbd5e1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+}
+
+.active-doctor-row .custom-radio-indicator {
+    border-color: #2563eb;
+}
+
+.radio-inner-dot {
+    width: 10px;
+    height: 10px;
+    background: transparent;
+    border-radius: 50%;
+}
+
+.active-doctor-row .radio-inner-dot {
+    background: #2563eb;
+}
+
+.days-selection-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.day-selection-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.active-day-row {
+    background: #1e3a8a !important;
+    border-color: #1e3a8a !important;
+}
+
+.day-main-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.active-day-row .day-main-text {
+    color: #ffffff !important;
+}
+
+.day-slots-count-badge {
+    background: #e2e8f0;
+    color: #475569;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.active-day-row .day-slots-count-badge {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+}
+
+.selected-day-sub-label {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: -10px;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.time-slots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.time-slot-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: all 0.2s ease;
+}
+
+.slot-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #334155;
+}
+
+.slot-indicator-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.slot-progress-bar-container {
+    width: 100%;
+    height: 5px;
+    background: #f1f5f9;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.slot-progress-fill {
+    height: 100%;
+    width: 30%;
+    border-radius: 4px;
+}
+
+.btn-select-slot-action {
+    width: 100%;
+    padding: 6px;
+    border-radius: 6px;
+    border: none;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.status-available .slot-indicator-dot {
+    background-color: #22c55e;
+}
+
+.status-available .slot-progress-fill {
+    background-color: #22c55e;
+    width: 25%;
+}
+
+.status-available .btn-select-slot-action {
+    background-color: #f0fdf4;
+    color: #166534;
+}
+
+.status-busy .slot-indicator-dot {
+    background-color: #eab308;
+}
+
+.status-busy .slot-progress-fill {
+    background-color: #eab308;
+    width: 70%;
+}
+
+.status-busy .btn-select-slot-action {
+    background-color: #fef9c3;
+    color: #854d0e;
+}
+
+.status-full {
+    background: #f8fafc;
+    opacity: 0.6;
+    cursor: not-allowed !important;
+}
+
+.status-full .slot-indicator-dot {
+    background-color: #ef4444;
+}
+
+.status-full .slot-progress-fill {
+    background-color: #ef4444;
+    width: 100%;
+}
+
+.status-full .btn-select-slot-action {
+    background-color: #fee2e2;
+    color: #991b1b;
+    cursor: not-allowed;
+}
+
+.active-time-slot {
+    border-color: #2563eb !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    background: #f0f6ff;
+}
+
+.slots-color-guide-row {
+    display: flex;
+    gap: 20px;
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 600;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 14px;
+}
+
+.slots-color-guide-row .guide-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.slots-color-guide-row .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot-full {
+    background-color: #ef4444;
+}
+
+.dot-available {
+    background-color: #22c55e;
+}
+
+.dot-busy {
+    background-color: #eab308;
+}
+
+.floating-blue-booking-action-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #1e3a8a;
+    color: #ffffff;
+    padding: 16px 5%;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+
+.action-bar-inner-content {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.booking-summary-text-side h5 {
+    margin: 0 0 4px 0;
+    font-size: 12px;
+    color: #93c5fd;
+    font-weight: 600;
+}
+
+.booking-summary-text-side p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.btn-confirm-final-booking {
+    background: #ffffff;
+    color: #1e3a8a;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 800;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.figma-overlay-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: #f8fafc;
+}
+
+.figma-centered-modal-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    border: 1px solid #e2e8f0;
+}
+
+.figma-modal-title {
+    font-size: 18px;
+    color: #1e293b;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.figma-blueprint-data-box {
+    background-color: #dbeafe;
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 24px;
+    text-align: right;
+}
+
+.figma-blueprint-row {
+    padding: 8px 6px;
+    font-size: 14px;
+    color: #1e3a8a;
+    font-weight: 600;
+}
+
+.figma-highlight-id {
+    font-weight: 700;
+    border-top: 1px dashed #bfdbfe;
+    margin-top: 6px;
+    padding-top: 12px;
+}
+
+.figma-modal-actions-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.btn-figma-action-confirm {
+    flex: 1;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-figma-action-cancel {
+    flex: 1;
+    background-color: #e2e8f0;
+    color: #ef4444;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.figma-success-vector-zone {
+    display: flex;
+    justify-content: center;
+    margin: 24px 0;
+}
+
+.figma-green-circle {
+    width: 80px;
+    height: 80px;
+    background-color: #22c55e;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.figma-check-icon {
+    color: white;
+    font-size: 38px;
+    font-weight: bold;
+}
+
+.figma-success-messages h4 {
+    font-size: 18px;
+    color: #1e293b;
+    margin: 0 0 8px 0;
+    font-weight: 700;
+}
+
+.figma-success-messages p {
+    font-size: 13.5px;
+    color: #64748b;
+    margin: 0 0 24px 0;
+    line-height: 1.5;
+}
+
+/* 📑 تنسيق الفوتر المطابق تماماً للصورة المعروضة */
+.simple-figma-footer {
+    width: 100%;
+    background-color: #ffffff;
+    /* خلفية بيضاء ناصعة ومريحة للعين */
+    border-top: 1px solid #edf2f7;
+    /* خط علوي ناعم جداً لفصل المحتوى */
+    padding: 30px 20px;
+    /* مسافة داخلية تعطي مساحة للتنفس البصري */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* توسيط الشعار والنص في المنتصف تماماً */
+    justify-content: center;
+    gap: 8px;
+    /* تباعد عمودي بسيط ومنظم بين اللوجو والوصف */
+    box-sizing: border-box;
+    margin-top: 50px;
+    /* مسافة أمان تفصل الفوتر عن محتوى الكروت العلوي */
+}
+
+/* شعار المنصة النصي باللون الأزرق المعتمد */
+.simple-figma-footer .footer-logo {
+    color: #1a56db;
+    /* درجة الأزرق الاحترافية والعميقة المظهر بالصورة */
+    font-size: 22px;
+    font-weight: 800;
+    /* خط عريض وبارز */
+    font-family: 'Cairo', sans-serif;
+    /* لضمان انسيابية الحروف */
+    letter-spacing: 0.3px;
+}
+
+/* النص التوضيحي والحقوق */
+.simple-figma-footer p {
+    color: #718096;
+    /* لون رمادي هادئ لعدم تشتيت الانتباه وعرض الحقوق بشكل أنيق */
+    font-size: 14px;
+    font-weight: 600;
+    /* سماكة متوسطة للخط العربي ليظهر بوضوح */
+    margin: 0;
+    /* تصفير الهوامش الافتراضية للمتصفح لتجنب أي إزاحة */
+    font-family: 'Cairo', sans-serif;
+    text-align: center;
+}

@@ -1,205 +1,176 @@
-import React, { useState, useEffect } from "react";
-import noorClinic from "../assets/noorClinic.png";
-import "./ClinicDetailsView.css";
+import React from "react";
+import "./ClinicsList.css";
+import logo from "../assets/logo.png";
 
-const ClinicDetailsView = ({ onBack, onNavigate, clinicId }) => {
-    const [clinic,    setClinic]    = useState(null);
-    const [slots,     setSlots]     = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error,     setError]     = useState("");
-
-    // ─── جلب بيانات العيادة ───────────────────────
-    useEffect(() => {
-        if (!clinicId) return;
-        fetchClinicDetails();
-        fetchSlots();
-    }, [clinicId]);
-
-    const fetchClinicDetails = async () => {
-        try {
-            const response = await fetch(
-                `http://127.0.0.1:8000/api/clinics/${clinicId}`,
-                { headers: { Accept: "application/json" } }
-            );
-            const data = await response.json();
-            if (response.ok && data.success) {
-                setClinic(data.data);
-            } else {
-                setError("فشل تحميل بيانات العيادة");
-            }
-        } catch {
-            setError("تعذر الاتصال بالسيرفر");
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    const fetchSlots = async () => {
-        try {
-            const response = await fetch(
-                `http://127.0.0.1:8000/api/clinics/${clinicId}/slots`,
-                { headers: { Accept: "application/json" } }
-            );
-            const data = await response.json();
-            if (response.ok && data.success) {
-                setSlots(data.data);
-            }
-        } catch {
-            console.error("فشل تحميل المواعيد");
-        }
-    };
-
-    // ─── Loading ──────────────────────────────────
-    if (isLoading) {
-        return (
-            <div className="clinic-details-page" dir="rtl"
-                 style={{ display:"flex", alignItems:"center", justifyContent:"center", minHeight:"60vh" }}>
-                <p style={{ fontSize:"18px" }}>جاري تحميل بيانات العيادة...</p>
-            </div>
-        );
-    }
-
-    if (error || !clinic) {
-        return (
-            <div className="clinic-details-page" dir="rtl"
-                 style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", minHeight:"60vh" }}>
-                <p style={{ color:"#e53e3e", fontSize:"16px" }}>⚠️ {error || "العيادة غير موجودة"}</p>
-                <button onClick={onBack} style={{
-                    marginTop:"16px", padding:"10px 24px",
-                    background:"#3182ce", color:"#fff",
-                    border:"none", borderRadius:"8px", cursor:"pointer"
-                }}>
-                    ← العودة
-                </button>
-            </div>
-        );
-    }
-
+const ClinicDetailsView = ({ onNavigate }) => {
     return (
         <div className="clinic-details-page" dir="rtl">
+        {/* الهيدر العلوي الموحد لضمان التناسق البصري */}
+        <header className="Medlink-custom-navbar">
+            <div className="nav-right-side">
+            {/* الشعار الدائري الأزرق */}
+            <div className="Medlink-nav-logo">
+                <img src={logo} alt="Medlink Logo" className="logo-image" />
+            </div>
+            {/* الروابط بالترتيب والمسميات الدقيقة */}
+            <nav className="Medlink-nav-links">
+                <span
+                className="Medlink-nav-item"
+                onClick={() => onNavigate("patient-dashboard")}
+                >
+                الرئيسية
+                </span>
+                <span
+                className="Medlink-nav-item active-nav-tab"
+                onClick={() => onNavigate("clinics-list")}
+                >
+                العيادات
+                </span>
+                <span
+                className="Medlink-nav-item"
+                onClick={() => onNavigate("appointments")}
+                >
+                مواعيدي
+                </span>
+                <span
+                className="Medlink-nav-item"
+                onClick={() => onNavigate("pharmacies")}
+                >
+                الصيدليات
+                </span>
+                <span
+                className="Medlink-nav-item"
+                onClick={() => onNavigate("prescriptions")}
+                >
+                الوصفات الطبية
+                </span>
+                <span
+                className="Medlink-nav-item"
+                onClick={() => onNavigate("profile")}
+                >
+                الملف الشخصي
+                </span>
+            </nav>
+            </div>
 
-            {/* البانر العلوي */}
-            <div className="clinic-hero-banner" style={{ backgroundImage: `url(${noorClinic})` }}>
-                <button className="btn-back-to-list" onClick={onBack}>
-                    ← رجوع للقائمة
+            {/* زر تسجيل الخروج المستطيل الأزرق على اليسار */}
+            <div className="nav-left-side">
+            <button
+                className="btn-Medlink-logout"
+                onClick={() => onNavigate("login")}
+            >
+                تسجيل الخروج
+            </button>
+            </div>
+        </header>
+
+        <div className="figma-layout-container">
+            {/* شريط العودة الخلفي */}
+
+            {/* صورة غلاف الممر */}
+            <div className="clinic-cover-banner">
+            <img
+                src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=1000&auto=format&fit=crop"
+                alt="Clinic Corridor"
+                className="cover-img"
+            />
+            </div>
+
+            {/* كرت العنوان المتداخل */}
+            <div className="clinic-profile-main-card">
+            <div className="right-meta">
+                <h2>عيادة النور لطب الأسنان</h2>
+                <p className="sub-spec">طب الأطفال</p>
+                <div className="stars-row">
+                ⭐ 4.8 <span className="verified-status">✓ معتمد</span>
+                </div>
+            </div>
+            <div className="left-icon-box">🏥</div>
+            </div>
+
+            {/* نبذة عنا */}
+            <div className="details-content-block">
+            <h3>نبذة عنا :</h3>
+            <p className="description-text">
+                عيادة أطفال رائدة تقدم خدمات رعاية صحية شاملة للرضع، صغار السن
+                والأطفال. نحن متخصصون في متابعة مراحل النمو والتطور البشري،
+                التطعيمات الدورية، والرعاية الطبية الطارئة للأطفال وفقاً لأعلى
+                المعايير الطبية.
+            </p>
+            </div>
+
+            {/* قائمة الأطباء */}
+            <div className="details-content-block">
+            <h3>أطباؤنا (2)</h3>
+            <div className="figma-doctor-row">
+                <div className="doc-avatar-circle">م</div>
+                <div className="doc-info-side">
+                <h4>د. محمد أحمد</h4>
+                <p className="spec-tag">طب الأطفال • خبرة 21 عاماً</p>
+                <p className="time-tag">
+                    المواعيد المتاحة: غداً الساعة 10:00 صباحاً
+                </p>
+                </div>
+                <button
+                className="btn-mini-action"
+                onClick={() => onNavigate("clinic-booking")}
+                >
+                احجز الآن
                 </button>
             </div>
 
-            <div className="clinic-details-content-container">
-
-                {/* ── معلومات العيادة ────────────────── */}
-                <section className="clinic-main-info-card">
-                    <div className="clinic-header-title-row">
-                        <div className="clinic-title-badge-group">
-                            <h2>{clinic.clinic_name}</h2>
-                            <span className="clinic-type-tag">{clinic.specialty}</span>
-                        </div>
-                        <span className="clinic-verified-badge">✓ معتمدة</span>
-                    </div>
-
-                    <div className="clinic-rating-stars">⭐ 4.9</div>
-
-                    <div className="clinic-about-section">
-                        <h3>نبذة عنا:</h3>
-                        <p>
-                            عيادة متخصصة في {clinic.specialty}، تقدم خدمات رعاية صحية شاملة
-                            وفقاً لأعلى المعايير الطبية.
-                        </p>
-                    </div>
-                </section>
-
-                {/* ── قسم الأطباء ────────────────────── */}
-                <section className="clinic-doctors-section">
-                    <h3 className="section-title">
-                        أطباؤنا ({clinic.doctors?.length || 0})
-                    </h3>
-                    <div className="doctors-list-layout">
-                        {clinic.doctors?.length === 0 ? (
-                            <p style={{ color:"#718096", textAlign:"center", padding:"20px" }}>
-                                لا يوجد أطباء مسجّلون حالياً
-                            </p>
-                        ) : clinic.doctors?.map((doc) => (
-                            <div key={doc.id} className="doctor-item-strip-card">
-                                <div className="doctor-avatar-info-block">
-                                    <div className="doctor-avatar-placeholder">👨‍⚕️</div>
-                                    <div className="doctor-meta-text">
-                                        <h4>{doc.full_name}</h4>
-                                        <p className="doc-spec">{doc.specialty}</p>
-                                    </div>
-                                </div>
-                                <div className="doctor-action-rating-block">
-                                    <span className="doc-rating">⭐ 5.0</span>
-                                    <button
-                                        className="btn-book-doctor-spec"
-                                        onClick={() => onNavigate && onNavigate("clinic-appointments")}
-                                    >
-                                        احجز الآن
-                                    </button>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </section>
-
-                {/* ── المواعيد المتاحة ────────────────── */}
-                <section className="clinic-doctors-section">
-                    <h3 className="section-title">المواعيد المتاحة</h3>
-                    {slots.length === 0 ? (
-                        <p style={{ color:"#718096", textAlign:"center", padding:"20px" }}>
-                            لا توجد مواعيد متاحة حالياً
-                        </p>
-                    ) : (
-                        <div style={{ display:"flex", flexWrap:"wrap", gap:"12px", padding:"16px 0" }}>
-                            {slots.map((slot) => (
-                                <div key={slot.id} style={{
-                                    border: `2px solid ${slot.is_fully_booked ? "#fed7d7" : "#9ae6b4"}`,
-                                    borderRadius:"10px", padding:"12px 16px",
-                                    background: slot.is_fully_booked ? "#fff5f5" : "#f0fff4",
-                                    minWidth:"180px"
-                                }}>
-                                    <p style={{ fontWeight:"bold", color:"#2d3748", marginBottom:"4px" }}>
-                                        📅 {slot.date}
-                                    </p>
-                                    <p style={{ color:"#4a5568", fontSize:"14px", marginBottom:"4px" }}>
-                                        🕐 {slot.start_time} - {slot.end_time}
-                                    </p>
-                                    <p style={{ fontSize:"13px", color: slot.is_fully_booked ? "#c53030" : "#276749" }}>
-                                        {slot.is_fully_booked
-                                            ? "❌ ممتلئ"
-                                            : `✅ متبقي ${slot.remaining_capacity} مكان`
-                                        }
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </section>
-
-                {/* ── التواصل وساعات العمل ───────────── */}
-                <section className="clinic-contact-hours-card">
-                    <h3>التواصل وساعات العمل:</h3>
-                    <div className="info-links-grid">
-                        <div className="info-item-row">📍 {clinic.clinic_address}</div>
-                        <div className="info-item-row">📞 {clinic.clinic_phone}</div>
-                        <div className="info-item-row">✉️ {clinic.clinic_email}</div>
-                    </div>
-                </section>
-
-                {/* ── زر الحجز ──────────────────────── */}
-                <div className="bottom-booking-sticky-action-bar">
-                    <div className="action-bar-text">
-                        <h4>هل أنتِ مستعدة لحجز موعد؟</h4>
-                        <p>اختر فترة زمنية مناسبة وأكّد حجزك.</p>
-                    </div>
-                    <button
-                        className="btn-main-trigger-booking"
-                        onClick={() => onNavigate && onNavigate("clinic-appointments")}
-                    >
-                        حجز موعد 📅
-                    </button>
+            <div className="figma-doctor-row">
+                <div className="doc-avatar-circle">م</div>
+                <div className="doc-info-side">
+                <h4>د. محمد أحمد</h4>
+                <p className="spec-tag">طب الأطفال • خبرة 21 عاماً</p>
+                <p className="time-tag">
+                    المواعيد المتاحة: غداً الساعة 10:00 صباحاً
+                </p>
                 </div>
-
+                <button
+                className="btn-mini-action"
+                onClick={() => onNavigate("clinic-booking")}
+                >
+                احجز الآن
+                </button>
             </div>
+            </div>
+
+            {/* التنسيق الجديد لبيانات التواصل مقسمة لعمودين (تنسيق كروت منظم) */}
+            <div className="details-content-block">
+            <h3>التواصل وساعات العمل:</h3>
+            <div className="contact-info-grid">
+                <div className="contact-line">📍 غزة، الرمال، شارع الوحدة</div>
+                <div className="contact-line">📞 +966 11 234 5678</div>
+                <div className="contact-line">✉️ info@alnoor-dental.com</div>
+                <div className="contact-line">
+                🕒 من الأحد إلى الخميس | 7:00 ص - 9:00 م
+                </div>
+                <div className="contact-line full-width-line">
+                ⏱️ متوسط وقت الانتظار المتوقع حوالي 15 دقيقة
+                </div>
+            </div>
+            </div>
+        </div>
+
+        {/* البنر الكحلي السفلي الثابت في أسفل شاشة التفاصيل */}
+        <section className="cta-booking-footer-banner">
+            <div className="cta-text">
+            <h4>هل أنت مستعد لحجز موعد؟</h4>
+            <p>اختر طبيباً وحدد فترة زمنية مناسبة.</p>
+            </div>
+            <button
+            className="btn-cta-primary-book"
+            onClick={() => onNavigate("clinic-booking")}
+            >
+            📅 حجز موعد
+            </button>
+        </section>
+        <footer className="simple-figma-footer">
+            <div className="footer-logo">Medlink </div>
+            <p>جميع العيادات المدرجة معتمدة ونضمن منها جودة الخدمة الطبية © 2026</p>
+        </footer>
         </div>
     );
 };

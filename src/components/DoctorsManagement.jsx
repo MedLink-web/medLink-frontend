@@ -1,471 +1,325 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import logo from "../assets/logo.png";
 import "./DoctorsManagement.css";
 
-const DoctorsManagement = ({ onNavigate, onDelete, showToast }) => {
-    const [doctors,     setDoctors]     = useState([]);
-    const [isLoading,   setIsLoading]   = useState(true);
-    const [searchTerm,  setSearchTerm]  = useState("");
-    const [error,       setError]       = useState("");
+const DoctorsManagement = ({ onNavigate }) => {
+    const [isAdding, setIsAdding] = useState(false);
+    const [showToast, setShowToast] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
+    
+    // 🌟 States الجديدة لإدارة نافذة تأكيد حذف الطبيب الممركّزة
+    const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
+    const [selectedDoctorId, setSelectedDoctorId] = useState(null);
 
-    // حالات الحذف
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const [doctorToDelete,    setDoctorToDelete]    = useState(null);
+    // خمسة أطباء ببيانات مختلفة ومتنوعة لتطابق متطلباتك
+    const [doctors, setDoctors] = useState([
+        { id: 1, name: "د. خالد العمري", specialty: "طب أسنان", email: "khaled.omari@alnour.com", phone: "+966 50 111 2233", patients: 148, rating: 4.9, status: "نشط" },
+        { id: 2, name: "د. سارة الأحمد", specialty: "تخصص الأطفال", email: "sara.ahmed@alnour.com", phone: "+966 50 222 3344", patients: 210, rating: 4.8, status: "نشط" },
+        { id: 3, name: "د. عمر الفيصل", specialty: "تخصص القلب", email: "omar.faisal@alnour.com", phone: "+966 50 333 4455", patients: 95, rating: 4.7, status: "نشط" },
+        { id: 4, name: "د. ليلى القحطاني", specialty: "طب أسنان", email: "layla.q@alnour.com", phone: "+966 50 444 5566", patients: 162, rating: 4.9, status: "نشط" },
+        { id: 5, name: "د. محمد الشمري", specialty: "تخصص الأطفال", email: "mohammed.sh@alnour.com", phone: "+966 50 555 6677", patients: 119, rating: 4.6, status: "نشط" }
+    ]);
 
-    // حالات التعديل
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const [doctorToEdit,    setDoctorToEdit]    = useState(null);
-    const [editData,        setEditData]        = useState({ full_name:"", specialty:"", phone:"" });
-    const [editErrors,      setEditErrors]      = useState({});
-    const [isSaving,        setIsSaving]        = useState(false);
+    // حالة الفورم الجديد
+    const [newDoctor, setNewDoctor] = useState({
+        name: "",
+        email: "",
+        specialty: "اختيار تخصص العيادة",
+        phone: "",
+        password: ""
+    });
 
-    const getToken = () => localStorage.getItem("auth_token");
-
-    // ─── جلب الأطباء من API ───────────────────────
-    useEffect(() => {
-        fetchDoctors();
-    }, []);
-
-    const fetchDoctors = async () => {
-        setIsLoading(true);
-        try {
-            const response = await fetch("http://127.0.0.1:8000/api/clinic/doctors", {
-                headers: {
-                    Authorization: `Bearer ${getToken()}`,
-                    Accept: "application/json",
-                },
-            });
-
-            const data = await response.json();
-
-            if (response.ok && data.success) {
-                setDoctors(data.data.map(doc => ({
-                    id:        doc.id,
-                    name:      doc.full_name,
-                    specialty: doc.specialty,
-                    email:     doc.email,
-                    phone:     doc.phone || "—",
-                    patients:  0,
-                    rating:    5.0,
-                    status:    "نشط",
-                })));
-            } else if (response.status === 401) {
-                onNavigate && onNavigate("login");
-            } else {
-                setError("فشل تحميل بيانات الأطباء");
-            }
-        } catch {
-            setError("تعذر الاتصال بالسيرفر");
-        } finally {
-            setIsLoading(false);
-        }
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setNewDoctor({ ...newDoctor, [name]: value });
     };
 
-    // ─── تصفية الأطباء ────────────────────────────
+    const handleAddDoctorSubmit = (e) => {
+        e.preventDefault();
+        const doctorObj = {
+            id: Date.now(),
+            name: newDoctor.name,
+            specialty: newDoctor.specialty,
+            email: newDoctor.email,
+            phone: newDoctor.phone,
+            patients: 0,
+            rating: 5.0,
+            status: "نشط"
+        };
+
+        setDoctors([doctorObj, ...doctors]);
+        setIsAdding(false);
+        setNewDoctor({ name: "", email: "", specialty: "اختيار تخصص العيادة", phone: "", password: "" });
+        
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 4000);
+    };
+
+    // 🌟 فتح نافذة الحذف المتمركزة وحفظ الـ id المستهدف
+    const handleDeleteClick = (id) => {
+        setSelectedDoctorId(id);
+        setIsDeleteConfirmOpen(true);
+    };
+
+    // 🌟 تنفيذ الحذف الفعلي من داخل الكرت الممركّز وسط الشاشة
+    const handleConfirmDelete = () => {
+        setDoctors(doctors.filter(doc => doc.id !== selectedDoctorId));
+        setIsDeleteConfirmOpen(false);
+        setSelectedDoctorId(null);
+        
+        // إظهار توست التحديث بنجاح
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 4000);
+    };
+
+    // تصفية الأطباء بناءً على البحث
     const filteredDoctors = doctors.filter(doc =>
-        doc.name.includes(searchTerm) || doc.specialty.includes(searchTerm)
+        doc.name.includes(searchQuery) || doc.specialty.includes(searchQuery)
     );
 
-    // ─── الحذف ────────────────────────────────────
-    const triggerDeleteConfirmation = (doctor) => {
-        setDoctorToDelete(doctor);
-        setIsDeleteModalOpen(true);
-    };
-
-    const confirmDelete = async () => {
-        if (!doctorToDelete) return;
-        try {
-            const response = await fetch(
-                `http://127.0.0.1:8000/api/clinic/doctors/${doctorToDelete.id}`,
-                {
-                    method: "DELETE",
-                    headers: {
-                        Authorization: `Bearer ${getToken()}`,
-                        Accept: "application/json",
-                    },
-                }
-            );
-            if (response.ok) {
-                setDoctors(doctors.filter(d => d.id !== doctorToDelete.id));
-                if (onDelete) onDelete(doctorToDelete.id);
-            }
-        } catch {
-            setError("فشل حذف الطبيب");
-        } finally {
-            setIsDeleteModalOpen(false);
-            setDoctorToDelete(null);
-        }
-    };
-
-    // ─── التعديل ──────────────────────────────────
-    const triggerEdit = (doctor) => {
-        setDoctorToEdit(doctor);
-        setEditData({
-            full_name: doctor.name,
-            specialty: doctor.specialty,
-            phone:     doctor.phone === "—" ? "" : doctor.phone,
-        });
-        setEditErrors({});
-        setIsEditModalOpen(true);
-    };
-
-    const handleEditChange = (e) => {
-        const { name, value } = e.target;
-        setEditData(prev => ({ ...prev, [name]: value }));
-        if (editErrors[name]) setEditErrors({ ...editErrors, [name]: "" });
-    };
-
-    const confirmEdit = async () => {
-        setIsSaving(true);
-        setEditErrors({});
-        try {
-            const response = await fetch(
-                `http://127.0.0.1:8000/api/clinic/doctors/${doctorToEdit.id}`,
-                {
-                    method: "PUT",
-                    headers: {
-                        Authorization:  `Bearer ${getToken()}`,
-                        "Content-Type": "application/json",
-                        Accept:         "application/json",
-                    },
-                    body: JSON.stringify(editData),
-                }
-            );
-
-            const data = await response.json();
-
-            if (response.ok && data.success) {
-                // تحديث القائمة محلياً
-                setDoctors(doctors.map(d =>
-                    d.id === doctorToEdit.id
-                        ? { ...d, name: editData.full_name, specialty: editData.specialty, phone: editData.phone || "—" }
-                        : d
-                ));
-                setIsEditModalOpen(false);
-                setDoctorToEdit(null);
-            } else if (response.status === 422) {
-                const backendErrors = {};
-                Object.entries(data.errors).forEach(([field, messages]) => {
-                    backendErrors[field] = messages[0];
-                });
-                setEditErrors(backendErrors);
-            } else {
-                setEditErrors({ general: data.message || "حدث خطأ" });
-            }
-        } catch {
-            setEditErrors({ general: "تعذر الاتصال بالسيرفر" });
-        } finally {
-            setIsSaving(false);
-        }
-    };
-
-    if (isLoading) {
-        return (
-            <div className="clinic-dashboard-layout" dir="rtl"
-                 style={{ display:"flex", alignItems:"center", justifyContent:"center" }}>
-                <p style={{ fontSize:"18px" }}>جاري تحميل بيانات الأطباء...</p>
-            </div>
-        );
-    }
-
     return (
-        <div className="clinic-dashboard-layout" dir="rtl">
+        <div className="clinic-dashboard-root" dir="rtl">
+        
+        {showToast && (
+            <div className="clinic-success-toast animate-toast">
+                <span className="toast-check-icon">✓</span>
+                <span className="toast-text">تم حفظ التغييرات بنجاح</span>
+            </div>
+        )}
 
-        {/* ── Sidebar ──────────────────────────────── */}
+        {/* الشريط الجانبي (Sidebar) */}
         <aside className="clinic-sidebar">
-            <div className="sidebar-brand">
-                <div className="brand-logo-icon">🩺</div>
-                <div className="brand-text-wrapper">
-                    <h3>عيادة النور الطبية</h3>
-                    <p>لوحة التحكم</p>
+            <div className="sidebar-brand-section">
+                <img src={logo} alt="Medlink" className="sidebar-logo-img" />
+                <div className="sidebar-brand-text">
+                    <h4>عيادة النور الطبية</h4>
+                    <span className="sidebar-user-role">لوحة التحكم</span>
                 </div>
             </div>
-            <nav className="sidebar-menu-items">
-                <p className="menu-section-title">القائمة الرئيسية</p>
-                <button className="menu-item-btn">
-                    <span className="menu-icon">📊</span> لوحة التحكم
-                </button>
-                <button className="menu-item-btn active-tab-item">
-                    <span className="menu-icon">👩‍⚕️</span> إدارة الأطباء
-                </button>
-                <button className="menu-item-btn">
-                    <span className="menu-icon">📅</span> المواعيد
-                </button>
-                <button className="menu-item-btn">
-                    <span className="menu-icon">📁</span> السجلات الطبية
-                </button>
-                <button className="menu-item-btn" onClick={() => onNavigate("clinic-profile")}>
-                    <span className="menu-icon">🏢</span> ملف العيادة
-                </button>
+            <nav className="sidebar-menu-links">
+                <div className="menu-group-label">القائمة الرئيسية</div>
+                <ul>
+                    <li onClick={() => onNavigate("clinic-profile")}>📂 ملف العيادة</li>
+                    <li className="menu-item-active" onClick={() => onNavigate("doctors-management")}>👥 إدارة الأطباء</li>
+                    <li onClick={() => onNavigate("clinic-appointments")}>📅 المواعيد</li>
+                    <li onClick={() => onNavigate && onNavigate("patients-management")}>
+                        <span className="menu-icon">💊</span> إدارة حجوزات المرضى
+                    </li>
+                </ul>
             </nav>
-            <button className="sidebar-logout-btn" onClick={() => {
-                localStorage.removeItem("auth_token");
-                localStorage.removeItem("user");
-                onNavigate("home");
-            }}>
-                <span className="logout-icon">🚪</span> تسجيل الخروج
-            </button>
+            <div className="sidebar-logout-footer" onClick={() => onNavigate("login")}>🚪 تسجيل الخروج</div>
         </aside>
 
-        {/* ── Main Content ─────────────────────────── */}
+        {/* المحتوى الرئيسي */}
         <main className="clinic-main-content">
-
-            {showToast && (
-                <div className="success-toast-banner-top">
-                    <span className="toast-text-message">تم إضافة الطبيب بنجاح</span>
-                    <div className="toast-check-circle">✓</div>
+            <header className="content-top-header">
+                <div className="breadcrumb-trail">
+                    <span>لوحة التحكم</span>
+                    <span className="trail-arrow">&gt;</span>
+                    <span className="trail-current">إدارة الأطباء</span>
+                    {isAdding && (
+                        <>
+                            <span className="trail-arrow">&gt;</span>
+                            <span className="trail-current-sub">إضافة طبيب</span>
+                        </>
+                    )}
                 </div>
-            )}
+            </header>
 
-            {error && (
-                <div style={{
-                    background:"#fff5f5", border:"1px solid #fed7d7",
-                    color:"#c53030", padding:"12px", borderRadius:"8px", marginBottom:"16px"
-                }}>
-                    ⚠️ {error}
+            {!isAdding ? (
+            <>
+                <div className="doctors-header-actions">
+                    <button className="btn-add-doctor-trigger" onClick={() => setIsAdding(true)}>
+                        <span>+</span> إضافة طبيب
+                    </button>
                 </div>
-            )}
 
-            <div className="content-top-navigation-bar">
-                <div className="breadcrumb-links">
-                    <span>لوحة التحكم</span> &gt; <span className="active-path">إدارة الأطباء</span>
+                {/* الكروت الإحصائية الثلاثية */}
+                <div className="stats-cards-grid">
+                    <div className="stat-item-card">
+                        <span className="stat-num">{doctors.length}</span>
+                        <span className="stat-lbl">إجمالي الأطباء</span>
+                    </div>
+                    <div className="stat-item-card">
+                        <span className="stat-num">{doctors.filter(d => d.status === "نشط").length}</span>
+                        <span className="stat-lbl">الأطباء النشطون</span>
+                    </div>
+                    <div className="stat-item-card">
+                        <span className="stat-num">734</span>
+                        <span className="stat-lbl">إجمالي المرضى</span>
+                    </div>
                 </div>
-                <button className="edit-profile-action-btn" onClick={() => onNavigate("add-doctor")}>
-                    ➕ إضافة طبيب
-                </button>
-            </div>
 
-            {/* إحصائيات */}
-            <div style={{ display:"flex", gap:"20px", marginBottom:"25px" }}>
-                <div className="profile-details-view-card" style={{ flex:1, textAlign:"center" }}>
-                    <h3>إجمالي الأطباء</h3>
-                    <h2>{doctors.length}</h2>
+                {/* حقل البحث المقابل للتصميم */}
+                <div className="search-filter-wrapper">
+                    <span className="search-count-badge">{filteredDoctors.length} من {doctors.length}</span>
+                    <div className="search-input-container">
+                        <input 
+                            type="text" 
+                            placeholder="بحث بالاسم أو تخصص" 
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                        <span className="search-icon-lens">🔍</span>
+                    </div>
                 </div>
-                <div className="profile-details-view-card" style={{ flex:1, textAlign:"center" }}>
-                    <h3>الأطباء النشطون</h3>
-                    <h2>{doctors.filter(d => d.status === "نشط").length}</h2>
-                </div>
-                <div className="profile-details-view-card" style={{ flex:1, textAlign:"center" }}>
-                    <h3>إجمالي المرضى</h3>
-                    <h2>0</h2>
-                </div>
-            </div>
 
-            {/* بحث */}
-            <div style={{ marginBottom:"20px", display:"flex", justifyContent:"flex-end" }}>
-                <input
-                    type="text"
-                    placeholder="🔍 بحث بالاسم أو التخصص..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    style={{ padding:"10px", width:"300px", borderRadius:"8px", border:"1px solid #cbd5e0" }}
-                />
-            </div>
-
-            {/* جدول */}
-            <div className="profile-details-view-card" style={{ padding:"0", overflow:"hidden" }}>
-                <table style={{ width:"100%", borderCollapse:"collapse", textAlign:"right" }}>
-                    <thead>
-                        <tr style={{ backgroundColor:"#f7fafc", borderBottom:"1px solid #e2e8f0" }}>
-                            <th style={{ padding:"16px" }}>الطبيب</th>
-                            <th style={{ padding:"16px" }}>التواصل</th>
-                            <th style={{ padding:"16px" }}>المرضى</th>
-                            <th style={{ padding:"16px" }}>التقييم</th>
-                            <th style={{ padding:"16px" }}>الحالة</th>
-                            <th style={{ padding:"16px" }}>إجراءات</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredDoctors.length === 0 ? (
+                {/* جدول الأطباء */}
+                <div className="doctors-table-container">
+                    <table className="doctors-data-table">
+                        <thead>
                             <tr>
-                                <td colSpan="6" style={{ padding:"40px", textAlign:"center", color:"#718096" }}>
-                                    لا يوجد أطباء حالياً
-                                </td>
+                                <th>الطبيب</th>
+                                <th>التواصل</th>
+                                <th>المرضى</th>
+                                <th>التقييم</th>
+                                <th>الحالة</th>
+                                <th>إجراءات</th>
                             </tr>
-                        ) : filteredDoctors.map((doc) => (
-                            <tr key={doc.id} style={{ borderBottom:"1px solid #edf2f7" }}>
-                                <td style={{ padding:"16px" }}>
-                                    <div style={{ fontWeight:"700", color:"#2d3748" }}>{doc.name}</div>
-                                    <div style={{ fontSize:"12px", color:"#718096" }}>{doc.specialty}</div>
-                                </td>
-                                <td style={{ padding:"16px", fontSize:"13px", color:"#4a5568" }}>
-                                    <div>{doc.email}</div>
-                                    <div style={{ color:"#a0aec0" }}>{doc.phone}</div>
-                                </td>
-                                <td style={{ padding:"16px" }}>{doc.patients}</td>
-                                <td style={{ padding:"16px", color:"#dd6b20", fontWeight:"700" }}>⭐ {doc.rating}</td>
-                                <td style={{ padding:"16px" }}>
-                                    <span style={{
-                                        backgroundColor: doc.status === "نشط" ? "#c6f6d5" : "#fed7d7",
-                                        color: doc.status === "نشط" ? "#22543d" : "#742a2a",
-                                        padding:"4px 12px", borderRadius:"12px",
-                                        fontSize:"12px", fontWeight:"700"
-                                    }}>
-                                        {doc.status}
-                                    </span>
-                                </td>
-                                <td style={{ padding:"16px", display:"flex", gap:"8px" }}>
-                                    {/* زر التعديل */}
-                                    <button
-                                        onClick={() => triggerEdit(doc)}
-                                        style={{ background:"none", border:"none", cursor:"pointer", fontSize:"18px" }}
-                                        title="تعديل"
-                                    >
-                                        ✏️
-                                    </button>
-                                    {/* زر الحذف */}
-                                    <button
-                                        onClick={() => triggerDeleteConfirmation(doc)}
-                                        style={{ background:"none", border:"none", cursor:"pointer", fontSize:"18px" }}
-                                        title="حذف"
-                                    >
-                                        🗑️
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-
-            {/* ── مودال الحذف ──────────────────────── */}
-            {isDeleteModalOpen && (
-                <div style={{
-                    position:"fixed", top:0, left:0, right:0, bottom:0,
-                    backgroundColor:"rgba(0,0,0,0.4)", display:"flex",
-                    alignItems:"center", justifyContent:"center", zIndex:1000
-                }}>
-                    <div style={{
-                        backgroundColor:"white", padding:"30px", borderRadius:"12px",
-                        width:"400px", textAlign:"center", boxShadow:"0 10px 25px rgba(0,0,0,0.1)"
-                    }}>
-                        <div style={{ fontSize:"40px", marginBottom:"15px" }}>⚠️</div>
-                        <h3 style={{ margin:"0 0 10px", color:"#2d3748" }}>تأكيد حذف الطبيب</h3>
-                        <p style={{ color:"#718096", fontSize:"14px", marginBottom:"25px" }}>
-                            هل أنت متأكد من حذف <strong>{doctorToDelete?.name}</strong>؟
-                        </p>
-                        <div style={{ display:"flex", gap:"10px", justifyContent:"center" }}>
-                            <button onClick={confirmDelete} style={{
-                                backgroundColor:"#e53e3e", color:"white", border:"none",
-                                padding:"10px 24px", borderRadius:"6px", fontWeight:"700", cursor:"pointer"
-                            }}>
-                                نعم، احذف
-                            </button>
-                            <button onClick={() => { setIsDeleteModalOpen(false); setDoctorToDelete(null); }} style={{
-                                backgroundColor:"#e2e8f0", color:"#4a5568", border:"none",
-                                padding:"10px 24px", borderRadius:"6px", fontWeight:"700", cursor:"pointer"
-                            }}>
-                                إلغاء
-                            </button>
-                        </div>
-                    </div>
+                        </thead>
+                        <tbody>
+                            {filteredDoctors.map((doc) => (
+                                <tr key={doc.id}>
+                                    <td>
+                                        <div className="table-doctor-profile">
+                                            <div className="doc-avatar-circle">👤</div>
+                                            <div>
+                                                <div className="doc-table-name">{doc.name}</div>
+                                                <div className="doc-table-spec">{doc.specialty}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className="doc-table-contact" dir="ltr">
+                                            <div>{doc.email}</div>
+                                            <div className="phone-sub-text">{doc.phone}</div>
+                                        </div>
+                                    </td>
+                                    <td className="bold-table-cell">{doc.patients}</td>
+                                    <td>
+                                        <span className="rating-star-badge">⭐ {doc.rating}</span>
+                                    </td>
+                                    <td>
+                                        <span className="status-pill-active">• {doc.status}</span>
+                                    </td>
+                                    <td>
+                                        {/* استدعاء نافذة التأكيد المحدثة */}
+                                        <button className="btn-delete-action" onClick={() => handleDeleteClick(doc.id)}>
+                                            🗑️
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
-            )}
+            </>
+            ) : (
+            /* فورم إضافة طبيب جديد */
+            <div className="clinic-profile-card-container">
+                <div className="clinic-edit-form-wrapper">
+                    <h3 className="form-welcome-title-center">إنشاء حساب جديد للطبيب وإضافته تلقائياً إلى قائمة أطباء العيادة.</h3>
+                    
+                    <form onSubmit={handleAddDoctorSubmit} className="doctors-input-form">
+                        <div className="form-field-group">
+                            <label>الاسم الكامل للطبيب*</label>
+                            <input 
+                                type="text" 
+                                name="name"
+                                placeholder="أدخل الاسم الكامل"
+                                value={newDoctor.name}
+                                onChange={handleInputChange}
+                                required 
+                            />
+                        </div>
 
-            {/* ── مودال التعديل ────────────────────── */}
-            {isEditModalOpen && (
-                <div style={{
-                    position:"fixed", top:0, left:0, right:0, bottom:0,
-                    backgroundColor:"rgba(0,0,0,0.4)", display:"flex",
-                    alignItems:"center", justifyContent:"center", zIndex:1000
-                }}>
-                    <div style={{
-                        backgroundColor:"white", padding:"32px", borderRadius:"12px",
-                        width:"460px", boxShadow:"0 10px 25px rgba(0,0,0,0.1)"
-                    }} dir="rtl">
-                        <h3 style={{ margin:"0 0 20px", color:"#2d3748" }}>✏️ تعديل بيانات الطبيب</h3>
+                        <div className="form-field-group">
+                            <label>البريد الإلكتروني*</label>
+                            <input 
+                                type="email" 
+                                name="email"
+                                placeholder="khaled.omari@alnour.com"
+                                value={newDoctor.email}
+                                onChange={handleInputChange}
+                                required 
+                            />
+                        </div>
 
-                        {editErrors.general && (
-                            <div style={{
-                                background:"#fff5f5", border:"1px solid #fed7d7",
-                                color:"#c53030", padding:"10px", borderRadius:"8px", marginBottom:"16px"
-                            }}>
-                                ⚠️ {editErrors.general}
+                        <div className="form-field-group">
+                            <label>التخصص الطبي*</label>
+                            <div className="select-dropdown-wrapper">
+                                <select 
+                                    name="specialty" 
+                                    value={newDoctor.specialty} 
+                                    onChange={handleInputChange}
+                                    required
+                                >
+                                    <option value="اختيار تخصص العيادة" disabled>اختيار تخصص العيادة</option>
+                                    <option value="طب أسنان">طب أسنان</option>
+                                    <option value="تخصص الأطفال">تخصص الأطفال</option>
+                                    <option value="تخصص القلب">تخصص القلب</option>
+                                </select>
                             </div>
-                        )}
-
-                        {/* الاسم */}
-                        <div style={{ marginBottom:"16px" }}>
-                            <label style={{ display:"block", fontWeight:"bold", marginBottom:"6px" }}>الاسم الكامل</label>
-                            <input
-                                type="text" name="full_name"
-                                value={editData.full_name}
-                                onChange={handleEditChange}
-                                style={{
-                                    width:"100%", padding:"10px", borderRadius:"8px",
-                                    border:`1px solid ${editErrors.full_name ? "#e53e3e" : "#cbd5e0"}`,
-                                    boxSizing:"border-box"
-                                }}
-                            />
-                            {editErrors.full_name && <p style={{ color:"#e53e3e", fontSize:"13px", marginTop:"4px" }}>{editErrors.full_name}</p>}
                         </div>
 
-                        {/* التخصص */}
-                        <div style={{ marginBottom:"16px" }}>
-                            <label style={{ display:"block", fontWeight:"bold", marginBottom:"6px" }}>التخصص</label>
-                            <select
-                                name="specialty"
-                                value={editData.specialty}
-                                onChange={handleEditChange}
-                                style={{
-                                    width:"100%", padding:"10px", borderRadius:"8px",
-                                    border:`1px solid ${editErrors.specialty ? "#e53e3e" : "#cbd5e0"}`,
-                                    boxSizing:"border-box"
-                                }}
-                            >
-                                <option value="تخصص الأطفال">تخصص الأطفال</option>
-                                <option value="تخصص القلب">تخصص القلب</option>
-                                <option value="طب أسنان">طب أسنان</option>
-                                <option value="طب عام">طب عام</option>
-                                <option value="جلدية">جلدية</option>
-                                <option value="عظام">عظام</option>
-                                <option value="نساء وتوليد">نساء وتوليد</option>
-                                <option value="عيون">عيون</option>
-                            </select>
-                            {editErrors.specialty && <p style={{ color:"#e53e3e", fontSize:"13px", marginTop:"4px" }}>{editErrors.specialty}</p>}
-                        </div>
-
-                        {/* الهاتف */}
-                        <div style={{ marginBottom:"24px" }}>
-                            <label style={{ display:"block", fontWeight:"bold", marginBottom:"6px" }}>رقم الهاتف</label>
-                            <input
-                                type="text" name="phone"
-                                value={editData.phone}
-                                onChange={handleEditChange}
-                                style={{
-                                    width:"100%", padding:"10px", borderRadius:"8px",
-                                    border:"1px solid #cbd5e0", boxSizing:"border-box"
-                                }}
+                        <div className="form-field-group">
+                            <label>رقم الهاتف*</label>
+                            <input 
+                                type="text" 
+                                name="phone"
+                                placeholder="أدخل رقم الهاتف"
+                                value={newDoctor.phone}
+                                onChange={handleInputChange}
+                                required 
                             />
                         </div>
 
-                        <div style={{ display:"flex", gap:"10px", justifyContent:"flex-end" }}>
-                            <button
-                                onClick={confirmEdit}
-                                disabled={isSaving}
-                                style={{
-                                    backgroundColor: isSaving ? "#90cdf4" : "#3182ce",
-                                    color:"white", border:"none", padding:"10px 24px",
-                                    borderRadius:"6px", fontWeight:"700",
-                                    cursor: isSaving ? "not-allowed" : "pointer"
-                                }}
-                            >
-                                {isSaving ? "جاري الحفظ..." : "💾 حفظ التغييرات"}
+                        <div className="form-field-group">
+                            <label>كلمة المرور*</label>
+                            <input 
+                                type="password" 
+                                name="password"
+                                placeholder="••••••••"
+                                value={newDoctor.password}
+                                onChange={handleInputChange}
+                                required 
+                            />
+                        </div>
+
+                        <div className="form-buttons-action-row-center">
+                            <button type="submit" className="btn-submit-add-doc">
+                                👥 إضافة طبيب
                             </button>
-                            <button
-                                onClick={() => { setIsEditModalOpen(false); setDoctorToEdit(null); }}
-                                style={{
-                                    backgroundColor:"#e2e8f0", color:"#4a5568", border:"none",
-                                    padding:"10px 24px", borderRadius:"6px", fontWeight:"700", cursor:"pointer"
-                                }}
-                            >
+                            <button type="button" className="btn-cancel-add-doc" onClick={() => setIsAdding(false)}>
                                 إلغاء
                             </button>
                         </div>
+                    </form>
+                </div>
+            </div>
+            )}
+        </main>
+
+        {/* 🌟 نافذة تأكيد حذف الطبيب الممركّزة المتناسقة بالكامل */}
+        {isDeleteConfirmOpen && (
+            <div className="doctors-delete-overlay">
+                <div className="doctors-delete-modal-card">
+                    <div className="doctors-delete-icon">⚠️</div>
+                    <h3>تأكيد حذف الطبيب</h3>
+                    <p>هل أنتِ متأكدة من إزالة هذا الطبيب نهائياً من العيادة؟ لا يمكن التراجع عن هذا الإجراء.</p>
+                    
+                    <div className="doctors-delete-actions">
+                        <button className="btn-doctors-danger" onClick={handleConfirmDelete}>
+                            نعم، احذفه
+                        </button>
+                        <button className="btn-doctors-cancel" onClick={() => setIsDeleteConfirmOpen(false)}>
+                            إلغاء
+                        </button>
                     </div>
                 </div>
-            )}
+            </div>
+        )}
 
-        </main>
         </div>
     );
 };

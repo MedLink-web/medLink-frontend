@@ -1,0 +1,452 @@
+.appointments-manager-container {
+    padding: 20px;
+    background-color: #fafafa;
+    min-height: 100vh;
+}
+
+.btn-back-navigation {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #2763db;
+    color: #ffffff;
+    border: 1px solid #b3c8f1;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-back-navigation:hover {
+    background-color: #e5e7eb;
+    color: #1f2937;
+    transform: translateX(-2px);
+}
+
+.back-icon {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.notification-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    border-radius: 6px;
+    color: white;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.bg-success {
+    background-color: #16a34a;
+}
+
+.bg-error {
+    background-color: #ef4444;
+}
+
+.appointments-dashboard-header {
+    background-color: #0f172a;
+    color: white;
+    padding: 20px;
+    border-radius: 12px 12px 0 0;
+}
+
+.clinic-selector-dropdown {
+    background-color: #1d4ed8;
+    padding: 6px 14px;
+    border-radius: 4px;
+    display: inline-flex;
+    gap: 10px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.panel-main-title {
+    margin-top: 15px;
+    font-size: 22px;
+}
+
+.sub-profile-info {
+    margin-top: 15px;
+    border-top: 1px solid #334155;
+    padding-top: 10px;
+}
+
+.sub-profile-info p {
+    color: #94a3b8;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.action-row-with-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+    gap: 20px;
+}
+
+.btn-add-period {
+    background-color: #059669;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.stats-mini-grid {
+    display: flex;
+    gap: 15px;
+}
+
+.stat-box-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 100px;
+}
+
+.stat-percentage,
+.stat-big-number {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.stat-box-desc {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 4px;
+}
+
+.sub-desc {
+    display: block;
+    color: #94a3b8;
+    font-size: 11px;
+}
+
+.days-tabs-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 10px;
+}
+
+.day-tab-item {
+    background: #0f172a;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.tab-item-active {
+    opacity: 1;
+    background-color: #1d4ed8;
+}
+
+.periods-list-table {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.table-header-row,
+.table-body-row {
+    display: flex;
+    padding: 14px 20px;
+    align-items: center;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.table-header-row {
+    background-color: #f8fafc;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.col-time { flex: 2; }
+.col-booking { flex: 2; }
+.col-status { flex: 1; }
+.col-actions { flex: 1; text-align: left; }
+
+.duration-sub-label {
+    display: block;
+    font-size: 11px;
+    color: #94a3b8;
+    font-weight: normal;
+    margin-top: 4px;
+}
+
+.booking-progress-container {
+    width: 80%;
+}
+
+.booking-count-txt {
+    font-size: 12px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.progress-bar-bg {
+    background-color: #f1f5f9;
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    background-color: #f59e0b;
+    height: 100%;
+}
+
+.status-pill-green {
+    color: #16a34a;
+    font-weight: 600;
+}
+.status-pill-red {
+    color: #ef4444;
+    font-weight: 600;
+}
+
+.btn-table-edit {
+    background: none;
+    border: 1px solid #cbd5e1;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.appointments-backdrop-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: flex-end;
+    z-index: 1000;
+}
+
+.appointment-side-modal {
+    background: white;
+    width: 420px;
+    height: 100%;
+    padding: 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.modal-top-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 15px;
+}
+
+.btn-close-modal {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.modal-input-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.input-group-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.input-group-field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.input-group-field select,
+.input-group-field input {
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+}
+
+.input-flex-row {
+    display: flex;
+    gap: 12px;
+}
+
+.flex-1 { flex: 1; }
+
+.duration-chips-selector {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.chip-btn {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.chip-btn-active {
+    background: #1d4ed8;
+    color: white;
+    border-color: #1d4ed8;
+}
+
+.checkbox-toggle-option {
+    display: flex;
+    gap: 10px;
+    font-size: 13px;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.modal-actions-footer-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-modal-save {
+    background-color: #0f172a;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-modal-delete {
+    background-color: #fef2f2;
+    color: #ef4444;
+    border: 1px solid #fee2e2;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-modal-cancel {
+    background-color: #f1f5f9;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* 🌟 تنيسقات نافذة تأكيد الحذف المتمركزة لتطابق Figma */
+.delete-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.delete-confirm-modal-card {
+    background: white;
+    width: 400px;
+    max-width: 90%;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    animation: scaleUp 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.delete-modal-icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.delete-confirm-modal-card h3 {
+    font-size: 18px;
+    color: #0f172a;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.delete-confirm-modal-card p {
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.delete-modal-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-confirm-danger {
+    flex: 1;
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-confirm-danger:hover {
+    background-color: #dc2626;
+}
+
+.btn-confirm-cancel {
+    flex: 1;
+    background-color: #f1f5f9;
+    color: #475569;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-confirm-cancel:hover {
+    background-color: #e2e8f0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}

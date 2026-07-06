@@ -1,0 +1,350 @@
+/* ==========================================================================
+   صفحة مواعيد المريض الأساسية والهيكل العام
+   ========================================================================== */
+.patient-appointments-page {
+    background-color: #f8fafc;
+    min-height: 100vh;
+    padding-bottom: 60px;
+    font-family: sans-serif;
+    position: relative;
+}
+
+/* 🌐 نافبار المريض الموحد المتطابق مع Figma */
+.Medlink-custom-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #cbe2f7;
+    padding: 12px 4%;
+    border-bottom: 1px solid #b4d3f2;
+}
+
+.nav-right-side {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.Medlink-nav-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-pulse-circle {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.Medlink-nav-links {
+    display: flex;
+    gap: 24px;
+}
+
+.Medlink-nav-item {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e293b;
+    cursor: pointer;
+    padding: 4px 2px;
+}
+
+.active-nav-tab {
+    color: #2563eb !important;
+    border-bottom: 2px solid #2563eb;
+}
+
+.btn-Medlink-logout {
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* 🔍 شريط البحث العلوي والترحيب */
+.appointments-upper-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 24px auto;
+    padding: 0 20px;
+}
+
+.search-input-wrapper {
+    position: relative;
+    width: 320px;
+}
+
+.search-input-wrapper input {
+    width: 100%;
+    padding: 10px 16px 10px 40px;
+    background-color: #e2e8f0;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    text-align: right;
+    color: #334155;
+}
+
+.search-icon-inside {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #64748b;
+}
+
+.user-welcome-badge {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.user-avatar-placeholder,
+.banner-avatar-placeholder {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+
+/* 🎛️ أزرار التصفية */
+.appointments-filter-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    max-width: 1100px;
+    margin: 0 auto 24px auto;
+    padding: 0 20px;
+}
+
+.filter-label-text {
+    font-size: 15px;
+    font-weight: 700;
+    color: #64748b;
+}
+
+.btn-filter-tab {
+    background-color: #f1f5f9;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.active-filter-tab {
+    background-color: #e2e8f0;
+    color: #1e293b;
+    border-color: #cbd5e1;
+}
+
+/* 🗂️ تصميم شبكة المواعيد والكروت التناظرية مع Figma */
+.appointments-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+    gap: 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.appointment-data-card {
+    background-color: #e0f2fe;
+    /* لون الخلفية اللبني الخفيف جداً للكروت */
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 1px solid #bae6fd;
+}
+
+.card-info-row {
+    display: flex;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.info-label {
+    width: 110px;
+    color: #1e3a8a;
+    font-weight: 700;
+}
+
+.info-value {
+    color: #334155;
+    font-weight: 600;
+}
+
+.card-bottom-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    border-top: 1px dashed #93c5fd;
+    padding-top: 14px;
+}
+
+.status-badge-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.status-badge-tag {
+    padding: 4px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.tag-green {
+    background-color: #bbf7d0;
+    color: #166534;
+}
+
+.tag-yellow {
+    background-color: #fef08a;
+    color: #854d0e;
+}
+
+.btn-trigger-cancel {
+    background-color: #fca5a5;
+    /* لون الزر الأحمر الباهت المتطابق */
+    color: #991b1b;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-trigger-cancel:hover {
+    background-color: #f87171;
+}
+
+.no-appointments-text {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #64748b;
+    font-weight: 600;
+    margin-top: 40px;
+}
+
+/* 🟥 كرت تأكيد الإلغاء المنبثق (image_bc2b22.png) */
+.figma-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.figma-cancel-dialog-card {
+    background-color: #f8fafc;
+    border: 2px solid #ef4444;
+    /* الإطار الأحمر الصريح */
+    border-radius: 4px;
+    width: 100%;
+    max-width: 420px;
+    padding: 30px 24px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.cancel-modal-title {
+    font-size: 19px;
+    color: #0f172a;
+    margin: 0 0 10px 0;
+    font-weight: 800;
+}
+
+.cancel-modal-subtitle {
+    font-size: 15px;
+    color: #334155;
+    margin: 0 0 28px 0;
+    font-weight: 700;
+}
+
+.cancel-modal-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+}
+
+.btn-modal-action-delete {
+    background-color: #ffffff;
+    color: #ef4444;
+    border: 1px solid #ef4444;
+    padding: 8px 24px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 4px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.btn-modal-action-keep {
+    background-color: #ffffff;
+    color: #1e293b;
+    border: 1px solid #cbd5e1;
+    padding: 8px 24px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 4px;
+    cursor: pointer;
+    flex: 1;
+}
+
+/* 🟢 شريط إشعار النجاح العلوي (image_bc2dc9.png) */
+.figma-success-banner-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #86efac;
+    /* اللون الأخضر الفاتح للبانر */
+    padding: 12px 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10000;
+    font-size: 20px;
+    font-weight: 800;
+    color: #14532d;
+    border-bottom: 1px solid #4ade80;
+    animation: slideDown 0.3s ease-out;
+}
+
+.logo-image {
+    width: 70px;
+    height: auto;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}

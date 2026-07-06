@@ -1,0 +1,241 @@
+/* ==========================================================================
+   شاشة تسجيل طلب صيدلية المدمجة والشاملة
+   ========================================================================== */
+
+.pharmacy-register-container {
+    background-color: #1e1e1e;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+.pharmacy-register-split-card {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 1040px;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    min-height: 780px;
+}
+
+.register-form-side {
+    flex: 1.1;
+    padding: 40px 45px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.brand-header-mini {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    align-self: flex-start;
+}
+
+.brand-logo-dot { font-size: 18px; }
+.brand-name-text { font-size: 16px; font-weight: 800; color: #1e3a8a; }
+
+.register-main-title {
+    font-size: 24px;
+    color: #0f172a;
+    font-weight: 800;
+    margin: 0 0 30px 0;
+    text-align: center;
+}
+
+.pharmacy-fields-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.register-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.register-field-group label {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #334155;
+    text-align: right;
+}
+
+.input-with-icon-wrapper { position: relative; width: 100%; }
+.input-with-icon-wrapper input {
+    width: 100%;
+    padding: 10px 16px 10px 40px;
+    background-color: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #334155;
+    text-align: right;
+    box-sizing: border-box;
+}
+
+.input-with-icon-wrapper input:focus {
+    outline: none;
+    border-color: #2563eb;
+    background-color: #ffffff;
+}
+
+.field-inner-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    color: #64748b;
+}
+
+.docs-upload-zone-box {
+    width: 100%;
+    border: 2px dashed #cbd5e1;
+    background-color: #f8fafc;
+    border-radius: 6px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.upload-box-content { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.cloud-upload-emoji { font-size: 24px; color: #2563eb; }
+.upload-box-hint-text { font-size: 12.5px; color: #64748b; margin: 0; font-weight: 600; }
+
+.btn-submit-pharmacy-request {
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn-submit-pharmacy-request:hover { background-color: #1d4ed8; }
+
+/* 🖼️ تنسيق الجانب الأيسر للصورة والبادج المضاف */
+.register-image-side {
+    flex: 0.9;
+    background-image: url('https://images.unsplash.com/photo-1586015555751-63bb77f4322a?q=80&w=1000&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.image-side-overlay-cover {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(30, 58, 138, 0.05);
+    display: flex;
+    align-items: flex-end;
+    padding: 30px;
+}
+
+.safety-badge-pill {
+    background-color: #38bdf8;
+    color: #ffffff;
+    padding: 6px 18px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 20px;
+}
+
+/* 🟢 تنسيقات شاشة النجاح عند تفعيلها داخل الكرت */
+.success-status-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    margin: 40px 0;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.green-circle-checkmark {
+    width: 65px;
+    height: 65px;
+    background-color: #22c55e;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 24px;
+}
+
+.success-main-heading {
+    font-size: 24px;
+    color: #0f172a;
+    font-weight: 800;
+    margin-bottom: 14px;
+}
+
+.success-sub-description {
+    font-size: 14.5px;
+    color: #64748b;
+    line-height: 1.7;
+    max-width: 420px;
+    margin-bottom: 35px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.success-action-buttons-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    max-width: 320px;
+}
+
+.btn-start-now-primary {
+    width: 100%;
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.btn-start-now-primary:hover { background-color: #1d4ed8; }
+
+.btn-back-to-login-link {
+    background: none;
+    border: none;
+    color: #2563eb;
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* تأثير أنيميشن ناعم للظهور */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 860px) {
+    .pharmacy-register-split-card { flex-direction: column; min-height: auto; }
+    .register-image-side { display: none; }
+    .register-form-side { padding: 30px 24px; }
+}

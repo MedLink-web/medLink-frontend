@@ -1,252 +1,280 @@
-/* ======================================================= */
-/* 👤 تنسيق صفحة الملف الشخصي والشريط الجانبي لـ Medlink */
-/* ======================================================= */
-
-.profile-page-wrapper {
-    display: flex;
+/* ==========================================================================
+   شاشة الملف الشخصي للمريض
+   ========================================================================== */
+.patient-profile-page {
+    background-color: #f8fafc;
     min-height: 100vh;
-    background-color: #f0f4f8;
-    /* 🌟 تدرج أزرق بارد فاتح جداً في الخلفية لبروز كرت الحقول */
-    font-family: 'Cairo', sans-serif;
+    padding-bottom: 60px;
+    font-family: sans-serif;
 }
 
-/* --- تصميم الشريط الجانبي (Sidebar) المطور بالأبيض --- */
-.profile-sidebar {
-    width: 260px;
-    background-color: #ffffff;
-    /* 🌟 تحويل الخلفية إلى الأبيض الصافي */
-    box-shadow: -2px 0 12px rgba(0, 0, 0, 0.03);
-    /* ظل ناعم جهة اليمين للفصل البصري */
+.logo-image {
+    width: 70px;
+    height: auto;
+}
+
+/* 🌐 نافبار المريض الموحد المتطابق مع Figma */
+.Medlink-custom-navbar {
     display: flex;
-    flex-direction: column;
-    padding: 25px 0;
-    box-sizing: border-box;
-    border-left: 1px solid #e2e8f0;
-    /* خط فاصل دقيق وأنيق */
+    justify-content: space-between;
+    align-items: center;
+    background-color: #cbe2f7;
+    padding: 12px 4%;
+    border-bottom: 1px solid #b4d3f2;
 }
 
-.sidebar-brand {
+.nav-right-side {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 0 25px 30px 25px;
-    border-bottom: 1px solid #edf2f7;
+    gap: 30px;
 }
 
-.brand-logo-text {
-    font-size: 26px;
-    font-weight: 800;
-    color: #2b6cb0;
-    /* أزرق ميدي لينك المعتمد */
-}
-
-.sidebar-menu-list {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0 0 0;
-}
-
-/* عناصر القائمة وتأثير الـ Hover المطور 🌟 */
-.menu-item-link {
+.Medlink-nav-logo {
     display: flex;
     align-items: center;
-    gap: 15px;
-    padding: 15px 25px;
-    color: #4a5568;
-    /* لون نص رمادي دافئ مريح للعين */
-    font-size: 16px;
-    font-weight: 700;
+    justify-content: center;
+}
+
+.logo-pulse-circle {
+    font-size: 24px;
     cursor: pointer;
-    transition: all 0.25s ease-in-out;
-    border-right: 4px solid transparent;
-    /* مؤشر جانبي مخفي للمحاذاة */
 }
 
-/* تأثير التمرير بالأزرق الفاتح الناعم جداً */
-.menu-item-link:hover {
-    background-color: #ebf8ff;
-    /* خلفية زرقاء ناعمة جداً */
-    color: #2b6cb0;
-    /* تحول النص للون الأزرق المعتمد */
-    border-right-color: #2b6cb0;
-    /* إبراز المؤشر الجانبي باللون الأزرق */
-}
-
-/* تنسيق القسم النشط حالياً (الملف الشخصي) */
-.active-link {
-    background-color: #e6fffa;
-    /* تدرج تركواز/أزرق خفيف مميز للبروز */
-    color: #319795;
-    font-weight: 800;
-    border-right-color: #319795;
-}
-
-.menu-item-icon {
-    font-size: 18px;
-}
-
-/* --- تصميم استمارة تعديل البيانات والكرت البارز --- */
-.profile-content-area {
-    flex: 1;
+.Medlink-nav-links {
     display: flex;
-    flex-direction: column;
-    /* للسماح لزر العودة بالاستقرار في الأعلى */
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
+    gap: 24px;
 }
 
-/* الكرت الأبيض الأساسي الذي يحتوي على الحقول لإعطائها بروزاً ثلاثي الأبعاد */
-.profile-form-container {
-    background-color: #ffffff;
-    /* 🌟 تحويل حاوية الفورم للأبيض لتبتعد وتبرز فوق الخلفية الفاتحة */
-    width: 100%;
-    max-width: 680px;
-    padding: 45px;
-    box-sizing: border-box;
-    border-radius: 16px;
-    /* زوايا دائرية ناعمة وعصرية */
-    box-shadow: 0 10px 25px rgba(43, 108, 176, 0.06);
-    /* ظل خفيف من تدرجات الأزرق لبروز ثلاثي الأبعاد عميق */
-    border: 1px solid rgba(226, 232, 240, 0.8);
+.Medlink-nav-item {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e293b;
+    cursor: pointer;
+    padding: 4px 2px;
 }
 
-/* الهيدر الخاص بالصورة الشخصية */
-.profile-avatar-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 35px;
-    gap: 12px;
+.active-nav-tab {
+    color: #2563eb !important;
+    border-bottom: 2px solid #2563eb;
 }
 
-.avatar-circle-icon {
-    width: 80px;
-    height: 80px;
-    background-color: #f7fafc;
-    border: 2px solid #cbd5e0;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 45px;
-    color: #718096;
-}
-
-.btn-change-photo {
-    background-color: #edf2f7;
-    color: #4a5568;
-    border: 1px solid #cbd5e0;
-    padding: 6px 18px;
-    border-radius: 20px;
+.btn-Medlink-logout {
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    padding: 8px 20px;
     font-size: 14px;
     font-weight: 700;
+    border-radius: 4px;
     cursor: pointer;
-    transition: all 0.2s;
 }
 
-.btn-change-photo:hover {
+/* 🪪 تصميم حاوية بطاقة الملف الشخصي */
+.profile-main-container {
+    max-width: 680px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.profile-form-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    padding: 40px 30px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 👤 قسم الصورة الدائرية وزر التغيير الرمادي */
+.profile-avatar-upload-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 35px;
+}
+
+.avatar-frame {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background-color: #f1f5f9;
+    border: 2px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.default-avatar-vector {
+    font-size: 45px;
+    color: #94a3b8;
+}
+
+.uploaded-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.btn-change-avatar-label {
     background-color: #e2e8f0;
-    color: #2b6cb0;
+    color: #334155;
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid #cbd5e1;
+    transition: background-color 0.2s;
 }
 
-/* شبكة المدخلات وبنية الحقول الحقيقية */
-.profile-fields-grid {
+.btn-change-avatar-label:hover {
+    background-color: #cbd5e1;
+}
+
+/* 📝 توزيع الحقول المدخلة هندسياً */
+.profile-inputs-grid {
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+}
+
+.input-group-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .full-width-field {
     grid-column: span 2;
 }
 
-.form-input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.field-label-text {
-    font-size: 15px;
-    font-weight: bold;
-    color: #2d3748;
-}
-
-/* تنسيق متطور ومصقول للحقول الرمادية الفاتحة */
-.profile-custom-input {
-    width: 100%;
-    background-color: #f8fafc;
-    /* خلفية ناعمة وهادئة جداً داخل الحقل */
-    border: 1px solid #cbd5e0;
-    border-radius: 8px;
-    /* حواف دائرية متناسقة مع أزرار المشروع */
-    padding: 12px 15px;
+.input-group-field label {
     font-size: 14px;
-    color: #2d3748;
+    font-weight: 700;
+    color: #1e293b;
+    text-align: right;
+}
+
+.input-group-field input {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: #e2e8f0;
+    /* لون الخلفية الرمادي المتناسق للحقول */
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #334155;
+    text-align: right;
     box-sizing: border-box;
-    font-family: inherit;
-    transition: all 0.2s ease-in-out;
 }
 
-/* حركة تفاعلية ناعمة عند الضغط بداخل الحقل (Focus) */
-.profile-custom-input:focus {
+.input-group-field input:focus {
     outline: none;
-    border-color: #2b6cb0;
-    /* تغيير الحواف للون الأزرق المعتمد */
+    border-color: #2563eb;
     background-color: #ffffff;
-    /* يتحول للأبيض الصافي ليعطي إيحاءً بالبدء في الكتابة */
-    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.15);
-    /* هالة زرقاء مضيئة خفيفة حول الحقل */
 }
 
-.text-left {
-    text-align: left;
-}
-
-/* تنسيق حقل رقم الجوال المدمج مع كود الدولة */
+/* 📞 تركيب حقل رقم الجوال المركّب */
 .phone-input-combined {
     display: flex;
-    gap: 12px;
+    gap: 10px;
+    width: 100%;
 }
 
-.phone-main-input {
+.phone-number-part {
+    flex: 3;
+}
+
+.phone-code-part {
     flex: 1;
+    text-align: center !important;
+    color: #64748b;
+    font-weight: 700;
 }
 
-.phone-code-badge {
-    background-color: #edf2f7;
-    border: 1px solid #cbd5e0;
-    border-radius: 8px;
-    padding: 12px 20px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #4a5568;
+/* 💾 زر حفظ التغييرات السفلي */
+.profile-actions-row {
+    width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* زر الحفظ السفلي الأزرق */
-.profile-form-footer {
+    justify-content: flex-start;
     margin-top: 30px;
 }
 
 .btn-save-profile-changes {
-    background-color: #2b6cb0;
-    color: white;
+    background-color: #2563eb;
+    /* اللون الأزرق الأساسي للأزرار */
+    color: #ffffff;
     border: none;
-    padding: 12px 28px;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: bold;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 6px;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(43, 108, 176, 0.2);
-    transition: all 0.2s ease;
+    transition: background-color 0.2s;
 }
 
 .btn-save-profile-changes:hover {
-    background-color: #2b5592;
-    transform: translateY(-1px);
-    /* حركة رفع طفيفة عند التمرير */
+    background-color: #1d4ed8;
+}
+
+/* 📑 تنسيق الفوتر المطابق تماماً للصورة المعروضة */
+.simple-figma-footer {
+    width: 100%;
+    background-color: #ffffff;
+    /* خلفية بيضاء ناصعة ومريحة للعين */
+    border-top: 1px solid #edf2f7;
+    /* خط علوي ناعم جداً لفصل المحتوى */
+    padding: 30px 20px;
+    /* مسافة داخلية تعطي مساحة للتنفس البصري */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* توسيط الشعار والنص في المنتصف تماماً */
+    justify-content: center;
+    gap: 8px;
+    /* تباعد عمودي بسيط ومنظم بين اللوجو والوصف */
+    box-sizing: border-box;
+    margin-top: 50px;
+    /* مسافة أمان تفصل الفوتر عن محتوى الكروت العلوي */
+}
+
+/* شعار المنصة النصي باللون الأزرق المعتمد */
+.simple-figma-footer .footer-logo {
+    color: #1a56db;
+    /* درجة الأزرق الاحترافية والعميقة المظهر بالصورة */
+    font-size: 22px;
+    font-weight: 800;
+    /* خط عريض وبارز */
+    font-family: 'Cairo', sans-serif;
+    /* لضمان انسيابية الحروف */
+    letter-spacing: 0.3px;
+}
+
+/* النص التوضيحي والحقوق */
+.simple-figma-footer p {
+    color: #718096;
+    /* لون رمادي هادئ لعدم تشتيت الانتباه وعرض الحقوق بشكل أنيق */
+    font-size: 14px;
+    font-weight: 600;
+    /* سماكة متوسطة للخط العربي ليظهر بوضوح */
+    margin: 0;
+    /* تصفير الهوامش الافتراضية للمتصفح لتجنب أي إزاحة */
+    font-family: 'Cairo', sans-serif;
+    text-align: center;
+}
+
+/* التجاوب مع الشاشات الصغيرة */
+@media (max-width: 500px) {
+    .profile-inputs-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .input-group-field {
+        grid-column: span 1;
+    }
 }
