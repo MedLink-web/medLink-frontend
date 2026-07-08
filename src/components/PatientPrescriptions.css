@@ -1,0 +1,442 @@
+/* ==========================================================================
+   صفحة وصفاتي الطبية المحسّنة والجمالية المحدثة بالكامل
+   ========================================================================== */
+.patient-prescriptions-page {
+  background-color: #f8fafc;
+  min-height: 100vh;
+  padding-bottom: 60px;
+  font-family: sans-serif;
+}
+
+/* 🌐 نافبار المريض الموحد المتطابق مع Figma */
+.Medlink-custom-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #cbe2f7;
+  padding: 12px 4%;
+  border-bottom: 1px solid #b4d3f2;
+}
+
+.nav-right-side {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.Medlink-nav-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-pulse-circle {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.Medlink-nav-links {
+  display: flex;
+  gap: 24px;
+}
+
+.Medlink-nav-item {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1e293b;
+  cursor: pointer;
+  padding: 4px 2px;
+}
+
+.active-nav-tab {
+  color: #2563eb !important;
+  border-bottom: 2px solid #2563eb;
+}
+
+.btn-Medlink-logout {
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* 📄 الحاوية الرئيسية وتصميم العنوان */
+.prescriptions-main-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 30px;
+}
+
+.page-header-zone {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 16px 28px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
+}
+
+.page-main-title {
+  font-size: 32px;
+  color: #1e293b;
+  font-weight: 800;
+  margin: 0;
+}
+
+.btn-top-general-search {
+  background-color: #e2e8f0;
+  color: #475569;
+  border: none;
+  padding: 6px 25px;
+  border-radius: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* 🗂️ كروت الأكورديون الذكية */
+.prescriptions-accordion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.prescription-accordion-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  box-shadow: 0 4px 6px 5px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-is-expanded {
+  border-color: #93c5fd;
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.05);
+}
+
+.prescription-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  background-color: #f1f5f9;
+  cursor: pointer;
+  user-select: none;
+}
+
+.prescription-accordion-card.card-is-expanded .prescription-card-header {
+  background-color: #e0f2fe;
+}
+
+.header-right-side {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.doctor-avatar-badge {
+  width: 44px;
+  height: 44px;
+  background: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.doctor-meta-details h3 {
+  margin: 0 0 4px 0;
+  font-size: 20px;
+  color: #1e293b;
+  font-weight: bold;
+}
+
+.meds-count-tag {
+  font-size: 16px;
+  background-color: #cbd5e1;
+  color: #475569;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-weight: 700;
+}
+
+.prescription-accordion-card.card-is-expanded .meds-count-tag {
+  background-color: #bae6fd;
+  color: #0369a1;
+}
+
+.header-left-side {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.prescription-date-text {
+  font-size: 16px;
+  font-weight: bold;
+  color: #64748b;
+}
+
+.accordion-chevron-icon {
+  font-size: 16px;
+  color: #64748b;
+  transition: transform 0.3s ease;
+}
+
+.chevron-up {
+  transform: rotate(180deg);
+}
+
+/* 📊 محتوى الجدول المتناسق مع image_390a42.png */
+.prescription-card-body {
+  transition: max-height 0.3s ease-out;
+}
+
+.body-hidden {
+  display: none;
+}
+
+.body-visible {
+  display: block;
+  padding: 0px 24px 24px 24px;
+}
+
+.medications-table-responsive {
+  overflow-x: auto;
+}
+
+.medications-custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: right;
+}
+
+.medications-custom-table td {
+  padding: 20px 22px;
+  font-size: 16px;
+  color: #334155;
+  font-weight: bold;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.med-name-cell {
+  font-weight: bold !important;
+  color: #1e293b !important;
+}
+
+/* تصميم زر البحث المخصص داخل الجدول في image_390a42.png */
+.btn-search-inside-table {
+  background-color: #bae6fd;
+  color: #0369a1;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-search-inside-table:hover {
+  background-color: #7dd3fc;
+}
+
+/*  تنسيقات شاشة البحث المتكاملة المتطابقة مع فوتوشوب/فيجما صورة image_390a7c.png */
+.btn-back-to-prescriptions {
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-weight: bold;
+  cursor: pointer;
+  margin-bottom: 16px;
+  display: inline-block;
+  font-size: 20px;
+}
+
+.search-header-box-figma {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 30px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 24px;
+}
+
+.search-header-box-figma h3 {
+  margin: 0 0 6px 0;
+  font-size: 28px;
+  color: #1e293b;
+}
+
+.search-sub-desc-figma {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  color: #64748b;
+}
+
+.search-bar-layout-figma {
+  display: flex;
+  gap: 12px;
+}
+
+.search-bar-layout-figma input {
+  flex: 1;
+  padding: 16px 22px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 18px;
+  background-color: #f8fafc;
+}
+
+.btn-submit-search-figma {
+  background-color: #cbd5e1;
+  color: #475569;
+  border: none;
+  padding: 0 28px;
+  border-radius: 6px;
+  font-weight:bold;
+  cursor: pointer;
+}
+
+/* كروت تفاصيل الصيدليات المتوفرة */
+.pharmacies-cards-stack-figma {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pharmacy-figma-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pharmacy-grid-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.grid-line {
+  font-size: 18px;
+}
+
+.grid-line .lbl {
+  color: #64748b;
+  display: inline-block;
+  width: 100px;
+}
+
+.grid-line .val {
+  color: #1e293b;
+  font-weight:bold;
+}
+
+.status-available {
+  color: #16a34a !important;
+}
+
+.status-limited {
+  color: #ea580c !important;
+}
+
+.pharmacy-price-block {
+  text-align: left;
+}
+
+.price-label {
+  font-size: 16px;
+  color: #94a3b8;
+  display: block;
+}
+
+.price-value {
+  font-size: 16px;
+  color: #1e293b;
+  font-weight: bold;
+}
+
+/* ❌ واجهة حالة عدم العثور على الدواء الحصرية */
+.not-found-figma-container {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.not-found-title-msg {
+  font-size: 22px;
+  color: #1e293b;
+  margin: 0 0 12px 0;
+  font-weight: 800;
+}
+
+.not-found-sub-msg {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+}
+
+.logo-image {
+  width: 70px;
+  height: auto;
+}
+
+/* 📑 تنسيق الفوتر المطابق تماماً للصورة المعروضة */
+.simple-figma-footer {
+  width: 100%;
+  background-color: #ffffff;
+  /* خلفية بيضاء ناصعة ومريحة للعين */
+  border-top: 1px solid #edf2f7;
+  /* خط علوي ناعم جداً لفصل المحتوى */
+  padding: 30px 20px;
+  /* مسافة داخلية تعطي مساحة للتنفس البصري */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* توسيط الشعار والنص في المنتصف تماماً */
+  justify-content: center;
+  gap: 8px;
+  /* تباعد عمودي بسيط ومنظم بين اللوجو والوصف */
+  box-sizing: border-box;
+  margin-top: 50px;
+  /* مسافة أمان تفصل الفوتر عن محتوى الكروت العلوي */
+}
+
+/* شعار المنصة النصي باللون الأزرق المعتمد */
+.simple-figma-footer .footer-logo {
+  color: #1a56db;
+  /* درجة الأزرق الاحترافية والعميقة المظهر بالصورة */
+  font-size: 22px;
+  font-weight: 800;
+  /* خط عريض وبارز */
+  font-family: "Cairo", sans-serif;
+  /* لضمان انسيابية الحروف */
+  letter-spacing: 0.3px;
+}
+
+/* النص التوضيحي والحقوق */
+.simple-figma-footer p {
+  color: #718096;
+  /* لون رمادي هادئ لعدم تشتيت الانتباه وعرض الحقوق بشكل أنيق */
+  font-size: 14px;
+  font-weight: 600;
+  /* سماكة متوسطة للخط العربي ليظهر بوضوح */
+  margin: 0;
+  /* تصفير الهوامش الافتراضية للمتصفح لتجنب أي إزاحة */
+  font-family: "Cairo", sans-serif;
+  text-align: center;
+}

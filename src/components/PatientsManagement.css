@@ -1,0 +1,307 @@
+:root {
+    --medlink-blue: #2563eb;
+    --sidebar-bg: #0f172a;
+    /* اللون الداكن الأنيق */
+    --sidebar-hover: #1e293b;
+    --text-muted: #94a3b8;
+    --border-color: #e2e8f0;
+    --bg-main: #f8fafc;
+}
+
+.patients-management-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--bg-main);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* 📥 الـ Sidebar المدمج والجديد بالكامل */
+.clinic-sidebar-nav {
+    width: 260px;
+    background-color: var(--sidebar-bg);
+    padding: 25px 0;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* قسم اللوغو واسم العيادة المدمج */
+.sidebar-brand-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 20px 25px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-logo-img {
+    width: 85px;
+    height: 42px;
+    object-fit: contain;
+    border-radius: 50%;
+    padding: 4px;
+}
+
+.sidebar-brand-text h4 {
+    color: #ffffff;
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.sidebar-user-role {
+    color: var(--text-muted);
+    font-size: 12px;
+    display: block;
+    margin-top: 2px;
+}
+
+/* روابط التنقل داخل السايد بار */
+.sidebar-menu-links {
+    padding: 25px 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.menu-group-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    padding-right: 10px;
+}
+
+.clinic-sidebar-nav button {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    text-align: right;
+    padding: 12px 15px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.clinic-sidebar-nav button:hover {
+    background-color: var(--sidebar-hover);
+    color: #ffffff;
+}
+
+.clinic-sidebar-nav button.active-nav-btn {
+    background-color: #1e293b;
+    color: #38bdf8 !important;
+    font-weight: 600;
+}
+
+.menu-icon {
+    font-size: 16px;
+}
+
+/* مساحة المحتوى الرئيسي */
+.patients-main-content {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.page-title-block h2 {
+    font-size: 24px;
+    color: #1e293b;
+    margin-bottom: 4px;
+}
+
+.page-title-block p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+/* كروت الإحصائيات */
+.stats-cards-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.mini-stat-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border-top: 4px solid #cbd5e1;
+}
+
+.card-blue {
+    border-top-color: #3b82f6;
+}
+
+.card-green {
+    border-top-color: #10b981;
+}
+
+.card-orange {
+    border-top-color: #f59e0b;
+}
+
+.card-purple {
+    border-top-color: #8b5cf6;
+}
+
+.stat-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 4px;
+}
+
+/* شريط التصفية */
+.filter-controls-card {
+    background-color: #e0f2fe;
+    padding: 16px 24px;
+    border-radius: 12px;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.filter-section-title {
+    font-weight: 700;
+    color: #0369a1;
+    font-size: 15px;
+}
+
+.search-input-wrapper {
+    position: relative;
+    flex: 1;
+}
+
+.search-input-wrapper input {
+    width: 100%;
+    padding: 10px 14px 10px 35px;
+    border: 1px solid #bae6fd;
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+}
+
+.search-icon-inside {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+}
+
+.filter-controls-card select {
+    padding: 10px 16px;
+    border: 1px solid #bae6fd;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #334155;
+    font-size: 13px;
+    cursor: pointer;
+    outline: none;
+}
+
+/* الجدول */
+.bookings-table-wrapper {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.patients-beautiful-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: right;
+}
+
+.patients-beautiful-table th {
+    background-color: #bae6fd;
+    color: #0369a1;
+    padding: 14px 18px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.patients-beautiful-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 13.5px;
+    color: #475569;
+}
+
+.bold-id {
+    font-weight: 600;
+    color: #0284c7;
+}
+
+.patient-name-cell {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.period-badge {
+    background-color: #f1f5f9;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+/* كبسولات الحالة */
+.status-pill-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-confirmed {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.status-pending {
+    background-color: #fef3c7;
+    color: #b45309;
+}
+
+.status-cancelled {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+.status-completed {
+    background-color: #f3e8ff;
+    color: #6b21a8;
+}
+
+.table-footer-summary {
+    margin-top: 15px;
+    font-size: 13px;
+    color: #64748b;
+    text-align: left;
+}
+
+.no-data-empty {
+    text-align: center;
+    padding: 30px !important;
+    color: #94a3b8;
+}

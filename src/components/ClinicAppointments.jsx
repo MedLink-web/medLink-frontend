@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./ClinicAppointmentsView.css";
+import "./ClinicAppointments.css";
 
 const ClinicAppointmentsView = ({ onBack }) => {
   const days = [

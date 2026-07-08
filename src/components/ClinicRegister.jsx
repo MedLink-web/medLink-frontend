@@ -44,7 +44,7 @@ const ClinicRegister = ({ onNavigate }) => {
 
     try {
       const response = await fetch(
-        "https://medlink-backend-production-e2f2.up.railway.app/api/clinic-requests",
+        "http://127.0.0.1:8000/api/clinic-requests",
         {
           method: "POST",
           headers: { Accept: "application/json" },
@@ -110,7 +110,7 @@ const ClinicRegister = ({ onNavigate }) => {
             🕐 حالة الطلب: <strong>قيد المراجعة</strong>
           </div>
           <button
-            onClick={() => onNavigate && onNavigate("home")}
+            onClick={() => onNavigate && onNavigate("landing")}
             style={{
               background: "#3182ce",
               color: "#fff",
@@ -225,7 +225,7 @@ const ClinicRegister = ({ onNavigate }) => {
                 onChange={handleChange}
                 required
               />
-              <span className="clinic-input-icon">✉️</span>
+              <span className="clinic-input-icon"></span>
             </div>
             {errors.clinic_email && (
               <p

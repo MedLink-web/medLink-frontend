@@ -16,7 +16,7 @@ const ClinicRequestDetails = ({
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState("");
 
-  const getToken = () => localStorage.getItem("auth_token");
+  const getToken = () => localStorage.getItem("token");
   const isPharmacy = activeTab === "pharmacies";
 
   // ─── قبول الطلب ───────────────────────────────
@@ -25,8 +25,8 @@ const ClinicRequestDetails = ({
     setError("");
 
     const endpoint = isPharmacy
-      ? `https://medlink-backend-production-e2f2.up.railway.app/api/admin/pharmacy-requests/${selectedRequest.id}/approve`
-      : `https://medlink-backend-production-e2f2.up.railway.app/api/admin/clinic-requests/${selectedRequest.id}/approve`;
+      ? `http://127.0.0.1:8000/api/admin/pharmacy-requests/${selectedRequest.id}/approve`
+      : `http://127.0.0.1:8000/api/admin/clinic-requests/${selectedRequest.id}/approve`;
 
     try {
       const response = await fetch(endpoint, {
@@ -70,8 +70,8 @@ const ClinicRequestDetails = ({
     setError("");
 
     const endpoint = isPharmacy
-      ? `https://medlink-backend-production-e2f2.up.railway.app/api/admin/pharmacy-requests/${selectedRequest.id}/reject`
-      : `https://medlink-backend-production-e2f2.up.railway.app/api/admin/clinic-requests/${selectedRequest.id}/reject`;
+      ? `http://127.0.0.1:8000/api/admin/pharmacy-requests/${selectedRequest.id}/reject`
+      : `http://127.0.0.1:8000/api/admin/clinic-requests/${selectedRequest.id}/reject`;
 
     try {
       const response = await fetch(endpoint, {

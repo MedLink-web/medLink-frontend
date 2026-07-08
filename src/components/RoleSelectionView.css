@@ -1,0 +1,239 @@
+/* الحاوية الأساسية للشاشة */
+.role-selection-root {
+    min-height: 100vh;
+    background-color: #ffffff;
+    font-family: 'Cairo', sans-serif;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+/* شريط الشعار العلوي */
+.role-header {
+    padding: 25px 8%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 10;
+}
+
+.role-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo-svg-icon {
+    width: 28px;
+    height: 28px;
+    color: #2b6cb0;
+}
+
+.role-logo-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a56b3;
+    letter-spacing: -0.5px;
+}
+
+/* المحتوى الرئيسي للواجهة */
+.role-main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 8% 60px 8%;
+    z-index: 5;
+}
+
+/* نصوص الترحيب */
+.role-welcome-text {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.role-main-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1a202c;
+    margin-bottom: 10px;
+}
+
+.role-main-title .brand-name {
+    font-family: sans-serif;
+    color: #1a202c;
+}
+
+.role-sub-title {
+    font-size: 16px;
+    color: #718096;
+    font-weight: 600;
+}
+
+/* شبكة الكروت الثلاثية */
+.roles-grid-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 30px;
+    width: 100%;
+    max-width: 950px;
+    margin-bottom: 40px;
+}
+
+/* كارت الدور المفرد */
+.role-selection-card {
+    flex: 1;
+    background: #ffffff;
+    border: 1px solid #ebf4ff;
+    border-radius: 16px;
+    padding: 35px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(43, 108, 176, 0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.role-selection-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(43, 108, 176, 0.08);
+    border-color: #cbd5e0;
+}
+
+/* حاوية الأيقونة الدائرية الخفيفة */
+.role-icon-container {
+    width: 80px;
+    height: 80px;
+    background-color: #ebf8ff;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.role-card-img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+.role-card-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2b6cb0;
+    margin-bottom: 20px;
+}
+
+/* قائمة الميزات لكل دور */
+.role-features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 30px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 1; /* لتتساوى الأزرار في الأسفل تلقائياً */
+}
+
+.role-features-list li {
+    font-size: 14px;
+    color: #4a5568;
+    font-weight: 600;
+}
+
+/* زر إنشاء الحساب الأزرق الداكن */
+.btn-create-account {
+    width: 100%;
+    background-color: #2b6cb0;
+    color: #ffffff;
+    border: none;
+    padding: 11px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+    transition: background-color 0.2s ease;
+}
+
+.btn-create-account:hover {
+    background-color: #1a4975;
+}
+
+/* رابط تسجيل الدخول في الأسفل */
+.role-footer-login {
+    font-size: 14px;
+    color: #718096;
+    font-weight: 600;
+}
+
+.btn-link-login {
+    background: none;
+    border: none;
+    color: #2b6cb0;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+    padding: 0 4px;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.btn-link-login:hover {
+    color: #1a4975;
+    text-decoration: underline;
+}
+
+/* العناصر الزخرفية المنقطة (الخلفية المتناسقة مع الـ Figma) */
+.decor-dots {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    opacity: 0.4;
+    pointer-events: none;
+    background-image: radial-gradient(#2b6cb0 2px, transparent 2px);
+    background-size: 12px 12px;
+}
+
+.decor-top-left {
+    top: 15%;
+    left: 8%;
+}
+
+.decor-bottom-right {
+    bottom: 12%;
+    right: 8%;
+}
+
+.role-logo-img {
+    width: 80px !important;
+    height: 60px !important;
+    max-width: 80px !important;
+    max-height: 60px !important;
+    object-fit: contain !important;
+    display: block !important;
+}
+/* التجاوب مع شاشات الهواتف والأجهزة اللوحية */
+@media (max-width: 820px) {
+    .roles-grid-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .role-selection-card {
+        width: 100%;
+        max-width: 340px;
+    }
+    
+    .role-main-title {
+        font-size: 26px;
+    }
+}

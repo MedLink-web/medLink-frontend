@@ -1,0 +1,278 @@
+/* 🌟 الحاوية الرئيسية للتطبيق (تم تصفير المسافات لتصفير الفراغ العلوي) */
+.patient-pharmacies-root {
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7fc;
+    /* نفس درجة اللون الموضحة بالـ Figma #F4F7FC */
+    min-height: 100vh;
+    font-family: 'Cairo', sans-serif;
+}
+
+/* 🌟 الحاوية الجديدة التي تحافظ على مسافات المحتوى بعيداً عن أطراف الشاشة */
+.pharmacies-content-container {
+    padding: 10px 20px 40px 20px;
+    /* مسافات داخلية مريحة للمحتوى السفلي فقط */
+}
+
+.logo-image {
+    width: 70px;
+    height: auto;
+}
+
+/* 🌐 نافبار المريض الموحد المتطابق مع Figma */
+/* .Medlink-custom-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #cbe2f7;
+    padding: 12px 4%;
+    border-bottom: 1px solid #b4d3f2;
+}
+
+.nav-right-side {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.Medlink-nav-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-pulse-circle {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.Medlink-nav-links {
+    display: flex;
+    gap: 24px;
+}
+
+.Medlink-nav-item {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1e293b;
+    cursor: pointer;
+    padding: 4px 2px;
+}
+
+.active-nav-tab {
+    color: #2563eb !important;
+    border-bottom: 2px solid #2563eb;
+}
+
+.btn-Medlink-logout {
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    padding: 8px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 4px;
+    cursor: pointer;
+} */
+
+
+/* -------------------------------------------------------------------------- */
+/* 📑 قسم محتوى عرض الصيدليات والكروت */
+/* -------------------------------------------------------------------------- */
+
+/* العناوين */
+.pharmacies-page-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.pharmacies-main-title {
+    color: #1e293b;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.pharmacies-sub-title {
+    color: #64748b;
+    font-size: 16px;
+}
+
+/* شبكة الكروت */
+.pharmacies-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* كرت الصيدلية الافتراضي المحدث */
+.pharmacy-display-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    /* حواف دائرية ناعمة وعصرية */
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.pharmacy-display-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.1), 0 4px 6px -2px rgba(37, 99, 235, 0.05);
+}
+
+/* حاوي الصورة */
+.pharmacy-img-wrapper {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    position: relative;
+    background-color: #cbd5e1;
+}
+
+.pharmacy-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.pharmacy-display-card:hover .pharmacy-card-image {
+    transform: scale(1.05);
+}
+
+/* تفاصيل البيانات داخل الكرت */
+.pharmacy-card-details {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    color: #334155;
+    line-height: 1.6;
+}
+
+.detail-label {
+    color: #64748b;
+    font-weight: 600;
+    margin-left: 6px;
+    min-width: 90px;
+}
+
+.detail-value {
+    color: #0f172a;
+}
+
+.font-bold {
+    font-weight: 700;
+    color: #2563eb;
+    /* تمييز اسم الصيدلية باللون الأزرق المعتمد للمنصة */
+}
+
+/* إضاءة وتنبيه التوفر */
+.status-highlight {
+    background-color: #f0fdf4;
+    color: #166534;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    display: inline-block;
+    width: fit-content;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+/* قسم التقييم النجمي */
+.rating-section {
+    border-top: 1px dashed #e2e8f0;
+    padding-top: 12px;
+    margin-top: 8px;
+}
+
+.rating-stars {
+    font-weight: 700;
+    color: #d97706;
+}
+
+/* أزرار الأكشن التفاعلية أسفل الكرت */
+.pharmacy-card-actions {
+    padding: 0 20px 20px 20px;
+}
+
+.btn-contact-pharmacy {
+    width: 100%;
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-contact-pharmacy:hover {
+    background-color: #1d4ed8;
+}
+
+.logo-image {
+    width: 70px;
+    height: auto;
+}
+
+/* 📑 تنسيق الفوتر المطابق تماماً للصورة المعروضة */
+.simple-figma-footer {
+    width: 100%;
+    background-color: #ffffff;
+    /* خلفية بيضاء ناصعة ومريحة للعين */
+    border-top: 1px solid #edf2f7;
+    /* خط علوي ناعم جداً لفصل المحتوى */
+    padding: 30px 20px;
+    /* مسافة داخلية تعطي مساحة للتنفس البصري */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* توسيط الشعار والنص في المنتصف تماماً */
+    justify-content: center;
+    gap: 8px;
+    /* تباعد عمودي بسيط ومنظم بين اللوجو والوصف */
+    box-sizing: border-box;
+    margin-top: 50px;
+    /* مسافة أمان تفصل الفوتر عن محتوى الكروت العلوي */
+}
+
+/* شعار المنصة النصي باللون الأزرق المعتمد */
+.simple-figma-footer .footer-logo {
+    color: #1a56db;
+    /* درجة الأزرق الاحترافية والعميقة المظهر بالصورة */
+    font-size: 22px;
+    font-weight: 800;
+    /* خط عريض وبارز */
+    font-family: 'Cairo', sans-serif;
+    /* لضمان انسيابية الحروف */
+    letter-spacing: 0.3px;
+}
+
+/* النص التوضيحي والحقوق */
+.simple-figma-footer p {
+    color: #718096;
+    /* لون رمادي هادئ لعدم تشتيت الانتباه وعرض الحقوق بشكل أنيق */
+    font-size: 14px;
+    font-weight: 600;
+    /* سماكة متوسطة للخط العربي ليظهر بوضوح */
+    margin: 0;
+    /* تصفير الهوامش الافتراضية للمتصفح لتجنب أي إزاحة */
+    font-family: 'Cairo', sans-serif;
+    text-align: center;
+}

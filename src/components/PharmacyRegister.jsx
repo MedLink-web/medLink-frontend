@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import logo from "../assets/logo.png";
-import "./PharmacyRegisterForm.css";
+import "./PharmacyRegister.css";
 import pharmacyImg from "../assets/pharmacy.png";
 
 const PharmacyRegisterForm = ({ onNavigate }) => {

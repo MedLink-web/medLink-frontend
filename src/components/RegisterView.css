@@ -1,0 +1,265 @@
+/* ==========================================
+   الجذر والخلفية العامة (Register Root)
+============================================ */
+.register-root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f7fc;
+    /* نفس الدرجة المريحة في الـ Figma */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+}
+
+/* النقاط الزخرفية الدائرية في الخلفية */
+.register-bg-decor {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background-image: radial-gradient(#cbd5e1 2px, transparent 2px);
+    background-size: 20px 20px;
+    opacity: 0.4;
+    z-index: 1;
+}
+
+.register-bg-decor.top-left {
+    top: -50px;
+    left: -50px;
+}
+
+.register-bg-decor.bottom-right {
+    bottom: -50px;
+    right: -50px;
+}
+
+/* ==========================================
+   الحاوية والكارت الرئيسي (Card Container)
+============================================ */
+.register-card-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* الشعار العلوي */
+/* تحديث تنسيق حاوية الشعار لتطابق الفيجما */
+.register-brand {
+    position: absolute;
+    top: -15px;
+    left: -300px;
+}
+
+
+/* تضمن ظهور اللوغو أولاً على اليمين بسلاسة */
+.brand-logo {
+    width: 80px;
+    height: 40px;
+    object-fit: contain;
+    bottom: auto;
+}
+
+/* تنسيق اسم المنصة باللون الأزرق المعتمد في التصميم */
+.register-brand .brand-text {
+    font-size: 40px;
+    font-weight: 700;
+    color: #1e3a8a; /* اللون الأزرق الغامق للمنصة */
+}
+
+/* كارت الفورم الأبيض الرئيسي */
+.register-form-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 35px 40px;
+    box-shadow: 0 10px 25px rgba(30, 41, 59, 0.05);
+    border: 1px solid #e2e8f0;
+    position: relative; /* تضمن حساب المواضع بدقة داخله */
+    margin-top: 40px; /* ترك مساحة علوية ليرتفع الشعار فيها دون ضغط الشاشة */
+}
+.form-main-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.form-sub-title {
+    font-size: 14px;
+    color: #64748b;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* ==========================================
+   تنسيق الحقول والمدخلات (Inputs)
+============================================ */
+.actual-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.input-group label .required {
+    color: #ef4444;
+}
+
+/* غلاف الحقل لدمج الأيقونات */
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon {
+    position: absolute;
+    right: 14px;
+    font-size: 16px;
+    color: #94a3b8;
+    pointer-events: none;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 12px 42px 12px 14px;
+    /* مساحة لليمين للأيقونة ولليسار لعين كلمة المرور */
+    font-size: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    background-color: #f8fafc;
+    /* خلفية الحقول الرمادية الخفيفة في الفيجما */
+    color: #334155;
+    transition: all 0.2s ease;
+}
+
+.input-wrapper input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    /* يتحول للأزرق عند التفاعل */
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* أيقونة العين لإظهار كلمة المرور */
+.toggle-password-eye {
+    position: absolute;
+    left: 14px;
+    font-size: 16px;
+    color: #94a3b8;
+    cursor: pointer;
+    user-select: none;
+}
+
+.toggle-password-eye:hover {
+    color: #64748b;
+}
+
+/* الحقل الديناميكي (حقل الترخيص) */
+.dynamic-field {
+    animation: fadeInField 0.3s ease-in-out;
+}
+
+@keyframes fadeInField {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================
+   شروط كلمة المرور (Constraints)
+============================================ */
+.password-constraints {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: -5px;
+    padding: 0 5px;
+}
+
+.constraint {
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.constraint.valid {
+    color: #10b981;
+    /* الأخضر للشروط المحققة */
+}
+
+.constraint.invalid {
+    color: #94a3b8;
+    /* الرمادي للشروط المتبقية */
+}
+
+/* ==========================================
+   الأزرار والروابط السفلى (Buttons & Actions)
+============================================ */
+.btn-submit-register {
+    width: 100%;
+    background-color: #1d4ed8;
+    /* اللون الأزرق الصريح في زر الفيجما */
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 10px;
+}
+
+.btn-submit-register:hover {
+    background-color: #1e40af;
+}
+
+.btn-submit-register:active {
+    transform: scale(0.98);
+}
+
+/* الانتقال لتسجيل الدخول */
+.form-footer-switch {
+    text-align: center;
+    font-size: 14px;
+    color: #64748b;
+    margin-top: 10px;
+}
+
+.form-footer-switch .login-link {
+    color: #2563eb;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+.form-footer-switch .login-link:hover {
+    text-decoration: underline;
+}

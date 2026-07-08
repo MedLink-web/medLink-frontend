@@ -1,0 +1,426 @@
+/* ==========================================================================
+   لوحة تحكم الصيدلية الشاملة - نظام الملاحة والتوجيه المتقن
+   ========================================================================== */
+
+.dashboard-layout-root {
+    background-color: #f1f5f9;
+    min-height: 100vh;
+    font-family: sans-serif;
+    color: #1e293b;
+}
+
+/* 📋 شريط التنقل العلوي المهيكل */
+.dashboard-main-nav {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.nav-brand-logo {
+    font-size: 20px;
+    font-weight: 800;
+    color: #1e3a8a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-navigation-links {
+    display: flex;
+    gap: 12px;
+}
+
+.nav-tab-btn {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #64748b;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+}
+
+.nav-tab-btn:hover {
+    color: #2563eb;
+    background-color: #eff6ff;
+}
+
+.nav-tab-btn.active-tab {
+    color: #ffffff;
+    background-color: #2563eb;
+}
+
+/* ⚡ جسد المحتوى العام */
+.dashboard-content-body {
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.inventory-section-card,
+.profile-section-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+}
+
+.inventory-header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-main-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #0f172a;
+    margin: 0;
+}
+
+.btn-add-new-medicine {
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.search-bar-wrapper {
+    margin-bottom: 20px;
+}
+
+.search-input-field {
+    width: 100%;
+    padding: 10px 16px;
+    background-color: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+
+/* 📊 جدول البيانات الاحترافي لتطابق صورة Figma */
+.table-responsive-container {
+    overflow-x: auto;
+}
+
+.medicines-data-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: right;
+}
+
+.medicines-data-table th,
+.medicines-data-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 14px;
+}
+
+.medicines-data-table th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-weight: 700;
+}
+
+.bold-med-name {
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.category-tag-pill {
+    background-color: #f1f5f9;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12.5px;
+}
+
+.price-text {
+    color: #0f172a;
+    font-weight: 600;
+}
+
+.status-indicator-badge {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.status-indicator-badge.in-stock {
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.status-indicator-badge.out-of-stock {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+.action-buttons-cell {
+    display: flex;
+    gap: 8px;
+}
+
+.action-buttons-cell button {
+    background: none;
+    border: 1px solid #e2e8f0;
+    padding: 6px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* 🏥 تنسيقات الملف التعريفي والـ Form المقتبسة من image_efe5fe.png */
+.profile-display-mode-box {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.profile-info-grid-row {
+    display: flex;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 10px;
+}
+
+.profile-info-grid-row strong {
+    width: 150px;
+    color: #475569;
+}
+
+.btn-trigger-edit-profile {
+    align-self: flex-start;
+    background-color: #1e3a8a;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.profile-editable-form-box {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.form-field-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-field-row label {
+    font-weight: 700;
+    font-size: 13.5px;
+}
+
+.form-field-row input,
+.form-field-row textarea {
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background-color: #f8fafc;
+}
+
+.form-actions-footer-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.btn-save-profile-modifications {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-cancel-profile-modifications {
+    background-color: #e2e8f0;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.green-success-toast-bar {
+    background-color: #22c55e;
+    color: white;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* 📥 الـ Modal المنبثق التفاعلي الكامل */
+.fullscreen-overlay-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.centered-modal-content-card {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 460px;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+}
+
+.modal-header-top h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.btn-close-modal-x {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-interactive-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.modal-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.modal-input-group label {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.modal-input-group input,
+.modal-input-group select {
+    padding: 8px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    background-color: #f8fafc;
+}
+
+.toggle-row-alignment {
+    flex-direction: row !important;
+    align-items: center;
+    gap: 8px !important;
+}
+
+.modal-buttons-footer {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-modal-save-primary {
+    flex: 1;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-modal-cancel-secondary {
+    flex: 1;
+    background-color: #e2e8f0;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* 🗑️ نافذة الحذف التأكيدية الصغرى */
+.delete-confirmation-alert-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 380px;
+    width: 100%;
+}
+
+.red-trash-icon-container {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.delete-confirmation-alert-box h5 {
+    margin: 0 0 8px 0;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.delete-confirmation-alert-box p {
+    font-size: 13px;
+    color: #64748b;
+    margin: 0 0 20px 0;
+}
+
+.confirmation-action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn-confirm-red-delete {
+    background-color: #dc2626;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-stay-abort {
+    background: none;
+    border: none;
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}

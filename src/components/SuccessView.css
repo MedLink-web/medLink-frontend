@@ -1,0 +1,157 @@
+/* ==========================================
+   الجذر والخلفية العامة (Success Root)
+============================================ */
+.success-root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f7fc;
+    /* نفس الخلفية الموحدة للمشروع */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+}
+
+/* النقاط الزخرفية الدائرية المتطابقة مع الفيجما */
+.success-bg-decor {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    background-image: radial-gradient(#cbd5e1 2px, transparent 2px);
+    background-size: 20px 20px;
+    opacity: 0.4;
+    z-index: 1;
+}
+
+.success-bg-decor.top-right-dots {
+    top: 15%;
+    right: 10%;
+}
+
+.success-bg-decor.bottom-left-dots {
+    bottom: 15%;
+    left: 10%;
+}
+
+/* ==========================================
+   كارت النجاح (Success Card)
+============================================ */
+.success-card {
+    background: #ffffff;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 440px;
+    /* عرض الكارت المتناسق في الصورة */
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(30, 41, 59, 0.04);
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* تمركز كل العناصر بالمنتصف */
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+/* الشعار والاسم المركزان */
+.success-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 25px;
+}
+
+.success-logo {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+
+.success-brand-text {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1e3a8a;
+}
+
+/* دائرة الصح الخضراء (Checkmark) */
+.success-icon-wrapper {
+    margin-bottom: 25px;
+}
+
+.success-check-circle {
+    width: 55px;
+    height: 55px;
+    background-color: #10b981;
+    /* اللون الأخضر المريح بالفيجما */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+.check-mark {
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+/* النصوص */
+.success-main-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 12px;
+}
+
+.success-sub-text {
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.6;
+    max-width: 320px;
+    margin-bottom: 30px;
+}
+
+/* ==========================================
+   الأزرار والتحويلات (Actions)
+============================================ */
+.btn-start-now {
+    width: 100%;
+    max-width: 220px;
+    /* حجم الزر المتمركز في التصميم */
+    background-color: #2563eb;
+    /* الأزرق المعتمد للحدث */
+    color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    /* زر بحواف دائرية كاملة كالفيجما */
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-bottom: 15px;
+}
+
+.btn-start-now:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-start-now:active {
+    transform: scale(0.97);
+}
+
+.back-to-login {
+    font-size: 13px;
+    color: #2563eb;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+}
+
+.back-to-login:hover {
+    text-decoration: underline;
+}

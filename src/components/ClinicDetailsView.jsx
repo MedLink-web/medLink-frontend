@@ -18,7 +18,7 @@ const ClinicDetailsView = ({ onBack, onNavigate, clinicId }) => {
   const fetchClinicDetails = async () => {
     try {
       const response = await fetch(
-        `https://medlink-backend-production-e2f2.up.railway.app/api/clinics/${clinicId}`,
+        `http://127.0.0.1:8000/api/clinics/${clinicId}`,
         { headers: { Accept: "application/json" } },
       );
       const data = await response.json();
@@ -37,7 +37,7 @@ const ClinicDetailsView = ({ onBack, onNavigate, clinicId }) => {
   const fetchSlots = async () => {
     try {
       const response = await fetch(
-        `https://medlink-backend-production-e2f2.up.railway.app/api/clinics/${clinicId}/slots`,
+        `http://127.0.0.1:8000/api/clinics/${clinicId}/slots`,
         { headers: { Accept: "application/json" } },
       );
       const data = await response.json();
@@ -165,9 +165,7 @@ const ClinicDetailsView = ({ onBack, onNavigate, clinicId }) => {
                     <span className="doc-rating">⭐ 5.0</span>
                     <button
                       className="btn-book-doctor-spec"
-                      onClick={() =>
-                        onNavigate && onNavigate("clinic-appointments")
-                      }
+                      onClick={() => onNavigate && onNavigate("clinic-booking")}
                     >
                       احجز الآن
                     </button>
@@ -214,7 +212,31 @@ const ClinicDetailsView = ({ onBack, onNavigate, clinicId }) => {
                       marginBottom: "4px",
                     }}
                   >
-                    📅 {slot.date}
+                    <svg
+                      width="20"
+                      height="22"
+                      viewBox="0 0 20 22"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5 5V1C5 0.447715 5.44772 0 6 0C6.55228 0 7 0.447715 7 1V5C7 5.55228 6.55228 6 6 6C5.44772 6 5 5.55228 5 5Z"
+                        fill="black"
+                      />
+                      <path
+                        d="M13 5V1C13 0.447715 13.4477 0 14 0C14.5523 0 15 0.447715 15 1V5C15 5.55228 14.5523 6 14 6C13.4477 6 13 5.55228 13 5Z"
+                        fill="black"
+                      />
+                      <path
+                        d="M18 5C18 4.44772 17.5523 4 17 4H3C2.44772 4 2 4.44772 2 5V19C2 19.5523 2.44772 20 3 20H17C17.5523 20 18 19.5523 18 19V5ZM20 19C20 20.6569 18.6569 22 17 22H3C1.34315 22 0 20.6569 0 19V5C0 3.34315 1.34315 2 3 2H17C18.6569 2 20 3.34315 20 5V19Z"
+                        fill="black"
+                      />
+                      <path
+                        d="M19 8C19.5523 8 20 8.44771 20 9C20 9.55229 19.5523 10 19 10H1C0.447715 10 0 9.55229 0 9C0 8.44771 0.447715 8 1 8H19Z"
+                        fill="black"
+                      />
+                    </svg>
+                    {slot.date}
                   </p>
                   <p
                     style={{
@@ -247,7 +269,7 @@ const ClinicDetailsView = ({ onBack, onNavigate, clinicId }) => {
           <div className="info-links-grid">
             <div className="info-item-row">📍 {clinic.clinic_address}</div>
             <div className="info-item-row">📞 {clinic.clinic_phone}</div>
-            <div className="info-item-row">✉️ {clinic.clinic_email}</div>
+            <div className="info-item-row"> {clinic.clinic_email}</div>
           </div>
         </section>
 
@@ -259,9 +281,35 @@ const ClinicDetailsView = ({ onBack, onNavigate, clinicId }) => {
           </div>
           <button
             className="btn-main-trigger-booking"
-            onClick={() => onNavigate && onNavigate("clinic-appointments")}
+            onClick={() =>
+              onNavigate && onNavigate("clinic-booking", { clinicId: clinicId })
+            }
           >
-            حجز موعد 📅
+            حجز موعد{" "}
+            <svg
+              width="20"
+              height="22"
+              viewBox="0 0 20 22"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 5V1C5 0.447715 5.44772 0 6 0C6.55228 0 7 0.447715 7 1V5C7 5.55228 6.55228 6 6 6C5.44772 6 5 5.55228 5 5Z"
+                fill="black"
+              />
+              <path
+                d="M13 5V1C13 0.447715 13.4477 0 14 0C14.5523 0 15 0.447715 15 1V5C15 5.55228 14.5523 6 14 6C13.4477 6 13 5.55228 13 5Z"
+                fill="black"
+              />
+              <path
+                d="M18 5C18 4.44772 17.5523 4 17 4H3C2.44772 4 2 4.44772 2 5V19C2 19.5523 2.44772 20 3 20H17C17.5523 20 18 19.5523 18 19V5ZM20 19C20 20.6569 18.6569 22 17 22H3C1.34315 22 0 20.6569 0 19V5C0 3.34315 1.34315 2 3 2H17C18.6569 2 20 3.34315 20 5V19Z"
+                fill="black"
+              />
+              <path
+                d="M19 8C19.5523 8 20 8.44771 20 9C20 9.55229 19.5523 10 19 10H1C0.447715 10 0 9.55229 0 9C0 8.44771 0.447715 8 1 8H19Z"
+                fill="black"
+              />
+            </svg>
           </button>
         </div>
       </div>
