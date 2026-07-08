@@ -23,9 +23,12 @@ const PatientPharmaciesView = ({ onNavigate }) => {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch("http://127.0.0.1:8000/api/pharmacies", {
-          headers: { Accept: "application/json" },
-        });
+        const response = await fetch(
+          "https://medlink-backend-production-e2f2.up.railway.app/api/pharmacies",
+          {
+            headers: { Accept: "application/json" },
+          },
+        );
         const data = await response.json();
         if (data.success) {
           setPharmaciesData(data.data);
@@ -49,7 +52,7 @@ const PatientPharmaciesView = ({ onNavigate }) => {
       setSearchError(null);
       setSearchResults([]);
       const response = await fetch(
-        `http://127.0.0.1:8000/api/medications/search?name=${encodeURIComponent(searchQuery.trim())}`,
+        `https://medlink-backend-production-e2f2.up.railway.app/api/medications/search?name=${encodeURIComponent(searchQuery.trim())}`,
         {
           headers: { Accept: "application/json" },
         },

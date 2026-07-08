@@ -30,7 +30,7 @@ const ClinicBooking = ({ onNavigate, clinicId }) => {
       try {
         setClinicLoading(true);
         const response = await fetch(
-          `http://127.0.0.1:8000/api/clinics/${clinicId}`,
+          `https://medlink-backend-production-e2f2.up.railway.app/api/clinics/${clinicId}`,
           { headers: { Accept: "application/json" } },
         );
         const data = await response.json();
@@ -69,7 +69,7 @@ const ClinicBooking = ({ onNavigate, clinicId }) => {
         setLoading(true);
         setError(null);
         const response = await fetch(
-          `http://127.0.0.1:8000/api/clinics/${clinicId}/slots`,
+          `https://medlink-backend-production-e2f2.up.railway.app/api/clinics/${clinicId}/slots`,
           { headers: { Accept: "application/json" } },
         );
         const data = await response.json();
@@ -112,15 +112,18 @@ const ClinicBooking = ({ onNavigate, clinicId }) => {
       setBookingLoading(true);
       setBookingError(null);
       const token = localStorage.getItem("token");
-      const response = await fetch("http://127.0.0.1:8000/api/appointments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await fetch(
+        "https://medlink-backend-production-e2f2.up.railway.app/api/appointments",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ slot_id: selectedTime.id }),
         },
-        body: JSON.stringify({ slot_id: selectedTime.id }),
-      });
+      );
       const data = await response.json();
       if (data.success) {
         setBookingResult(data.data);

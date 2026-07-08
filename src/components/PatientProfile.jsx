@@ -99,12 +99,15 @@ const PatientProfile = ({ onNavigate }) => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/profile", {
-          headers: {
-            Authorization: `Bearer ${getToken()}`,
-            Accept: "application/json",
+        const response = await fetch(
+          "https://medlink-backend-production-e2f2.up.railway.app/api/profile",
+          {
+            headers: {
+              Authorization: `Bearer ${getToken()}`,
+              Accept: "application/json",
+            },
           },
-        });
+        );
 
         const data = await response.json();
 
@@ -183,18 +186,21 @@ const PatientProfile = ({ onNavigate }) => {
     const fullName = `${profileData.firstName} ${profileData.lastName}`.trim();
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/profile", {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
-          "Content-Type": "application/json",
-          Accept: "application/json",
+      const response = await fetch(
+        "https://medlink-backend-production-e2f2.up.railway.app/api/profile",
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            name: fullName,
+            phone: profileData.phone,
+          }),
         },
-        body: JSON.stringify({
-          name: fullName,
-          phone: profileData.phone,
-        }),
-      });
+      );
 
       const data = await response.json();
 

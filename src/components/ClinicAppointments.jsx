@@ -62,12 +62,15 @@ const ClinicAppointmentsView = ({ onBack }) => {
   const fetchSlots = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/clinic/slots", {
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
-          Accept: "application/json",
+      const response = await fetch(
+        "https://medlink-backend-production-e2f2.up.railway.app/api/clinic/slots",
+        {
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+            Accept: "application/json",
+          },
         },
-      });
+      );
       const data = await response.json();
       if (response.ok && data.success) {
         setAllSlots(data.data);
@@ -185,20 +188,23 @@ const ClinicAppointmentsView = ({ onBack }) => {
     try {
       if (modalMode === "add") {
         // POST إضافة slot جديد
-        const response = await fetch("http://127.0.0.1:8000/api/clinic/slots", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${getToken()}`,
-            "Content-Type": "application/json",
-            Accept: "application/json",
+        const response = await fetch(
+          "https://medlink-backend-production-e2f2.up.railway.app/api/clinic/slots",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${getToken()}`,
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify({
+              date: selectedDate,
+              start_time: startTime,
+              end_time: endTime,
+              max_capacity: maxPatients,
+            }),
           },
-          body: JSON.stringify({
-            date: selectedDate,
-            start_time: startTime,
-            end_time: endTime,
-            max_capacity: maxPatients,
-          }),
-        });
+        );
 
         const data = await response.json();
 
@@ -217,7 +223,7 @@ const ClinicAppointmentsView = ({ onBack }) => {
       } else {
         // PUT تعديل slot
         const response = await fetch(
-          `http://127.0.0.1:8000/api/clinic/slots/${selectedSlotId}`,
+          `https://medlink-backend-production-e2f2.up.railway.app/api/clinic/slots/${selectedSlotId}`,
           {
             method: "PUT",
             headers: {
@@ -272,7 +278,7 @@ const ClinicAppointmentsView = ({ onBack }) => {
   const handleDeletePeriod = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/clinic/slots/${selectedSlotId}`,
+        `https://medlink-backend-production-e2f2.up.railway.app/api/clinic/slots/${selectedSlotId}`,
         {
           method: "DELETE",
           headers: {

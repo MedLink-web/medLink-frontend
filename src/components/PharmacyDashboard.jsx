@@ -59,8 +59,8 @@ const PharmacyDashboard = () => {
       setInventoryLoading(true);
       setInventoryError(null);
       const url = search
-        ? `http://127.0.0.1:8000/api/pharmacy/medications?search=${search}`
-        : "http://127.0.0.1:8000/api/pharmacy/medications";
+        ? `https://medlink-backend-production-e2f2.up.railway.app/api/pharmacy/medications?search=${search}`
+        : "https://medlink-backend-production-e2f2.up.railway.app/api/pharmacy/medications";
       const response = await fetch(url, { headers });
       const data = await response.json();
       if (data.success) {
@@ -96,7 +96,7 @@ const PharmacyDashboard = () => {
         setProfileLoading(true);
         setProfileError(null);
         const response = await fetch(
-          "http://127.0.0.1:8000/api/pharmacy/profile",
+          "https://medlink-backend-production-e2f2.up.railway.app/api/pharmacy/profile",
           { headers },
         );
         const data = await response.json();
@@ -160,10 +160,11 @@ const PharmacyDashboard = () => {
 
       let url, method;
       if (modalMode === "add") {
-        url = "http://127.0.0.1:8000/api/pharmacy/medications";
+        url =
+          "https://medlink-backend-production-e2f2.up.railway.app/api/pharmacy/medications";
         method = "POST";
       } else {
-        url = `http://127.0.0.1:8000/api/pharmacy/medications/${selectedMedicine.id}`;
+        url = `https://medlink-backend-production-e2f2.up.railway.app/api/pharmacy/medications/${selectedMedicine.id}`;
         method = "PUT";
       }
 
@@ -196,7 +197,7 @@ const PharmacyDashboard = () => {
     try {
       setDeletingMed(true);
       const response = await fetch(
-        `http://127.0.0.1:8000/api/pharmacy/medications/${medToDelete}`,
+        `https://medlink-backend-production-e2f2.up.railway.app/api/pharmacy/medications/${medToDelete}`,
         { method: "DELETE", headers },
       );
       const data = await response.json();
@@ -222,7 +223,7 @@ const PharmacyDashboard = () => {
       setSavingProfile(true);
       setProfileError(null);
       const response = await fetch(
-        "http://127.0.0.1:8000/api/pharmacy/profile",
+        "https://medlink-backend-production-e2f2.up.railway.app/api/pharmacy/profile",
         {
           method: "PUT",
           headers,
@@ -257,7 +258,7 @@ const PharmacyDashboard = () => {
   const handleToggleAvailability = async (medId) => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/pharmacy/medications/${medId}/toggle`,
+        `https://medlink-backend-production-e2f2.up.railway.app/api/pharmacy/medications/${medId}/toggle`,
         { method: "PATCH", headers },
       );
       const data = await response.json();

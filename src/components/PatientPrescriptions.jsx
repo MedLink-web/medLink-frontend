@@ -27,7 +27,7 @@ const PatientPrescriptions = ({ onNavigate, selectedPrescriptionId }) => {
         setError(null);
         const token = localStorage.getItem("token");
         const response = await fetch(
-          "http://127.0.0.1:8000/api/patient/prescriptions",
+          "https://medlink-backend-production-e2f2.up.railway.app/api/patient/prescriptions",
           {
             headers: {
               Accept: "application/json",
@@ -87,7 +87,7 @@ const PatientPrescriptions = ({ onNavigate, selectedPrescriptionId }) => {
       setSearchError(null);
       setSearchResults([]);
       const response = await fetch(
-        `http://127.0.0.1:8000/api/medications/search?name=${encodeURIComponent(query.trim())}`,
+        `https://medlink-backend-production-e2f2.up.railway.app/api/medications/search?name=${encodeURIComponent(query.trim())}`,
         {
           headers: { Accept: "application/json" },
         },

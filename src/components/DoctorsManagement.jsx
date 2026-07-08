@@ -33,12 +33,15 @@ const DoctorsManagement = ({ onNavigate, onDelete, showToast }) => {
   const fetchDoctors = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/clinic/doctors", {
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
-          Accept: "application/json",
+      const response = await fetch(
+        "https://medlink-backend-production-e2f2.up.railway.app/api/clinic/doctors",
+        {
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+            Accept: "application/json",
+          },
         },
-      });
+      );
 
       const data = await response.json();
 
@@ -83,7 +86,7 @@ const DoctorsManagement = ({ onNavigate, onDelete, showToast }) => {
     if (!doctorToDelete) return;
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/clinic/doctors/${doctorToDelete.id}`,
+        `https://medlink-backend-production-e2f2.up.railway.app/api/clinic/doctors/${doctorToDelete.id}`,
         {
           method: "DELETE",
           headers: {
@@ -127,7 +130,7 @@ const DoctorsManagement = ({ onNavigate, onDelete, showToast }) => {
     setEditErrors({});
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/clinic/doctors/${doctorToEdit.id}`,
+        `https://medlink-backend-production-e2f2.up.railway.app/api/clinic/doctors/${doctorToEdit.id}`,
         {
           method: "PUT",
           headers: {

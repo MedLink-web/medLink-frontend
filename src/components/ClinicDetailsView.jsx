@@ -18,7 +18,7 @@ const ClinicDetailsView = ({ onBack, onNavigate, clinicId }) => {
   const fetchClinicDetails = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/clinics/${clinicId}`,
+        `https://medlink-backend-production-e2f2.up.railway.app/api/clinics/${clinicId}`,
         { headers: { Accept: "application/json" } },
       );
       const data = await response.json();
@@ -37,7 +37,7 @@ const ClinicDetailsView = ({ onBack, onNavigate, clinicId }) => {
   const fetchSlots = async () => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/clinics/${clinicId}/slots`,
+        `https://medlink-backend-production-e2f2.up.railway.app/api/clinics/${clinicId}/slots`,
         { headers: { Accept: "application/json" } },
       );
       const data = await response.json();

@@ -44,7 +44,7 @@ const ClinicRegister = ({ onNavigate }) => {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/api/clinic-requests",
+        "https://medlink-backend-production-e2f2.up.railway.app/api/clinic-requests",
         {
           method: "POST",
           headers: { Accept: "application/json" },

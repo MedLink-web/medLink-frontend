@@ -23,7 +23,7 @@ const PatientsManagement = ({ onNavigate }) => {
         setError(null);
         const token = localStorage.getItem("token");
         const response = await fetch(
-          "http://127.0.0.1:8000/api/clinic/bookings",
+          "https://medlink-backend-production-e2f2.up.railway.app/api/clinic/bookings",
           {
             headers: {
               Accept: "application/json",

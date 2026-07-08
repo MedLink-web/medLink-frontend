@@ -26,21 +26,24 @@ const AddDoctor = ({ onNavigate, onSave }) => {
     setErrors({});
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/clinic/doctors", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
-          "Content-Type": "application/json",
-          Accept: "application/json",
+      const response = await fetch(
+        "https://medlink-backend-production-e2f2.up.railway.app/api/clinic/doctors",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            full_name: formData.name,
+            email: formData.email,
+            specialty: formData.specialty,
+            phone: formData.phone,
+            password: formData.password,
+          }),
         },
-        body: JSON.stringify({
-          full_name: formData.name,
-          email: formData.email,
-          specialty: formData.specialty,
-          phone: formData.phone,
-          password: formData.password,
-        }),
-      });
+      );
 
       const data = await response.json();
 
