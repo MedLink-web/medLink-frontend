@@ -98,18 +98,18 @@
     background: none;
     border: none;
     color: #2563eb;
-    font-weight: 700;
+    font-weight: bold;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 20px;
 }
 
 .clinic-main-header-card {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto 24px auto;
     background: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 12px;
-    padding: 20px;
+    padding: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -123,9 +123,9 @@
 }
 
 .clinic-avatar-placeholder {
-    font-size: 28px;
+    font-size: 32px;
     background: #f1f5f9;
-    padding: 12px;
+    padding: 15px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -134,21 +134,21 @@
 
 .clinic-title-details h2 {
     margin: 0 0 6px 0;
-    font-size: 18px;
+    font-size: 36px;
     color: #1e293b;
-    font-weight: 800;
+    font-weight: bold;
 }
 
 .clinic-spec-tag {
-    margin: 0 0 4px 0;
-    font-size: 13px;
+    margin: 0 0 10px 0;
+    font-size: 22px;
     color: #0284c7;
     font-weight: 600;
 }
 
 .clinic-loc-text {
     margin: 0;
-    font-size: 13px;
+    font-size: 18px;
     color: #64748b;
 }
 
@@ -162,7 +162,7 @@
 }
 
 .booking-section-wrapper {
-    max-width: 800px;
+    max-width: 850px;
     margin: 0 auto 24px auto;
     background: #ffffff;
     border: 1px solid #e2e8f0;
@@ -173,10 +173,10 @@
 
 .section-step-title {
     margin-top: 0;
-    margin-bottom: 16px;
-    font-size: 16px;
+    margin-bottom:20px;
+    font-size: 22px;
     color: #1e3a8a;
-    font-weight: 700;
+    font-weight: bold;
     border-bottom: 2px solid #f1f5f9;
     padding-bottom: 10px;
 }
@@ -191,7 +191,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 14px 18px;
+    padding: 20px 26px;
     background: #f8fafc;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
@@ -205,8 +205,8 @@
 }
 
 .doc-avatar-circle {
-    width: 42px;
-    height: 42px;
+    width: 50px;
+    height: 50px;
     background: #e0f2fe;
     color: #0369a1;
     border-radius: 50%;
@@ -224,20 +224,20 @@
 
 .doc-row-info h4 {
     margin: 0 0 4px 0;
-    font-size: 14.5px;
+    font-size: 20px;
     color: #1e293b;
     font-weight: 700;
 }
 
 .doc-row-info p {
     margin: 0;
-    font-size: 12px;
+    font-size: 16px;
     color: #64748b;
 }
 
 .custom-radio-indicator {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     border: 2px solid #cbd5e1;
     border-radius: 50%;
     display: flex;
@@ -271,7 +271,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 14px 20px;
+    padding: 20px 28px;
     background: #f8fafc;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
@@ -285,7 +285,7 @@
 }
 
 .day-main-text {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 600;
     color: #334155;
 }
@@ -299,7 +299,7 @@
     color: #475569;
     padding: 4px 10px;
     border-radius: 12px;
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 600;
 }
 
@@ -309,7 +309,7 @@
 }
 
 .selected-day-sub-label {
-    font-size: 13px;
+    font-size: 18px;
     color: #64748b;
     margin-top: -10px;
     margin-bottom: 16px;
@@ -318,7 +318,7 @@
 
 .time-slots-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 14px;
     margin-bottom: 20px;
 }
@@ -327,7 +327,7 @@
     background: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
-    padding: 12px;
+    padding: 25px;
     cursor: pointer;
     display: flex;
     flex-direction: column;
@@ -339,14 +339,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 18px;
+    font-weight: bold;
     color: #334155;
 }
 
 .slot-indicator-dot {
-    width: 8px;
-    height: 8px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
 }
 
@@ -369,7 +369,7 @@
     padding: 6px;
     border-radius: 6px;
     border: none;
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 700;
     cursor: pointer;
 }
@@ -432,7 +432,7 @@
 .slots-color-guide-row {
     display: flex;
     gap: 20px;
-    font-size: 12px;
+    font-size: 14px;
     color: #64748b;
     font-weight: 600;
     border-top: 1px solid #f1f5f9;
@@ -471,7 +471,7 @@
     right: 0;
     background: #1e3a8a;
     color: #ffffff;
-    padding: 16px 5%;
+    padding: 18px 5%;
     box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
     z-index: 999;
 }
@@ -486,14 +486,14 @@
 
 .booking-summary-text-side h5 {
     margin: 0 0 4px 0;
-    font-size: 12px;
+    font-size: 20px;
     color: #93c5fd;
     font-weight: 600;
 }
 
 .booking-summary-text-side p {
     margin: 0;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 700;
 }
 
@@ -501,10 +501,10 @@
     background: #ffffff;
     color: #1e3a8a;
     border: none;
-    padding: 10px 24px;
+    padding: 15px 30px;
     border-radius: 6px;
-    font-weight: 800;
-    font-size: 14px;
+    font-weight: bold;
+    font-size:18px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -515,23 +515,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px 20px;
+    padding: 50px 30px;
     background-color: #f8fafc;
 }
 
 .figma-centered-modal-card {
     background: #ffffff;
     width: 100%;
-    max-width: 400px;
-    border-radius: 8px;
-    padding: 24px;
+    max-width: 500px;
+    border-radius: 15px;
+    padding: 30px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     text-align: center;
     border: 1px solid #e2e8f0;
 }
 
 .figma-modal-title {
-    font-size: 18px;
+    font-size: 24px;
     color: #1e293b;
     margin-top: 0;
     margin-bottom: 20px;
@@ -548,13 +548,13 @@
 
 .figma-blueprint-row {
     padding: 8px 6px;
-    font-size: 14px;
+    font-size: 16px;
     color: #1e3a8a;
     font-weight: 600;
 }
 
 .figma-highlight-id {
-    font-weight: 700;
+    font-weight: bold;
     border-top: 1px dashed #bfdbfe;
     margin-top: 6px;
     padding-top: 12px;
@@ -571,10 +571,10 @@
     background-color: #2563eb;
     color: white;
     border: none;
-    padding: 12px;
+    padding:16px;
     border-radius: 6px;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 18px;
+    font-weight: bold;
     cursor: pointer;
 }
 
@@ -583,9 +583,9 @@
     background-color: #e2e8f0;
     color: #ef4444;
     border: none;
-    padding: 12px;
+    padding: 16px;
     border-radius: 6px;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 700;
     cursor: pointer;
 }
@@ -597,8 +597,8 @@
 }
 
 .figma-green-circle {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     background-color: #22c55e;
     border-radius: 50%;
     display: flex;
@@ -608,19 +608,19 @@
 
 .figma-check-icon {
     color: white;
-    font-size: 38px;
+    font-size:40px;
     font-weight: bold;
 }
 
 .figma-success-messages h4 {
-    font-size: 18px;
+    font-size: 22px;
     color: #1e293b;
     margin: 0 0 8px 0;
-    font-weight: 700;
+    font-weight: bold;
 }
 
 .figma-success-messages p {
-    font-size: 13.5px;
+    font-size: 16px;
     color: #64748b;
     margin: 0 0 24px 0;
     line-height: 1.5;

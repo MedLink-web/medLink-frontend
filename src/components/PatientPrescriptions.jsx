@@ -27,7 +27,7 @@ const PatientPrescriptions = ({ onNavigate, selectedPrescriptionId }) => {
         setError(null);
         const token = localStorage.getItem("token");
         const response = await fetch(
-          "https://medlink-backend-production-e2f2.up.railway.app/api/patient/prescriptions",
+          "http://127.0.0.1:8000/api/patient/prescriptions",
           {
             headers: {
               Accept: "application/json",
@@ -87,7 +87,7 @@ const PatientPrescriptions = ({ onNavigate, selectedPrescriptionId }) => {
       setSearchError(null);
       setSearchResults([]);
       const response = await fetch(
-        `https://medlink-backend-production-e2f2.up.railway.app/api/medications/search?name=${encodeURIComponent(query.trim())}`,
+        `http://127.0.0.1:8000/api/medications/search?name=${encodeURIComponent(query.trim())}`,
         {
           headers: { Accept: "application/json" },
         },
@@ -337,6 +337,7 @@ const PatientPrescriptions = ({ onNavigate, selectedPrescriptionId }) => {
                                       >
                                         البحث عن الدواء
                                       </button>
+                                      
                                     </td>
                                   )}
                                 </tr>

@@ -31,7 +31,7 @@ const PatientDashboard = ({ onNavigate }) => {
       try {
         // 1. جلب المواعيد
         const apptRes = await fetch(
-          "https://medlink-backend-production-e2f2.up.railway.app/api/appointments/my",
+          "http://127.0.0.1:8000/api/appointments/my",
           { headers },
         );
         const apptData = await apptRes.json();
@@ -50,7 +50,7 @@ const PatientDashboard = ({ onNavigate }) => {
 
         // 2. جلب الوصفات
         const rxRes = await fetch(
-          "https://medlink-backend-production-e2f2.up.railway.app/api/patient/prescriptions",
+          "http://127.0.0.1:8000/api/patient/prescriptions",
           { headers },
         );
         const rxData = await rxRes.json();
@@ -68,12 +68,9 @@ const PatientDashboard = ({ onNavigate }) => {
         }
 
         // 3. جلب الصيدليات
-        const phRes = await fetch(
-          "https://medlink-backend-production-e2f2.up.railway.app/api/pharmacies",
-          {
-            headers: { Accept: "application/json" },
-          },
-        );
+        const phRes = await fetch("http://127.0.0.1:8000/api/pharmacies", {
+          headers: { Accept: "application/json" },
+        });
         const phData = await phRes.json();
         if (phData.success && phData.data) {
           setPharmacies(
@@ -88,12 +85,9 @@ const PatientDashboard = ({ onNavigate }) => {
         }
 
         // 4. جلب العيادات المقترحة
-        const clRes = await fetch(
-          "https://medlink-backend-production-e2f2.up.railway.app/api/clinics",
-          {
-            headers: { Accept: "application/json" },
-          },
-        );
+        const clRes = await fetch("http://127.0.0.1:8000/api/clinics", {
+          headers: { Accept: "application/json" },
+        });
         const clData = await clRes.json();
         if (clData.success && clData.data) {
           setSuggestedClinics(

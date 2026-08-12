@@ -29,12 +29,9 @@ const ClinicsList = ({ onNavigate }) => {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch(
-          "https://medlink-backend-production-e2f2.up.railway.app/api/clinics",
-          {
-            headers: { Accept: "application/json" },
-          },
-        );
+        const response = await fetch("http://127.0.0.1:8000/api/clinics", {
+          headers: { Accept: "application/json" },
+        });
         const data = await response.json();
         if (data.success) {
           setClinics(
