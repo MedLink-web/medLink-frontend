@@ -1,426 +1,798 @@
 /* ==========================================================================
-   لوحة تحكم الصيدلية الشاملة - نظام الملاحة والتوجيه المتقن
+   Pharmacy Dashboard
+   Responsive Design - نفس الألوان والتصميم الأساسي
    ========================================================================== */
 
-.dashboard-layout-root {
-    background-color: #f1f5f9;
-    min-height: 100vh;
-    font-family: sans-serif;
-    color: #1e293b;
+* {
+  box-sizing: border-box;
 }
 
-/* 📋 شريط التنقل العلوي المهيكل */
+.dashboard-layout-root {
+  background-color: #f1f5f9;
+  min-height: 100vh;
+  font-family: sans-serif;
+  color: #1e293b;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   NAVIGATION
+   ========================================================================== */
+
 .dashboard-main-nav {
-    background-color: #ffffff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 40px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-    border-bottom: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  border-bottom: 1px solid #e2e8f0;
+  gap: 20px;
 }
 
 .nav-brand-logo {
-    font-size: 20px;
-    font-weight: 800;
-    color: #1e3a8a;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  font-size: 20px;
+  font-weight: 800;
+  color: #1e3a8a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.sidebar-logo-img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
 }
 
 .nav-navigation-links {
-    display: flex;
-    gap: 12px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .nav-tab-btn {
-    background: none;
-    border: none;
-    padding: 10px 20px;
-    font-size: 14.5px;
-    font-weight: 700;
-    color: #64748b;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: all 0.2s;
+  background: none;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #64748b;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .nav-tab-btn:hover {
-    color: #2563eb;
-    background-color: #eff6ff;
+  color: #2563eb;
+  background-color: #eff6ff;
 }
 
 .nav-tab-btn.active-tab {
-    color: #ffffff;
-    background-color: #2563eb;
+  color: #ffffff;
+  background-color: #2563eb;
 }
 
-/* ⚡ جسد المحتوى العام */
+/* ==========================================================================
+   MAIN CONTENT
+   ========================================================================== */
+
 .dashboard-content-body {
-    padding: 40px;
-    max-width: 1200px;
-    margin: 0 auto;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
 }
 
 .inventory-section-card,
 .profile-section-card {
-    background-color: #ffffff;
-    border-radius: 12px;
-    padding: 30px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  width: 100%;
 }
 
+/* ==========================================================================
+   SECTION HEADER
+   ========================================================================== */
+
 .inventory-header-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
 .section-main-title {
-    font-size: 20px;
-    font-weight: 800;
-    color: #0f172a;
-    margin: 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
 }
 
 .btn-add-new-medicine {
-    background-color: #2563eb;
-    color: #ffffff;
-    border: none;
-    padding: 8px 18px;
-    border-radius: 6px;
-    font-weight: 700;
-    cursor: pointer;
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
 }
 
+.btn-add-new-medicine:hover {
+  background-color: #1d4ed8;
+}
+
+/* ==========================================================================
+   SEARCH
+   ========================================================================== */
+
 .search-bar-wrapper {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
+  width: 100%;
 }
 
 .search-input-field {
-    width: 100%;
-    padding: 10px 16px;
-    background-color: #f8fafc;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    box-sizing: border-box;
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 16px;
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  outline: none;
+  font-size: 14px;
+  color: #1e293b;
+  transition: border-color 0.2s ease;
 }
 
-/* 📊 جدول البيانات الاحترافي لتطابق صورة Figma */
+.search-input-field:focus {
+  border-color: #2563eb;
+}
+
+/* ==========================================================================
+   TABLE
+   ========================================================================== */
+
 .table-responsive-container {
-    overflow-x: auto;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid #f1f5f9;
+  border-radius: 6px;
 }
 
 .medicines-data-table {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: right;
+  width: 100%;
+  min-width: 650px;
+  border-collapse: collapse;
+  text-align: right;
 }
 
 .medicines-data-table th,
 .medicines-data-table td {
-    padding: 14px 16px;
-    border-bottom: 1px solid #f1f5f9;
-    font-size: 14px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+  vertical-align: middle;
 }
 
 .medicines-data-table th {
-    background-color: #f8fafc;
-    color: #475569;
-    font-weight: 700;
+  background-color: #f8fafc;
+  color: #475569;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.medicines-data-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.medicines-data-table tbody tr:last-child td {
+  border-bottom: none;
 }
 
 .bold-med-name {
-    font-weight: 700;
-    color: #0f172a;
+  font-weight: 700;
+  color: #0f172a;
 }
 
 .category-tag-pill {
-    background-color: #f1f5f9;
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-size: 12.5px;
+  background-color: #f1f5f9;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 12.5px;
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .price-text {
-    color: #0f172a;
-    font-weight: 600;
+  color: #0f172a;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .status-indicator-badge {
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-block;
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
+}
+
+.status-indicator-badge:hover {
+  opacity: 0.8;
 }
 
 .status-indicator-badge.in-stock {
-    background-color: #dcfce7;
-    color: #166534;
+  background-color: #dcfce7;
+  color: #166534;
 }
 
 .status-indicator-badge.out-of-stock {
-    background-color: #fee2e2;
-    color: #991b1b;
+  background-color: #fee2e2;
+  color: #991b1b;
 }
 
+/* ==========================================================================
+   ACTION BUTTONS
+   ========================================================================== */
+
 .action-buttons-cell {
-    display: flex;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
 }
 
 .action-buttons-cell button {
-    background: none;
-    border: 1px solid #e2e8f0;
-    padding: 6px;
-    border-radius: 4px;
-    cursor: pointer;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  padding: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
 
-/* 🏥 تنسيقات الملف التعريفي والـ Form المقتبسة من image_efe5fe.png */
+.action-buttons-cell button:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.action-buttons-cell svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ==========================================================================
+   PROFILE
+   ========================================================================== */
+
 .profile-display-mode-box {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
 }
 
 .profile-info-grid-row {
-    display: flex;
-    border-bottom: 1px solid #f1f5f9;
-    padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 10px;
+  min-height: 35px;
 }
 
 .profile-info-grid-row strong {
-    width: 150px;
-    color: #475569;
+  width: 150px;
+  min-width: 150px;
+  color: #475569;
+}
+
+.profile-info-grid-row span {
+  color: #1e293b;
+  word-break: break-word;
 }
 
 .btn-trigger-edit-profile {
-    align-self: flex-start;
-    background-color: #1e3a8a;
-    color: white;
-    padding: 8px 20px;
-    border: none;
-    border-radius: 4px;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 15px;
+  align-self: flex-start;
+  background-color: #1e3a8a;
+  color: white;
+  padding: 9px 20px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.2s ease;
 }
 
+.btn-trigger-edit-profile:hover {
+  background-color: #172554;
+}
+
+/* ==========================================================================
+   PROFILE FORM
+   ========================================================================== */
+
 .profile-editable-form-box {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
 }
 
 .form-field-row {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .form-field-row label {
-    font-weight: 700;
-    font-size: 13.5px;
+  font-weight: 700;
+  font-size: 13.5px;
 }
 
 .form-field-row input,
 .form-field-row textarea {
-    padding: 10px;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    background-color: #f8fafc;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background-color: #f8fafc;
+  outline: none;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.form-field-row input:focus,
+.form-field-row textarea:focus {
+  border-color: #2563eb;
 }
 
 .form-actions-footer-row {
-    display: flex;
-    gap: 12px;
-    margin-top: 15px;
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.btn-save-profile-modifications,
+.btn-cancel-profile-modifications {
+  min-width: 130px;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .btn-save-profile-modifications {
-    background-color: #2563eb;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: 700;
-    cursor: pointer;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+}
+
+.btn-save-profile-modifications:hover {
+  background-color: #1d4ed8;
 }
 
 .btn-cancel-profile-modifications {
-    background-color: #e2e8f0;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    cursor: pointer;
+  background-color: #e2e8f0;
+  border: none;
+}
+
+.btn-cancel-profile-modifications:hover {
+  background-color: #cbd5e1;
 }
 
 .green-success-toast-bar {
-    background-color: #22c55e;
-    color: white;
-    padding: 12px;
-    border-radius: 6px;
-    font-weight: 700;
-    text-align: center;
-    margin-top: 20px;
+  background-color: #22c55e;
+  color: white;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 20px;
 }
 
-/* 📥 الـ Modal المنبثق التفاعلي الكامل */
+/* ==========================================================================
+   MODAL
+   ========================================================================== */
+
 .fullscreen-overlay-modal-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 20px;
+  overflow-y: auto;
 }
 
 .centered-modal-content-card {
-    background-color: #ffffff;
-    width: 100%;
-    max-width: 460px;
-    border-radius: 8px;
-    padding: 24px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 460px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
 .modal-header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #f1f5f9;
-    padding-bottom: 12px;
-    margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  gap: 15px;
 }
 
 .modal-header-top h4 {
-    margin: 0;
-    font-size: 16px;
-    font-weight: 800;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
 }
 
 .btn-close-modal-x {
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #64748b;
+  line-height: 1;
+  flex-shrink: 0;
 }
 
 .modal-interactive-form {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
 .modal-input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .modal-input-group label {
-    font-size: 13px;
-    font-weight: 700;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .modal-input-group input,
 .modal-input-group select {
-    padding: 8px 12px;
-    border: 1px solid #cbd5e1;
-    border-radius: 4px;
-    background-color: #f8fafc;
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  background-color: #f8fafc;
+  outline: none;
+  font-family: inherit;
+}
+
+.modal-input-group input:focus,
+.modal-input-group select:focus {
+  border-color: #2563eb;
 }
 
 .toggle-row-alignment {
-    flex-direction: row !important;
-    align-items: center;
-    gap: 8px !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 8px !important;
+  flex-wrap: wrap;
+}
+
+.toggle-row-alignment input {
+  width: auto;
+  min-height: auto;
+}
+
+.toggle-hint-label {
+  font-size: 13px;
+  color: #64748b;
 }
 
 .modal-buttons-footer {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn-modal-save-primary,
+.btn-modal-cancel-secondary {
+  flex: 1;
+  min-height: 42px;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .btn-modal-save-primary {
-    flex: 1;
-    background-color: #2563eb;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    font-weight: 700;
-    cursor: pointer;
+  background-color: #2563eb;
+  color: white;
+}
+
+.btn-modal-save-primary:hover {
+  background-color: #1d4ed8;
 }
 
 .btn-modal-cancel-secondary {
-    flex: 1;
-    background-color: #e2e8f0;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
+  background-color: #e2e8f0;
 }
 
-/* 🗑️ نافذة الحذف التأكيدية الصغرى */
+.btn-modal-cancel-secondary:hover {
+  background-color: #cbd5e1;
+}
+
+/* ==========================================================================
+   DELETE MODAL
+   ========================================================================== */
+
 .delete-confirmation-alert-box {
-    background-color: white;
-    padding: 30px;
-    border-radius: 8px;
-    text-align: center;
-    max-width: 380px;
-    width: 100%;
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 380px;
+  width: 100%;
 }
 
 .red-trash-icon-container {
-    font-size: 40px;
-    margin-bottom: 15px;
+  font-size: 40px;
+  margin-bottom: 15px;
 }
 
 .delete-confirmation-alert-box h5 {
-    margin: 0 0 8px 0;
-    font-size: 15px;
-    font-weight: 800;
+  margin: 0 0 8px 0;
+  font-size: 15px;
+  font-weight: 800;
 }
 
 .delete-confirmation-alert-box p {
-    font-size: 13px;
-    color: #64748b;
-    margin: 0 0 20px 0;
+  font-size: 13px;
+  color: #64748b;
+  margin: 0 0 20px 0;
 }
 
 .confirmation-action-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .btn-confirm-red-delete {
-    background-color: #dc2626;
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    font-weight: 700;
-    cursor: pointer;
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .btn-stay-abort {
-    background: none;
-    border: none;
-    color: #64748b;
+  background: none;
+  border: none;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   TABLET
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .dashboard-main-nav {
+    padding: 15px 25px;
+  }
+
+  .dashboard-content-body {
+    padding: 30px 25px;
+  }
+
+  .nav-navigation-links {
+    gap: 6px;
+  }
+
+  .nav-tab-btn {
+    padding: 9px 12px;
     font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
+  }
+
+  .inventory-section-card,
+  .profile-section-card {
+    padding: 24px;
+  }
+}
+
+/* ==========================================================================
+   MOBILE
+   ========================================================================== */
+
+@media (max-width: 600px) {
+  .dashboard-main-nav {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 14px 15px;
+    gap: 12px;
+  }
+
+  .nav-brand-logo {
+    justify-content: center;
+    font-size: 19px;
+  }
+
+  .sidebar-logo-img {
+    width: 34px;
+    height: 34px;
+  }
+
+  .nav-navigation-links {
+    width: 100%;
+    display: flex;
+    gap: 6px;
+    justify-content: stretch;
+  }
+
+  .nav-tab-btn {
+    flex: 1;
+    padding: 9px 6px;
+    font-size: 12px;
+    white-space: normal;
+    line-height: 1.4;
+  }
+
+  .dashboard-content-body {
+    padding: 15px;
+  }
+
+  .inventory-section-card,
+  .profile-section-card {
+    padding: 16px;
+    border-radius: 10px;
+  }
+
+  .inventory-header-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .section-main-title {
+    font-size: 18px;
+  }
+
+  .btn-add-new-medicine {
+    width: 100%;
+    padding: 11px;
+  }
+
+  .search-input-field {
+    min-height: 44px;
+  }
+
+  /* الجدول يظل قابل للسحب أفقياً */
+  .table-responsive-container {
+    margin-left: -2px;
+    margin-right: -2px;
+  }
+
+  .medicines-data-table {
+    min-width: 650px;
+  }
+
+  .medicines-data-table th,
+  .medicines-data-table td {
+    padding: 12px 10px;
+    font-size: 13px;
+  }
+
+  .profile-info-grid-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    padding-bottom: 12px;
+  }
+
+  .profile-info-grid-row strong {
+    width: auto;
+    min-width: 0;
+    font-size: 13px;
+  }
+
+  .profile-info-grid-row span {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .btn-trigger-edit-profile {
+    width: 100%;
+    text-align: center;
+  }
+
+  .form-actions-footer-row {
+    flex-direction: column;
+  }
+
+  .btn-save-profile-modifications,
+  .btn-cancel-profile-modifications {
+    width: 100%;
+  }
+
+  /* MODAL */
+  .fullscreen-overlay-modal-backdrop {
+    padding: 12px;
+    align-items: center;
+  }
+
+  .centered-modal-content-card {
+    padding: 18px;
+    max-height: calc(100vh - 24px);
+    border-radius: 8px;
+  }
+
+  .modal-buttons-footer {
+    flex-direction: column;
+  }
+
+  .btn-modal-save-primary,
+  .btn-modal-cancel-secondary {
+    width: 100%;
+  }
+
+  .delete-confirmation-alert-box {
+    padding: 22px;
+  }
+}
+
+/* ==========================================================================
+   SMALL MOBILE
+   ========================================================================== */
+
+@media (max-width: 380px) {
+  .dashboard-content-body {
+    padding: 10px;
+  }
+
+  .inventory-section-card,
+  .profile-section-card {
+    padding: 12px;
+  }
+
+  .nav-tab-btn {
+    font-size: 11px;
+  }
+
+  .section-main-title {
+    font-size: 17px;
+  }
+
+  .centered-modal-content-card {
+    padding: 15px;
+  }
 }
