@@ -3,9 +3,11 @@
    ========================================================================== */
 .navbar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   padding: 10px 8%;
+  gap: 12px;
   background-color: #ffffff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   /* دعم سفاري */
@@ -17,7 +19,7 @@
   /* البقاء فوق جميع العناصر */
   z-index: 1000;
   width: 100%;
-  height: 80px;
+  min-height: 80px;
 }
 
 /* تنسيق الشعار (النص والصورة بجانب بعضهما) */
@@ -45,6 +47,8 @@
 /* روابط المنتصف */
 .navbar-links {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   list-style: none;
   gap: 25px;
 }
@@ -67,7 +71,9 @@
 /* حاوية الأزرار المزدوجة على اليسار */
 .navbar-actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 12px;
   /* مسافة فاصلة بين الزرين */
 }
@@ -807,6 +813,26 @@
     شاشات الهواتف والأجهزة اللوحية (Responsive Design)
    ========================================================================== */
 @media (max-width: 968px) {
+  .navbar {
+    padding: 12px 5%;
+  }
+
+  .navbar-links {
+    order: 3;
+    width: 100%;
+    gap: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #edf2f7;
+  }
+
+  .navbar-links a {
+    font-size: 14px;
+  }
+
+  .navbar-actions {
+    gap: 8px;
+  }
+
   .hero-container {
     flex-direction: column;
     gap: 40px;
@@ -854,5 +880,73 @@
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 30px;
     margin-bottom: 50px;
+  }
+}
+
+/* ==========================================================================
+   📱 نقطة توقف إضافية للموبايل - النافبار وأزرار الهيرو
+   ========================================================================== */
+@media (max-width: 600px) {
+  .navbar {
+    padding: 10px 5%;
+  }
+
+  .logo-image {
+    width: 52px;
+  }
+
+  .logo-text {
+    font-size: 20px;
+  }
+
+  .navbar-links {
+    gap: 12px;
+  }
+
+  .navbar-links a {
+    font-size: 13px;
+  }
+
+  .btn-outline,
+  .btn-solid {
+    padding: 7px 14px;
+    font-size: 13px;
+  }
+
+  .hero-title {
+    font-size: 32px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-hero-solid,
+  .btn-hero-outline {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .services-section,
+  .about-section,
+  .steps-section {
+    padding: 50px 6%;
+  }
+
+  .stats-container {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .stat-item-box {
+    flex: 1 1 40%;
+  }
+
+  .vision-floating-card {
+    position: static;
+    margin-top: 16px;
+    max-width: 100%;
   }
 }

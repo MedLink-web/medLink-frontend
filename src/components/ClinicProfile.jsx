@@ -8,6 +8,7 @@ const ClinicProfile = ({ onNavigate }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [errors, setErrors] = useState({});
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const [clinicData, setClinicData] = useState({
     name: "",
@@ -146,8 +147,37 @@ const ClinicProfile = ({ onNavigate }) => {
 
   return (
     <div className="clinic-dashboard-layout" dir="rtl">
+      {/* ── Mobile Top Bar ───────────────────────── */}
+      <div className="mobile-top-bar">
+        <button
+          type="button"
+          className="mobile-menu-toggle-btn"
+          aria-label="فتح القائمة"
+          onClick={() => setIsMobileMenuOpen(true)}
+        >
+          ☰
+        </button>
+        <span className="mobile-top-bar-title">{clinicData.name || "لوحة التحكم"}</span>
+      </div>
+
+      {/* ── Overlay (mobile only, shown when menu open) ── */}
+      {isMobileMenuOpen && (
+        <div
+          className="sidebar-overlay"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
       {/* ── Sidebar ──────────────────────────────── */}
-      <aside className="clinic-sidebar">
+      <aside className={`clinic-sidebar ${isMobileMenuOpen ? "sidebar-open" : ""}`}>
+        <button
+          type="button"
+          className="sidebar-close-btn"
+          aria-label="إغلاق القائمة"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          ✕
+        </button>
         <div className="sidebar-brand">
           <div className="brand-logo-icon">
             <svg
@@ -177,7 +207,10 @@ const ClinicProfile = ({ onNavigate }) => {
           <p className="menu-section-title">القائمة الرئيسية</p>
           <button
             className="menu-item-btn"
-            onClick={() => onNavigate("clinic-profile")}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              onNavigate("clinic-profile");
+            }}
           >
             <span className="menu-icon">
               <svg
@@ -209,11 +242,14 @@ const ClinicProfile = ({ onNavigate }) => {
                 />
               </svg>
             </span>{" "}
-            لوحة التحكم
+            <span className="btn-label">لوحة التحكم</span>
           </button>
           <button
             className="menu-item-btn"
-            onClick={() => onNavigate("doctors-management")}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              onNavigate("doctors-management");
+            }}
           >
             <span className="menu-icon">
               <svg
@@ -241,11 +277,14 @@ const ClinicProfile = ({ onNavigate }) => {
                 />
               </svg>
             </span>{" "}
-            إدارة الأطباء
+            <span className="btn-label">إدارة الأطباء</span>
           </button>
           <button
             className="menu-item-btn"
-            onClick={() => onNavigate("clinic-appointments")}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              onNavigate("clinic-appointments");
+            }}
           >
             <span className="menu-icon">
               <svg
@@ -273,9 +312,15 @@ const ClinicProfile = ({ onNavigate }) => {
                 />
               </svg>
             </span>{" "}
-            المواعيد
+            <span className="btn-label">المواعيد</span>
           </button>
-          <button className="menu-item-btn" onClick={() => onNavigate("")}>
+          <button
+            className="menu-item-btn"
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              onNavigate("");
+            }}
+          >
             <span className="menu-icon">
               <svg
                 width="24"
@@ -298,7 +343,7 @@ const ClinicProfile = ({ onNavigate }) => {
                 />
               </svg>
             </span>{" "}
-            السجلات الطبية
+            <span className="btn-label">السجلات الطبية</span>
           </button>
           <button className="menu-item-btn active-tab-item">
             <span className="menu-icon">
@@ -339,7 +384,7 @@ const ClinicProfile = ({ onNavigate }) => {
                 />
               </svg>
             </span>{" "}
-            ملف العيادة
+            <span className="btn-label">ملف العيادة</span>
           </button>
         </nav>
 
@@ -373,7 +418,7 @@ const ClinicProfile = ({ onNavigate }) => {
               />
             </svg>
           </span>{" "}
-          تسجيل الخروج
+          <span className="btn-label">تسجيل الخروج</span>
         </button>
       </aside>
 

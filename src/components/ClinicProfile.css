@@ -421,22 +421,105 @@
     font-weight: 700;
 }
 
+button svg path,.sidebar-brand .brand-logo-icon svg path{
+    fill: #fff;
+}
+
 @keyframes fadeInDown {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ===== Responsive ===== */
+/* ===== Mobile Top Bar (hidden on desktop) ===== */
+.mobile-top-bar {
+    display: none;
+}
+
+/* ===== Sidebar close button (hidden on desktop) ===== */
+.sidebar-close-btn {
+    display: none;
+}
+
+/* ===== Overlay (hidden on desktop) ===== */
+.sidebar-overlay {
+    display: none;
+}
+
+/* ===== Responsive: off-canvas hamburger drawer ===== */
 @media (max-width: 900px) {
     .clinic-dashboard-layout {
         flex-direction: column;
     }
-    .clinic-sidebar {
-        width: 100%;
-        flex-direction: row;
-        overflow-x: auto;
-        padding: 12px;
+
+    /* شريط علوي ثابت فيه زر القائمة */
+    .mobile-top-bar {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background-color: var(--sidebar-bg);
+        padding: 14px 16px;
+        position: sticky;
+        top: 0;
+        z-index: 60;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
+
+    .mobile-menu-toggle-btn {
+        background: none;
+        border: none;
+        color: #ffffff;
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 4px 8px;
+    }
+
+    .mobile-top-bar-title {
+        color: #ffffff;
+        font-weight: 700;
+        font-size: 15px;
+    }
+
+    /* الخلفية المعتمة خلف القائمة المنسدلة */
+    .sidebar-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 70;
+    }
+
+    /* القائمة: مخفية خارج الشاشة افتراضياً، وتنزلق للداخل عند الفتح */
+    .clinic-sidebar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 260px;
+        max-width: 80vw;
+        transform: translateX(100%);
+        transition: transform 0.25s ease;
+        z-index: 80;
+        overflow-y: auto;
+        box-shadow: -4px 0 20px rgba(0, 0, 0, 0.25);
+    }
+
+    .clinic-sidebar.sidebar-open {
+        transform: translateX(0);
+    }
+
+    .sidebar-close-btn {
+        display: block;
+        align-self: flex-start;
+        background: none;
+        border: none;
+        color: #ffffff;
+        font-size: 18px;
+        cursor: pointer;
+        margin-bottom: 10px;
+        padding: 4px 8px;
+    }
+
     .clinic-main-content {
         padding: 20px;
     }

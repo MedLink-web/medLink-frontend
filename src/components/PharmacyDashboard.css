@@ -1,7 +1,47 @@
 /* ==========================================================================
    لوحة تحكم الصيدلية الشاملة - نظام الملاحة والتوجيه المتقن
-   (نسخة متجاوبة Responsive - نفس الألوان وأسماء الكلاسات الأصلية)
+   (نسخة محسّنة ومتجاوبة بالكامل - نفس الألوان وأسماء الكلاسات الأصلية)
    ========================================================================== */
+
+:root {
+    --color-bg: #f1f5f9;
+    --color-surface: #ffffff;
+    --color-text: #1e293b;
+    --color-text-strong: #0f172a;
+    --color-text-muted: #64748b;
+    --color-text-soft: #475569;
+    --color-border: #e2e8f0;
+    --color-border-soft: #f1f5f9;
+    --color-input-bg: #f8fafc;
+    --color-input-border: #cbd5e1;
+
+    --color-brand: #1e3a8a;
+    --color-primary: #2563eb;
+    --color-primary-hover: #1d4ed8;
+    --color-primary-tint: #eff6ff;
+
+    --color-success-bg: #dcfce7;
+    --color-success-text: #166534;
+    --color-success: #22c55e;
+
+    --color-danger-bg: #fee2e2;
+    --color-danger-text: #991b1b;
+    --color-danger: #dc2626;
+    --color-danger-hover: #b91c1c;
+
+    --color-neutral-btn: #e2e8f0;
+    --color-neutral-btn-hover: #cbd5e1;
+
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 12px;
+
+    --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    --shadow-nav: 0 2px 4px rgba(0, 0, 0, 0.02);
+    --shadow-modal: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+    --transition-fast: 0.18s ease;
+}
 
 *,
 *::before,
@@ -9,34 +49,67 @@
     box-sizing: border-box;
 }
 
-.dashboard-layout-root {
-    background-color: #f1f5f9;
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+.pharmacy-dashboard-layout-root {
+    background-color: var(--color-bg);
     min-height: 100vh;
-    font-family: sans-serif;
-    color: #1e293b;
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    color: var(--color-text);
     overflow-x: hidden;
+    line-height: 1.5;
+}
+
+/* إتاحة إبراز واضح للتنقل بلوحة المفاتيح */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+img {
+    max-width: 100%;
+    display: block;
 }
 
 /* 📋 شريط التنقل العلوي المهيكل */
 .dashboard-main-nav {
-    background-color: #ffffff;
+    background-color: var(--color-surface);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 40px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-    border-bottom: 1px solid #e2e8f0;
+    box-shadow: var(--shadow-nav);
+    border-bottom: 1px solid var(--color-border);
     flex-wrap: wrap;
     gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
 }
 
 .nav-brand-logo {
     font-size: 20px;
     font-weight: 800;
-    color: #1e3a8a;
+    color: var(--color-brand);
     display: flex;
     align-items: center;
     gap: 8px;
+}
+
+.pharmacy-sidebar-logo-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
 }
 
 .nav-navigation-links {
@@ -52,21 +125,21 @@
     padding: 10px 20px;
     font-size: 14.5px;
     font-weight: 700;
-    color: #64748b;
+    color: var(--color-text-muted);
     cursor: pointer;
-    border-radius: 6px;
-    transition: all 0.2s;
+    border-radius: var(--radius-md);
+    transition: color var(--transition-fast), background-color var(--transition-fast);
     white-space: nowrap;
 }
 
 .nav-tab-btn:hover {
-    color: #2563eb;
-    background-color: #eff6ff;
+    color: var(--color-primary);
+    background-color: var(--color-primary-tint);
 }
 
 .nav-tab-btn.active-tab {
-    color: #ffffff;
-    background-color: #2563eb;
+    color: var(--color-surface);
+    background-color: var(--color-primary);
 }
 
 /* ⚡ جسد المحتوى العام */
@@ -79,11 +152,23 @@
 
 .inventory-section-card,
 .profile-section-card {
-    background-color: #ffffff;
-    border-radius: 12px;
+    background-color: var(--color-surface);
+    border-radius: var(--radius-lg);
     padding: 30px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    border: 1px solid #e2e8f0;
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--color-border);
+    animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .inventory-header-actions {
@@ -98,19 +183,28 @@
 .section-main-title {
     font-size: 20px;
     font-weight: 800;
-    color: #0f172a;
+    color: var(--color-text-strong);
     margin: 0;
 }
 
 .btn-add-new-medicine {
-    background-color: #2563eb;
-    color: #ffffff;
+    background-color: var(--color-primary);
+    color: var(--color-surface);
     border: none;
     padding: 8px 18px;
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     font-weight: 700;
     cursor: pointer;
     white-space: nowrap;
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.btn-add-new-medicine:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.btn-add-new-medicine:active {
+    transform: scale(0.98);
 }
 
 .search-bar-wrapper {
@@ -120,16 +214,25 @@
 .search-input-field {
     width: 100%;
     padding: 10px 16px;
-    background-color: #f8fafc;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
+    background-color: var(--color-input-bg);
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--radius-md);
     box-sizing: border-box;
+    font-size: 14px;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-/* 📊 جدول البيانات الاحترافي لتطابق صورة Figma */
+.search-input-field:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-tint);
+    outline: none;
+}
+
+/* 📊 جدول البيانات الاحترافي */
 .table-responsive-container {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius-md);
 }
 
 .medicines-data-table {
@@ -142,52 +245,69 @@
 .medicines-data-table th,
 .medicines-data-table td {
     padding: 14px 16px;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid var(--color-border-soft);
     font-size: 14px;
+    vertical-align: middle;
 }
 
 .medicines-data-table th {
-    background-color: #f8fafc;
-    color: #475569;
+    background-color: var(--color-input-bg);
+    color: var(--color-text-soft);
     font-weight: 700;
+    position: sticky;
+    top: 0;
+}
+
+.medicines-data-table tbody tr {
+    transition: background-color var(--transition-fast);
+}
+
+.medicines-data-table tbody tr:hover {
+    background-color: var(--color-input-bg);
 }
 
 .bold-med-name {
     font-weight: 700;
-    color: #0f172a;
+    color: var(--color-text-strong);
 }
 
 .category-tag-pill {
-    background-color: #f1f5f9;
+    background-color: var(--color-border-soft);
     padding: 4px 10px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     font-size: 12.5px;
     white-space: nowrap;
+    display: inline-block;
 }
 
 .price-text {
-    color: #0f172a;
+    color: var(--color-text-strong);
     font-weight: 600;
     white-space: nowrap;
 }
 
 .status-indicator-badge {
     padding: 4px 10px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     font-size: 12px;
     font-weight: 700;
     white-space: nowrap;
     display: inline-block;
+    transition: opacity var(--transition-fast);
+}
+
+.status-indicator-badge:hover {
+    opacity: 0.85;
 }
 
 .status-indicator-badge.in-stock {
-    background-color: #dcfce7;
-    color: #166534;
+    background-color: var(--color-success-bg);
+    color: var(--color-success-text);
 }
 
 .status-indicator-badge.out-of-stock {
-    background-color: #fee2e2;
-    color: #991b1b;
+    background-color: var(--color-danger-bg);
+    color: var(--color-danger-text);
 }
 
 .action-buttons-cell {
@@ -197,13 +317,27 @@
 
 .action-buttons-cell button {
     background: none;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--color-border);
     padding: 6px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color var(--transition-fast), border-color var(--transition-fast);
 }
 
-/* 🏥 تنسيقات الملف التعريفي والـ Form المقتبسة من image_efe5fe.png */
+.action-buttons-cell button:hover {
+    background-color: var(--color-input-bg);
+    border-color: var(--color-input-border);
+}
+
+.icon-btn-delete:hover {
+    background-color: var(--color-danger-bg);
+    border-color: var(--color-danger-bg);
+}
+
+/* 🏥 تنسيقات الملف التعريفي */
 .profile-display-mode-box {
     display: flex;
     flex-direction: column;
@@ -213,7 +347,7 @@
 
 .profile-info-grid-row {
     display: flex;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid var(--color-border-soft);
     padding-bottom: 10px;
     flex-wrap: wrap;
     gap: 4px;
@@ -221,22 +355,27 @@
 
 .profile-info-grid-row strong {
     width: 150px;
-    color: #475569;
+    color: var(--color-text-soft);
     flex-shrink: 0;
 }
 
 .btn-trigger-edit-profile {
     align-self: flex-start;
-    background-color: #1e3a8a;
+    background-color: var(--color-brand);
     color: white;
     padding: 8px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     font-weight: 700;
     cursor: pointer;
     margin-top: 15px;
     width: 100%;
     max-width: 220px;
+    transition: opacity var(--transition-fast);
+}
+
+.btn-trigger-edit-profile:hover {
+    opacity: 0.9;
 }
 
 .profile-editable-form-box {
@@ -260,10 +399,20 @@
 .form-field-row input,
 .form-field-row textarea {
     padding: 10px;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
-    background-color: #f8fafc;
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-input-bg);
     width: 100%;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-field-row input:focus,
+.form-field-row textarea:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-tint);
+    outline: none;
 }
 
 .form-actions-footer-row {
@@ -274,33 +423,50 @@
 }
 
 .btn-save-profile-modifications {
-    background-color: #2563eb;
+    background-color: var(--color-primary);
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     font-weight: 700;
     cursor: pointer;
     flex: 1 1 140px;
+    transition: background-color var(--transition-fast);
+}
+
+.btn-save-profile-modifications:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.btn-save-profile-modifications:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .btn-cancel-profile-modifications {
-    background-color: #e2e8f0;
+    background-color: var(--color-neutral-btn);
     border: none;
     padding: 10px 20px;
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     cursor: pointer;
     flex: 1 1 140px;
+    font-weight: 700;
+    transition: background-color var(--transition-fast);
+}
+
+.btn-cancel-profile-modifications:hover {
+    background-color: var(--color-neutral-btn-hover);
 }
 
 .green-success-toast-bar {
-    background-color: #22c55e;
+    background-color: var(--color-success);
     color: white;
     padding: 12px;
-    border-radius: 6px;
+    border-radius: var(--radius-md);
     font-weight: 700;
     text-align: center;
     margin-top: 20px;
+    animation: fadeIn 0.25s ease;
 }
 
 /* 📥 الـ Modal المنبثق التفاعلي الكامل */
@@ -316,15 +482,16 @@
     align-items: center;
     z-index: 999;
     padding: 16px;
+    animation: fadeIn 0.2s ease;
 }
 
 .centered-modal-content-card {
-    background-color: #ffffff;
+    background-color: var(--color-surface);
     width: 100%;
     max-width: 460px;
     border-radius: 8px;
     padding: 24px;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-modal);
     max-height: 90vh;
     overflow-y: auto;
 }
@@ -333,7 +500,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid var(--color-border-soft);
     padding-bottom: 12px;
     margin-bottom: 16px;
 }
@@ -349,6 +516,15 @@
     border: none;
     font-size: 20px;
     cursor: pointer;
+    color: var(--color-text-muted);
+    line-height: 1;
+    padding: 4px;
+    border-radius: var(--radius-sm);
+    transition: background-color var(--transition-fast);
+}
+
+.btn-close-modal-x:hover {
+    background-color: var(--color-input-bg);
 }
 
 .modal-interactive-form {
@@ -371,16 +547,39 @@
 .modal-input-group input,
 .modal-input-group select {
     padding: 8px 12px;
-    border: 1px solid #cbd5e1;
-    border-radius: 4px;
-    background-color: #f8fafc;
+    border: 1px solid var(--color-input-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-input-bg);
     width: 100%;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.modal-input-group input:focus,
+.modal-input-group select:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-tint);
+    outline: none;
 }
 
 .toggle-row-alignment {
     flex-direction: row !important;
     align-items: center;
     gap: 8px !important;
+}
+
+.toggle-row-alignment input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--color-primary);
+    flex-shrink: 0;
+}
+
+.toggle-hint-label {
+    font-size: 12.5px;
+    color: var(--color-text-muted);
+    font-weight: 400;
 }
 
 .modal-buttons-footer {
@@ -392,22 +591,38 @@
 
 .btn-modal-save-primary {
     flex: 1 1 120px;
-    background-color: #2563eb;
+    background-color: var(--color-primary);
     color: white;
     border: none;
     padding: 10px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     font-weight: 700;
     cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.btn-modal-save-primary:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.btn-modal-save-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .btn-modal-cancel-secondary {
     flex: 1 1 120px;
-    background-color: #e2e8f0;
+    background-color: var(--color-neutral-btn);
     border: none;
     padding: 10px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     cursor: pointer;
+    font-weight: 700;
+    transition: background-color var(--transition-fast);
+}
+
+.btn-modal-cancel-secondary:hover {
+    background-color: var(--color-neutral-btn-hover);
 }
 
 /* 🗑️ نافذة الحذف التأكيدية الصغرى */
@@ -418,6 +633,7 @@
     text-align: center;
     max-width: 380px;
     width: 100%;
+    box-shadow: var(--shadow-modal);
 }
 
 .red-trash-icon-container {
@@ -429,11 +645,12 @@
     margin: 0 0 8px 0;
     font-size: 15px;
     font-weight: 800;
+    color: var(--color-text-strong);
 }
 
 .delete-confirmation-alert-box p {
     font-size: 13px;
-    color: #64748b;
+    color: var(--color-text-muted);
     margin: 0 0 20px 0;
 }
 
@@ -444,27 +661,49 @@
 }
 
 .btn-confirm-red-delete {
-    background-color: #dc2626;
+    background-color: var(--color-danger);
     color: white;
     border: none;
     padding: 10px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     font-weight: 700;
     cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.btn-confirm-red-delete:hover {
+    background-color: var(--color-danger-hover);
+}
+
+.btn-confirm-red-delete:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .btn-stay-abort {
     background: none;
     border: none;
-    color: #64748b;
+    color: var(--color-text-muted);
     font-size: 13px;
     font-weight: 700;
     cursor: pointer;
+    padding: 6px;
+}
+
+.btn-stay-abort:hover {
+    color: var(--color-text-strong);
 }
 
 /* ==========================================================================
    📱 نقاط التوقف (Media Queries) - نفس الكلاسات، تخطيط متجاوب فقط
    ========================================================================== */
+
+/* شاشات كبيرة جداً */
+@media (min-width: 1440px) {
+    .dashboard-content-body {
+        max-width: 1320px;
+    }
+}
 
 /* أجهزة لوحية Tablet */
 @media (max-width: 1024px) {
@@ -552,6 +791,11 @@
         font-size: 17px;
     }
 
+    .pharmacy-sidebar-logo-img {
+        width: 26px;
+        height: 26px;
+    }
+
     .nav-navigation-links {
         gap: 6px;
     }
@@ -577,6 +821,11 @@
         font-size: 13px;
     }
 
+    .action-buttons-cell button svg {
+        width: 20px;
+        height: 20px;
+    }
+
     .centered-modal-content-card {
         padding: 18px;
         border-radius: 6px;
@@ -594,5 +843,13 @@
     .btn-modal-save-primary,
     .btn-modal-cancel-secondary {
         flex: 1 1 auto;
+    }
+}
+
+/* تفضيل تقليل الحركة لذوي الاحتياجات */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
     }
 }

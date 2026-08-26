@@ -11,6 +11,7 @@ const AdminDashboard = ({ onNavigate }) => {
   const [rejectReason, setRejectReason] = useState("");
   const [showSuccessToast, setShowSuccessToast] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const token = localStorage.getItem("token");
   const headers = {
@@ -276,8 +277,37 @@ const AdminDashboard = ({ onNavigate }) => {
         <div className="admin-success-toast">{successMessage}</div>
       )}
 
+      {/* Mobile Top Bar */}
+      <div className="mobile-top-bar">
+        <button
+          type="button"
+          className="mobile-menu-toggle-btn"
+          aria-label="فتح القائمة"
+          onClick={() => setIsMobileMenuOpen(true)}
+        >
+          ☰
+        </button>
+        <span className="mobile-top-bar-title">لوحة الإدارة</span>
+      </div>
+
+      {/* Overlay (mobile only, shown when menu open) */}
+      {isMobileMenuOpen && (
+        <div
+          className="sidebar-overlay"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <aside className="admin-sidebar">
+      <aside className={`admin-sidebar ${isMobileMenuOpen ? "sidebar-open" : ""}`}>
+        <button
+          type="button"
+          className="sidebar-close-btn"
+          aria-label="إغلاق القائمة"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          ✕
+        </button>
         <div className="sidebar-brand">
           <img src={logo} alt="Medlink" className="sidebar-logo-img" />
           <div className="brand-text-wrapper">
@@ -289,27 +319,43 @@ const AdminDashboard = ({ onNavigate }) => {
           <span className="menu-section-title">القائمة الرئيسية</span>
           <button
             className={`menu-item-btn ${activeView === "dashboard" ? "active-tab-item" : ""}`}
-            onClick={() => setActiveView("dashboard")}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              setActiveView("dashboard");
+            }}
           >
-            <span className="menu-icon">📊</span> لوحة التحكم
+            <span className="menu-icon">📊</span>{" "}
+            <span className="btn-label">لوحة التحكم</span>
           </button>
           <button
             className={`menu-item-btn ${activeView === "clinic-requests" ? "active-tab-item" : ""}`}
-            onClick={() => setActiveView("clinic-requests")}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              setActiveView("clinic-requests");
+            }}
           >
-            <span className="menu-icon">🏥</span> طلبات العيادات
+            <span className="menu-icon">🏥</span>{" "}
+            <span className="btn-label">طلبات العيادات</span>
           </button>
           <button
             className={`menu-item-btn ${activeView === "pharmacy-requests" ? "active-tab-item" : ""}`}
-            onClick={() => setActiveView("pharmacy-requests")}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              setActiveView("pharmacy-requests");
+            }}
           >
-            <span className="menu-icon">💊</span> طلبات الصيدليات
+            <span className="menu-icon">💊</span>{" "}
+            <span className="btn-label">طلبات الصيدليات</span>
           </button>
           <button
             className={`menu-item-btn ${activeView === "profile" ? "active-tab-item" : ""}`}
-            onClick={() => setActiveView("profile")}
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              setActiveView("profile");
+            }}
           >
-            <span className="menu-icon">👤</span> الملف الشخصي
+            <span className="menu-icon">👤</span>{" "}
+            <span className="btn-label">الملف الشخصي</span>
           </button>
         </nav>
         <button
@@ -319,7 +365,8 @@ const AdminDashboard = ({ onNavigate }) => {
             onNavigate("landing");
           }}
         >
-          🚪 تسجيل الخروج
+          <span className="menu-icon">🚪</span>{" "}
+          <span className="btn-label">تسجيل الخروج</span>
         </button>
       </aside>
 

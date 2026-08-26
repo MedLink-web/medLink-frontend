@@ -284,10 +284,10 @@ const PharmacyDashboard = () => {
   };
 
   return (
-    <div className="dashboard-layout-root" dir="rtl">
+    <div className="pharmacy-dashboard-layout-root" dir="rtl">
       <header className="dashboard-main-nav">
         <div className="nav-brand-logo">
-          <img src={logo} alt="Medlink" className="sidebar-logo-img" />
+          <img src={logo} alt="Medlink" className="pharmacy-sidebar-logo-img" />
           <span>Medlink</span>
         </div>
         <div className="nav-navigation-links">
