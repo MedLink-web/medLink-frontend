@@ -34,18 +34,24 @@ const ClinicAdminDashboard = ({ onNavigate }) => {
     setIsLoading(true);
     try {
       const [clinicRes, pharmacyRes] = await Promise.all([
-        fetch("http://127.0.0.1:8000/api/admin/clinic-requests/all", {
-          headers: {
-            Authorization: `Bearer ${getToken()}`,
-            Accept: "application/json",
+        fetch(
+          "https://medlink-s.apps.taqat.academy /api/admin/clinic-requests/all",
+          {
+            headers: {
+              Authorization: `Bearer ${getToken()}`,
+              Accept: "application/json",
+            },
           },
-        }),
-        fetch("http://127.0.0.1:8000/api/admin/pharmacy-requests", {
-          headers: {
-            Authorization: `Bearer ${getToken()}`,
-            Accept: "application/json",
+        ),
+        fetch(
+          "https://medlink-s.apps.taqat.academy /api/admin/pharmacy-requests",
+          {
+            headers: {
+              Authorization: `Bearer ${getToken()}`,
+              Accept: "application/json",
+            },
           },
-        }),
+        ),
       ]);
 
       const clinicData = await clinicRes.json();

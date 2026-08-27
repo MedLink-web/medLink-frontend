@@ -72,7 +72,7 @@ const DoctorDashboard = ({ onNavigate }) => {
         setError(null);
         const token = localStorage.getItem("token");
         const response = await fetch(
-          "http://127.0.0.1:8000/api/doctor/appointments",
+          "https://medlink-s.apps.taqat.academy /api/doctor/appointments",
           {
             headers: {
               Accept: "application/json",
@@ -124,7 +124,7 @@ const DoctorDashboard = ({ onNavigate }) => {
         setPrescriptionsError(null);
         const token = localStorage.getItem("token");
         const response = await fetch(
-          "http://127.0.0.1:8000/api/prescriptions",
+          "https://medlink-s.apps.taqat.academy /api/prescriptions",
           {
             headers: {
               Accept: "application/json",
@@ -157,7 +157,7 @@ const DoctorDashboard = ({ onNavigate }) => {
 
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://127.0.0.1:8000/api/doctor/appointments/${patient.appointmentId}/patient`,
+        `https://medlink-s.apps.taqat.academy /api/doctor/appointments/${patient.appointmentId}/patient`,
         {
           headers: {
             Accept: "application/json",
@@ -265,21 +265,24 @@ const DoctorDashboard = ({ onNavigate }) => {
     try {
       setSavingPrescription(true);
       const token = localStorage.getItem("token");
-      const response = await fetch("http://127.0.0.1:8000/api/prescriptions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${token}`,
+      const response = await fetch(
+        "https://medlink-s.apps.taqat.academy /api/prescriptions",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            patient_id: selectedPatient.patientId,
+            appointment_id: selectedPatient.appointmentId,
+            diagnosis: diagnosis,
+            notes: generalInstructions,
+            items: items,
+          }),
         },
-        body: JSON.stringify({
-          patient_id: selectedPatient.patientId,
-          appointment_id: selectedPatient.appointmentId,
-          diagnosis: diagnosis,
-          notes: generalInstructions,
-          items: items,
-        }),
-      });
+      );
       const data = await response.json();
 
       if (data.success) {

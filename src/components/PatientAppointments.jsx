@@ -26,7 +26,7 @@ const PatientAppointments = ({ onNavigate }) => {
         setError(null);
         const token = localStorage.getItem("token");
         const response = await fetch(
-          "http://127.0.0.1:8000/api/appointments/my",
+          "https://medlink-s.apps.taqat.academy /api/appointments/my",
           {
             headers: {
               Accept: "application/json",
@@ -88,7 +88,7 @@ const PatientAppointments = ({ onNavigate }) => {
       setCancelLoading(true);
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://127.0.0.1:8000/api/appointments/${selectedAppointmentId}/cancel`,
+        `https://medlink-s.apps.taqat.academy /api/appointments/${selectedAppointmentId}/cancel`,
         {
           method: "POST",
           headers: {

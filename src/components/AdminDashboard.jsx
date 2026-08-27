@@ -61,9 +61,12 @@ const AdminDashboard = ({ onNavigate }) => {
     const fetchStats = async () => {
       try {
         setStatsLoading(true);
-        const res = await fetch("http://127.0.0.1:8000/api/admin/statistics", {
-          headers,
-        });
+        const res = await fetch(
+          "https://medlink-s.apps.taqat.academy /api/admin/statistics",
+          {
+            headers,
+          },
+        );
         const data = await res.json();
         if (data.success) {
           setStats({
@@ -89,7 +92,7 @@ const AdminDashboard = ({ onNavigate }) => {
     try {
       setClinicRequestsLoading(true);
       const res = await fetch(
-        "http://127.0.0.1:8000/api/admin/clinic-requests",
+        "https://medlink-s.apps.taqat.academy /api/admin/clinic-requests",
         { headers },
       );
       const data = await res.json();
@@ -106,7 +109,7 @@ const AdminDashboard = ({ onNavigate }) => {
     try {
       setPharmacyRequestsLoading(true);
       const res = await fetch(
-        "http://127.0.0.1:8000/api/admin/pharmacy-requests",
+        "https://medlink-s.apps.taqat.academy /api/admin/pharmacy-requests",
         { headers },
       );
       const data = await res.json();
@@ -124,8 +127,8 @@ const AdminDashboard = ({ onNavigate }) => {
       setDetailsLoading(true);
       const endpoint =
         type === "clinic"
-          ? `http://127.0.0.1:8000/api/admin/clinic-requests/${id}`
-          : `http://127.0.0.1:8000/api/admin/pharmacy-requests/${id}`;
+          ? `https://medlink-s.apps.taqat.academy /api/admin/clinic-requests/${id}`
+          : `https://medlink-s.apps.taqat.academy /api/admin/pharmacy-requests/${id}`;
       const res = await fetch(endpoint, { headers });
       const data = await res.json();
       if (data.success) setRequestDetails(data.data);
@@ -140,7 +143,10 @@ const AdminDashboard = ({ onNavigate }) => {
   const fetchProfile = async () => {
     try {
       setProfileLoading(true);
-      const res = await fetch("http://127.0.0.1:8000/api/profile", { headers });
+      const res = await fetch(
+        "https://medlink-s.apps.taqat.academy /api/profile",
+        { headers },
+      );
       const data = await res.json();
       if (data.success) setAdminProfile(data.data);
     } catch (err) {
@@ -163,8 +169,8 @@ const AdminDashboard = ({ onNavigate }) => {
       setActionLoading(true);
       const endpoint =
         selectedRequestType === "clinic"
-          ? `http://127.0.0.1:8000/api/admin/clinic-requests/${selectedRequestId}/approve`
-          : `http://127.0.0.1:8000/api/admin/pharmacy-requests/${selectedRequestId}/approve`;
+          ? `https://medlink-s.apps.taqat.academy /api/admin/clinic-requests/${selectedRequestId}/approve`
+          : `https://medlink-s.apps.taqat.academy /api/admin/pharmacy-requests/${selectedRequestId}/approve`;
       const res = await fetch(endpoint, { method: "POST", headers });
       const data = await res.json();
       if (res.ok && data.success) {
@@ -195,8 +201,8 @@ const AdminDashboard = ({ onNavigate }) => {
       setActionLoading(true);
       const endpoint =
         selectedRequestType === "clinic"
-          ? `http://127.0.0.1:8000/api/admin/clinic-requests/${selectedRequestId}/reject`
-          : `http://127.0.0.1:8000/api/admin/pharmacy-requests/${selectedRequestId}/reject`;
+          ? `https://medlink-s.apps.taqat.academy /api/admin/clinic-requests/${selectedRequestId}/reject`
+          : `https://medlink-s.apps.taqat.academy /api/admin/pharmacy-requests/${selectedRequestId}/reject`;
       const res = await fetch(endpoint, {
         method: "POST",
         headers,
@@ -230,11 +236,14 @@ const AdminDashboard = ({ onNavigate }) => {
   const handleSaveProfile = async () => {
     try {
       setSavingProfile(true);
-      const res = await fetch("http://127.0.0.1:8000/api/profile", {
-        method: "PUT",
-        headers,
-        body: JSON.stringify(adminProfile),
-      });
+      const res = await fetch(
+        "https://medlink-s.apps.taqat.academy /api/profile",
+        {
+          method: "PUT",
+          headers,
+          body: JSON.stringify(adminProfile),
+        },
+      );
       const data = await res.json();
       if (data.success) {
         setIsEditingProfile(false);

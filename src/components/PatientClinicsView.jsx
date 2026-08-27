@@ -19,8 +19,8 @@ const PatientClinicsView = ({ onNavigate, onSelectClinic, activeView }) => {
     try {
       const url =
         selectedSpecialty === "all"
-          ? "http://127.0.0.1:8000/api/clinics"
-          : `http://127.0.0.1:8000/api/clinics?specialty=${encodeURIComponent(selectedSpecialty)}`;
+          ? "https://medlink-s.apps.taqat.academy /api/clinics"
+          : `https://medlink-s.apps.taqat.academy /api/clinics?specialty=${encodeURIComponent(selectedSpecialty)}`;
 
       const response = await fetch(url, {
         headers: { Accept: "application/json" },

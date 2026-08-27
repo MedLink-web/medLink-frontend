@@ -37,7 +37,7 @@ const PharmacyRegisterForm = ({ onNavigate }) => {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/api/pharmacy-requests",
+        "https://medlink-s.apps.taqat.academy /api/pharmacy-requests",
         {
           method: "POST",
           headers: { Accept: "application/json" },

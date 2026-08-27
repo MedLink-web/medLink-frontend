@@ -21,17 +21,20 @@ const PatientLogin = ({ onNavigate, onLoginSuccess }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+      const response = await fetch(
+        "https://medlink-s.apps.taqat.academy /api/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            email: loginData.emailOrPhone,
+            password: loginData.password,
+          }),
         },
-        body: JSON.stringify({
-          email: loginData.emailOrPhone,
-          password: loginData.password,
-        }),
-      });
+      );
 
       const data = await response.json();
 

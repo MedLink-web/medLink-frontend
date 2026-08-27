@@ -31,7 +31,7 @@ const ClinicProfile = ({ onNavigate }) => {
     const fetchProfile = async () => {
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/api/clinic/profile",
+          "https://medlink-s.apps.taqat.academy /api/clinic/profile",
           {
             headers: {
               Authorization: `Bearer ${getToken()}`,
@@ -83,20 +83,23 @@ const ClinicProfile = ({ onNavigate }) => {
     setErrors({});
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/clinic/profile", {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
-          "Content-Type": "application/json",
-          Accept: "application/json",
+      const response = await fetch(
+        "https://medlink-s.apps.taqat.academy /api/clinic/profile",
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${getToken()}`,
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            clinic_name: tempData.name,
+            clinic_phone: tempData.phone,
+            clinic_address: tempData.address,
+            specialty: tempData.specialty,
+          }),
         },
-        body: JSON.stringify({
-          clinic_name: tempData.name,
-          clinic_phone: tempData.phone,
-          clinic_address: tempData.address,
-          specialty: tempData.specialty,
-        }),
-      });
+      );
 
       const data = await response.json();
 
@@ -157,7 +160,9 @@ const ClinicProfile = ({ onNavigate }) => {
         >
           ☰
         </button>
-        <span className="mobile-top-bar-title">{clinicData.name || "لوحة التحكم"}</span>
+        <span className="mobile-top-bar-title">
+          {clinicData.name || "لوحة التحكم"}
+        </span>
       </div>
 
       {/* ── Overlay (mobile only, shown when menu open) ── */}
@@ -169,7 +174,9 @@ const ClinicProfile = ({ onNavigate }) => {
       )}
 
       {/* ── Sidebar ──────────────────────────────── */}
-      <aside className={`clinic-sidebar ${isMobileMenuOpen ? "sidebar-open" : ""}`}>
+      <aside
+        className={`clinic-sidebar ${isMobileMenuOpen ? "sidebar-open" : ""}`}
+      >
         <button
           type="button"
           className="sidebar-close-btn"
