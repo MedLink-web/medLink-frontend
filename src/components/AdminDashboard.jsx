@@ -11,7 +11,6 @@ const AdminDashboard = ({ onNavigate }) => {
   const [rejectReason, setRejectReason] = useState("");
   const [showSuccessToast, setShowSuccessToast] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const token = localStorage.getItem("token");
   const headers = {
@@ -168,7 +167,7 @@ const AdminDashboard = ({ onNavigate }) => {
           : `http://127.0.0.1:8000/api/admin/pharmacy-requests/${selectedRequestId}/approve`;
       const res = await fetch(endpoint, { method: "POST", headers });
       const data = await res.json();
-      if (data.success) {
+      if (res.ok && data.success) {
         setShowApproveModal(false);
         setSuccessMessage("تمت الموافقة على الطلب بنجاح");
         setShowSuccessToast(true);
@@ -180,9 +179,11 @@ const AdminDashboard = ({ onNavigate }) => {
             ? "clinic-requests"
             : "pharmacy-requests",
         );
+      } else {
+        alert(data.message || `فشل الموافقة على الطلب (كود ${res.status})`);
       }
     } catch (err) {
-      alert("فشل الموافقة على الطلب");
+      alert("فشل الموافقة على الطلب: تعذر الاتصال بالخادم");
     } finally {
       setActionLoading(false);
     }
@@ -202,7 +203,7 @@ const AdminDashboard = ({ onNavigate }) => {
         body: JSON.stringify({ reason: rejectReason }),
       });
       const data = await res.json();
-      if (data.success) {
+      if (res.ok && data.success) {
         setShowRejectModal(false);
         setRejectReason("");
         setSuccessMessage("تم رفض الطلب");
@@ -215,9 +216,11 @@ const AdminDashboard = ({ onNavigate }) => {
             ? "clinic-requests"
             : "pharmacy-requests",
         );
+      } else {
+        alert(data.message || `فشل رفض الطلب (كود ${res.status})`);
       }
     } catch (err) {
-      alert("فشل رفض الطلب");
+      alert("فشل رفض الطلب: تعذر الاتصال بالخادم");
     } finally {
       setActionLoading(false);
     }
@@ -277,37 +280,8 @@ const AdminDashboard = ({ onNavigate }) => {
         <div className="admin-success-toast">{successMessage}</div>
       )}
 
-      {/* Mobile Top Bar */}
-      <div className="mobile-top-bar">
-        <button
-          type="button"
-          className="mobile-menu-toggle-btn"
-          aria-label="فتح القائمة"
-          onClick={() => setIsMobileMenuOpen(true)}
-        >
-          ☰
-        </button>
-        <span className="mobile-top-bar-title">لوحة الإدارة</span>
-      </div>
-
-      {/* Overlay (mobile only, shown when menu open) */}
-      {isMobileMenuOpen && (
-        <div
-          className="sidebar-overlay"
-          onClick={() => setIsMobileMenuOpen(false)}
-        />
-      )}
-
       {/* Sidebar */}
-      <aside className={`admin-sidebar ${isMobileMenuOpen ? "sidebar-open" : ""}`}>
-        <button
-          type="button"
-          className="sidebar-close-btn"
-          aria-label="إغلاق القائمة"
-          onClick={() => setIsMobileMenuOpen(false)}
-        >
-          ✕
-        </button>
+      <aside className="admin-sidebar">
         <div className="sidebar-brand">
           <img src={logo} alt="Medlink" className="sidebar-logo-img" />
           <div className="brand-text-wrapper">
@@ -319,43 +293,27 @@ const AdminDashboard = ({ onNavigate }) => {
           <span className="menu-section-title">القائمة الرئيسية</span>
           <button
             className={`menu-item-btn ${activeView === "dashboard" ? "active-tab-item" : ""}`}
-            onClick={() => {
-              setIsMobileMenuOpen(false);
-              setActiveView("dashboard");
-            }}
+            onClick={() => setActiveView("dashboard")}
           >
-            <span className="menu-icon">📊</span>{" "}
-            <span className="btn-label">لوحة التحكم</span>
+            <span className="menu-icon">📊</span> لوحة التحكم
           </button>
           <button
             className={`menu-item-btn ${activeView === "clinic-requests" ? "active-tab-item" : ""}`}
-            onClick={() => {
-              setIsMobileMenuOpen(false);
-              setActiveView("clinic-requests");
-            }}
+            onClick={() => setActiveView("clinic-requests")}
           >
-            <span className="menu-icon">🏥</span>{" "}
-            <span className="btn-label">طلبات العيادات</span>
+            <span className="menu-icon">🏥</span> طلبات العيادات
           </button>
           <button
             className={`menu-item-btn ${activeView === "pharmacy-requests" ? "active-tab-item" : ""}`}
-            onClick={() => {
-              setIsMobileMenuOpen(false);
-              setActiveView("pharmacy-requests");
-            }}
+            onClick={() => setActiveView("pharmacy-requests")}
           >
-            <span className="menu-icon">💊</span>{" "}
-            <span className="btn-label">طلبات الصيدليات</span>
+            <span className="menu-icon">💊</span> طلبات الصيدليات
           </button>
           <button
             className={`menu-item-btn ${activeView === "profile" ? "active-tab-item" : ""}`}
-            onClick={() => {
-              setIsMobileMenuOpen(false);
-              setActiveView("profile");
-            }}
+            onClick={() => setActiveView("profile")}
           >
-            <span className="menu-icon">👤</span>{" "}
-            <span className="btn-label">الملف الشخصي</span>
+            <span className="menu-icon">👤</span> الملف الشخصي
           </button>
         </nav>
         <button
@@ -365,8 +323,7 @@ const AdminDashboard = ({ onNavigate }) => {
             onNavigate("landing");
           }}
         >
-          <span className="menu-icon">🚪</span>{" "}
-          <span className="btn-label">تسجيل الخروج</span>
+          🚪 تسجيل الخروج
         </button>
       </aside>
 
